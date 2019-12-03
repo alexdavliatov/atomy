@@ -9,7 +9,6 @@ import ru.adavliatov.atomy.example.transfer.type.AmountExtensions.isValid
 typealias Currency = String
 typealias Amount = Long
 
-//todo: move to separate module
 data class Money(
   val currency: Currency?,
   val amount: Amount

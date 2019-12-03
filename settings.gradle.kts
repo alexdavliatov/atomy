@@ -15,7 +15,8 @@ include(
 
     ":example",
     ":example:transfer",
-    ":example:transfer:ext",
+    ":example:transfer:type",
+    ":example:transfer:type:money",
     ":example:transfer:domain",
     ":example:transfer:service",
     ":example:transfer:ui:api",
