@@ -4,11 +4,11 @@ plugins {
 
 
 allprojects {
-  //To not clashe module names: https://github.com/gradle/gradle/issues/847
+  //To not clash module names: https://github.com/gradle/gradle/issues/847
   group = "ru.adavliatov.atomy.common"
 
   dependencies {
-    compile(kotlin("stdlib"))
-    compile(kotlin("reflect"))
+    api(kotlin("stdlib"))
+    api(kotlin("reflect"))
   }
 }
