@@ -1,14 +1,14 @@
 package ru.adavliatov.atomy.example.transfer.type
 
-import ru.adavliatov.atomy.common.domain.error.HttpWrapperErrors.InvalidArgumentError
-import ru.adavliatov.atomy.common.domain.error.code.*
 import ru.adavliatov.atomy.common.ext.*
 import ru.adavliatov.atomy.common.ext.ValidationExtensions.validate
 import ru.adavliatov.atomy.example.transfer.type.AmountExtensions.isValid
+import ru.adavliatov.atomy.example.transfer.type.error.*
 
 typealias Currency = String
 typealias Amount = Long
 
+@Suppress("unused")
 data class Money(
   val currency: Currency?,
   val amount: Amount
@@ -28,16 +28,10 @@ data class Money(
 }
 
 object AmountExtensions {
-  val Amount.isNegativeOrZero: Boolean
+  private val Amount.isNegativeOrZero: Boolean
     get() = this <= 0L
 
   val Amount.isValid: Boolean
     get() = !isNegativeOrZero
 }
 
-object InvalidCurrency : CommonErrorCode("invalid-currency", "Invalid currency")
-class InvalidCurrencyError(currency: Currency?) :
-  InvalidArgumentError(InvalidCurrency, "[$currency] is invalid currency")
-
-object InvalidAmount : CommonErrorCode("invalid-amount", "Invalid amount")
-class InvalidAmountError(amount: Amount) : InvalidArgumentError(InvalidAmount, "[$amount] is invalid amount")
