@@ -1,3 +1,3 @@
 dependencies {
-  implementation(project(":common:ext"))
+  api(project(":common:ext"))
 }

@@ -1,3 +1,7 @@
+plugins {
+  id("nu.studer.jooq")
+}
+
 dependencies {
-  implementation(project(":toolkit:jooq:ext"))
+  api(project(":toolkit:jooq:ext"))
 }
