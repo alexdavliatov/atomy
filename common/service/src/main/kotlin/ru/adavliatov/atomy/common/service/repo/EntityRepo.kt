@@ -20,7 +20,7 @@ interface ModelRepo<Model : WithModel<Model>> : EntityRepo<Model> {
 interface ReadOnlyEntityRepo<Entity : WithEntity<Entity>> : WithFindByIds<Entity> {
   fun findAll(): Iterable<Entity>
 
-  fun count(): Int = findAll().count()
+  fun count(): Long = findAll().count().toLong()
 
   fun existsById(id: Id<Entity>) = findById(id) != null
   fun exists(model: Entity): Boolean = existsById(model.id)
@@ -28,18 +28,18 @@ interface ReadOnlyEntityRepo<Entity : WithEntity<Entity>> : WithFindByIds<Entity
 
 @Suppress("unused")
 interface WriteOnlyEntityRepo<Entity : WithEntity<Entity>> {
-  fun create(model: Entity)
-  fun create(vararg models: Entity)
-  fun create(models: Collection<Entity>)
+  fun create(model: Entity) = create(setOf(model))
+  fun create(vararg models: Entity) = create(models.toList())
+  fun create(models: Iterable<Entity>)
 
   fun modify(model: Entity): Entity
-  fun modify(vararg models: Entity)
-  fun modify(models: Collection<Entity>)
+  fun modify(vararg models: Entity) = modify(models.toList())
+  fun modify(models: Iterable<Entity>)
 
-  fun removeByIds(vararg ids: Id<Entity>)
-  fun removeByIds(ids: Collection<Id<Entity>>)
+  fun removeByIds(vararg ids: Id<Entity>) = removeByIds(ids.toList())
+  fun removeByIds(ids: Iterable<Id<Entity>>)
 
   fun remove(model: Entity) = removeByIds(model.id)
   fun remove(vararg models: Entity) = removeByIds(models.toList().ids())
-  fun remove(models: Collection<Entity>) = removeByIds(models.ids())
+  fun remove(models: Iterable<Entity>) = removeByIds(models.ids())
 }
