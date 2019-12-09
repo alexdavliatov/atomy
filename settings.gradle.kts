@@ -12,6 +12,9 @@ include(
 
     ":toolkit",
     ":toolkit:jooq",
+    ":toolkit:jooq:ext",
+    ":toolkit:jooq:serialize",
+    ":toolkit:jooq:service",
 
     ":example",
     ":example:transfer",

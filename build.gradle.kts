@@ -1,11 +1,10 @@
-import groovy.lang.GroovyObject
 import org.gradle.jvm.tasks.Jar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   base
   `java-library`
-  kotlin("jvm") version "1.3.50" apply false
+  kotlin("jvm") version "1.3.61" apply false
 }
 
 allprojects {
