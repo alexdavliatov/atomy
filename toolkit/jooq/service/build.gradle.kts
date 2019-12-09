@@ -1,4 +1,4 @@
 dependencies {
-  implementation(project(":common:service"))
-  implementation(project(":toolkit:jooq:ext"))
+  api(project(":common:service"))
+  api(project(":toolkit:jooq:ext"))
 }
