@@ -3,9 +3,11 @@ package ru.adavliatov.atomy.example.transfer.type.error
 import ru.adavliatov.atomy.common.domain.error.HttpWrapperErrors.InvalidArgumentError
 import ru.adavliatov.atomy.example.transfer.type.*
 import ru.adavliatov.atomy.example.transfer.type.error.code.*
+import ru.adavliatov.atomy.example.transfer.type.error.code.MoneyErrorCodes.DifferentCurrencies
+import ru.adavliatov.atomy.example.transfer.type.error.code.MoneyErrorCodes.InvalidAmount
 
 class InvalidCurrencyError(currency: Currency?) :
-  InvalidArgumentError(InvalidCurrency, "[$currency] is invalid currency")
+  InvalidArgumentError(MoneyErrorCodes.InvalidCurrency, "[$currency] is invalid currency")
 
 @Suppress("unused")
 class InvalidAmountError(amount: Amount) : InvalidArgumentError(
