@@ -42,22 +42,3 @@ interface WithEntityJooqDaoAdapter<
 
   override fun count(): Long = dao.count()
 }
-
-@Suppress("unused")
-interface WithModelJooqDaoAdapter<
-    Model : WithModel<Model>,
-    Record : TableRecord<Record>,
-    Pojo> :
-  WithEntityJooqDaoAdapter<Model, Record, Pojo>,
-  ModelRepo<Model> {
-  @Suppress("UNCHECKED_CAST")
-  override fun remove(model: Model) {
-    modify(model.delete() as Model)
-  }
-
-  @Suppress("UNCHECKED_CAST")
-  override fun remove(models: Iterable<Model>) {
-    modify(models.map { it.delete() as Model })
-  }
-}
-

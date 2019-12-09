@@ -21,7 +21,11 @@ include(
     ":example:transfer:type",
     ":example:transfer:type:money",
     ":example:transfer:domain",
+    //> services
     ":example:transfer:service",
+    ":example:transfer:service-impl",
+    ":example:transfer:service-impl:storage-jooq",
+    //> ui
     ":example:transfer:ui:api",
     ":example:transfer:ui:cmd",
     ":example:transfer:app"
