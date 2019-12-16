@@ -1,0 +1,15 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: transfer
+      POSTGRES_USER: transfer_admin
+      POSTGRES_PASSWORD: yIe7fq5klj78dKOCthDo5r@Jt
+    volumes:
+      - transfer_dbdata:/var/lib/postgresql/data
+volumes:
+  transfer_dbdata:

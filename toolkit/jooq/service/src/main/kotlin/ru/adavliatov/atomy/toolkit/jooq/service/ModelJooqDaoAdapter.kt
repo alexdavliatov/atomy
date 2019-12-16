@@ -24,7 +24,7 @@ abstract class ModelJooqDaoAdapter<
 interface WithModelJooqDaoAdapter<
     Model : WithModel<Model>,
     Record : TableRecord<Record>,
-    Pojo> : WithEntityJooqDaoAdapter<Model, Record, Pojo>, ModelRepo<Model> {
+    Pojo> : WithEntityJooqDaoAdapter<Model, Record, Pojo>, ModelRepo<Model>, WithModelToPojo<Model, Pojo> {
   @Suppress("UNCHECKED_CAST")
   override fun remove(model: Model) {
     modify(model.delete() as Model)
