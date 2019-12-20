@@ -17,6 +17,21 @@ include(
     ":toolkit:jooq:service",
 
     ":example",
+
+    //> selfie
+    ":example:selfie",
+
+    ":example:selfie:item",
+    ":example:selfie:item:type",
+    ":example:selfie:item:domain",
+    ":example:selfie:item:service",
+    ":example:selfie:item:service-impl",
+    ":example:selfie:item:ui",
+    ":example:selfie:item:ui:api",
+    ":example:selfie:item:ui:cmd",
+    //< selfie
+
+    //> transfer
     ":example:transfer",
     ":example:transfer:type",
     ":example:transfer:type:money",
@@ -29,4 +44,5 @@ include(
     ":example:transfer:ui:api",
     ":example:transfer:ui:cmd",
     ":example:transfer:app"
+    //< transfer
 )
