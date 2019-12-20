@@ -1,9 +1,11 @@
 package today.selfie.domain
 
 import ru.adavliatov.atomy.common.domain.*
+import ru.adavliatov.atomy.common.type.name.*
+import today.selfie.common.type.duration.Duration
+import today.selfie.common.type.repeat.Repeat
 import java.time.Instant
-
-typealias Name = String
+import java.time.Period
 
 data class Item(
   override val id: Id<Item>,
@@ -11,7 +13,9 @@ data class Item(
   override val createdAt: Instant,
   override val modifiedAt: Instant,
 
-  val name: Name,
+  val name: NameValue,
+  val repeat: Repeat,
+  val duration: Duration,
   val title: ItemTitle
 ) : WithModel<Item> {
   override fun withId(id: Id<Item>): Item = copy(id = id)
@@ -19,9 +23,9 @@ data class Item(
   override fun modified(ts: Instant): Item = copy(modifiedAt = ts)
 }
 
-data class ItemTitle(val name: String)
+data class ItemTitle(val name: NameValue): ValueHolder<NameValue>(name)
 
 object ItemTitles {
-  val HABIT = ItemTitle("habit")
-  val GOAL = ItemTitle("goal")
+  val HABIT = ItemTitle(NameValue("habit"))
+  val GOAL = ItemTitle(NameValue("goal"))
 }

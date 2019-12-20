@@ -3,6 +3,7 @@ rootProject.name = "ru.adavliatov.atomy"
 include(
     ":common",
     ":common:ext",
+    ":common:type:name",
     ":common:type:json",
     ":common:domain",
     ":common:service",
@@ -20,6 +21,11 @@ include(
 
     //> selfie
     ":example:selfie",
+
+    ":example:selfie:shared",
+    ":example:selfie:shared:type",
+    ":example:selfie:shared:type:repeat",
+    ":example:selfie:shared:type:duration",
 
     ":example:selfie:item",
     ":example:selfie:item:type",

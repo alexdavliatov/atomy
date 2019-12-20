@@ -25,12 +25,15 @@ subprojects {
   apply(plugin = "kotlin")
   tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.freeCompilerArgs = listOf("-XXLanguage:+InlineClasses")
   }
 
+  @Suppress("UnstableApiUsage")
   tasks.withType<Jar> {
     archiveBaseName.set("${this@subprojects.parent?.name}-${this@subprojects.name}")
   }
 
+  @Suppress("UnstableApiUsage")
   tasks.register<Jar>("sourcesJar") {
     from(sourceSets.main.get().allSource)
     archiveClassifier.set("sources")
