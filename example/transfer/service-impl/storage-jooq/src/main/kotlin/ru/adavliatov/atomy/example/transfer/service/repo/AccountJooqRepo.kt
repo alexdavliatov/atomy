@@ -1,22 +1,13 @@
 package ru.adavliatov.atomy.example.transfer.service.repo
 
-import org.jooq.Constraint
-import org.jooq.DAO
-import ru.adavliatov.atomy.common.domain.Id
-import ru.adavliatov.atomy.common.domain.State
-import ru.adavliatov.atomy.common.ext.CollectionExtensions.mapToSet
-import ru.adavliatov.atomy.common.domain.ext.IdExtensions.checkedIds
-import ru.adavliatov.atomy.example.transfer.domain.Account
-import ru.adavliatov.atomy.example.transfer.domain.Name
-import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.Keys
+import ru.adavliatov.atomy.common.domain.*
+import ru.adavliatov.atomy.example.transfer.domain.*
 import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.Keys.*
-import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.Tables.ACCOUNTS
-import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.daos.AccountsDao
-import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.pojos.Accounts
-import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.records.AccountsRecord
+import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.daos.*
+import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.pojos.*
+import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.records.*
 import ru.adavliatov.atomy.toolkit.jooq.ext.JooqExtensions.toJooqConfig
-import ru.adavliatov.atomy.toolkit.jooq.service.ModelJooqDaoAdapter
-import ru.adavliatov.atomy.toolkit.jooq.service.WithJooqFetchOrCreateModel
+import ru.adavliatov.atomy.toolkit.jooq.service.*
 import javax.sql.DataSource
 
 open class AccountJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Account, AccountsRecord, Accounts>(ds), 
@@ -50,6 +41,4 @@ open class AccountJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Account, Accoun
   )
 
   override fun findByName(name: Name): Account? = dao.fetchOneByName(name).toModel()
-  override fun findByIds(ids: Iterable<Id<Account>>): Set<Account> = dao.fetchById(*ids.checkedIds().toList().toTypedArray())
-    .mapToSet { it.toModel() }
 }

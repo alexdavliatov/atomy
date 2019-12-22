@@ -1,22 +1,18 @@
 package ru.adavliatov.atomy.example.transfer.service.repo
 
-import ru.adavliatov.atomy.common.domain.Id
-import ru.adavliatov.atomy.common.domain.State
-import ru.adavliatov.atomy.common.domain.ext.IdExtensions.checkedIds
-import ru.adavliatov.atomy.common.ext.CollectionExtensions.mapToSet
-import ru.adavliatov.atomy.example.transfer.domain.Account
-import ru.adavliatov.atomy.example.transfer.domain.Operation
-import ru.adavliatov.atomy.example.transfer.domain.Transaction
-import ru.adavliatov.atomy.example.transfer.service.repo.generated.transaction.tables.daos.TransactionsDao
-import ru.adavliatov.atomy.example.transfer.service.repo.generated.transaction.tables.pojos.Transactions
-import ru.adavliatov.atomy.example.transfer.service.repo.generated.transaction.tables.records.TransactionsRecord
+import ru.adavliatov.atomy.common.domain.*
+import ru.adavliatov.atomy.example.transfer.domain.*
+import ru.adavliatov.atomy.example.transfer.service.repo.generated.transaction.tables.daos.*
+import ru.adavliatov.atomy.example.transfer.service.repo.generated.transaction.tables.pojos.*
+import ru.adavliatov.atomy.example.transfer.service.repo.generated.transaction.tables.records.*
 import ru.adavliatov.atomy.toolkit.jooq.ext.JooqExtensions.toJooqConfig
-import ru.adavliatov.atomy.toolkit.jooq.service.ModelJooqDaoAdapter
+import ru.adavliatov.atomy.toolkit.jooq.service.*
 import javax.sql.DataSource
 
-
-open class TransactionJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Transaction, TransactionsRecord, Transactions>(ds), TransactionRepo {
+open class TransactionJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Transaction, TransactionsRecord, Transactions>(ds),
+  TransactionRepo {
   override val dao = TransactionsDao(ds.toJooqConfig())
+
   override val entityClass = Transaction::class.java
   override val pojoClass = Transactions::class.java
 
@@ -44,6 +40,4 @@ open class TransactionJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Transaction
     Operation(operation)
   )
 
-  override fun findByIds(ids: Iterable<Id<Transaction>>): Set<Transaction> = dao.fetchById(*ids.checkedIds().toList().toTypedArray())
-    .mapToSet { it.toModel() }
 }
