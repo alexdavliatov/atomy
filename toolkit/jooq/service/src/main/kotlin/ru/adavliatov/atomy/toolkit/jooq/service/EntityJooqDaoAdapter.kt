@@ -1,6 +1,5 @@
 package ru.adavliatov.atomy.toolkit.jooq.service
 
-import org.jooq.DAO
 import org.jooq.DSLContext
 import org.jooq.Table
 import org.jooq.TableRecord
@@ -16,21 +15,20 @@ abstract class EntityJooqDaoAdapter<
     Pojo>(val ds: DataSource) : WithEntityJooqDaoAdapter<Model, Record, Pojo> {
 
   override val dsl: DSLContext
-    get() = this.dao.configuration().dsl()
+    get() = dao.configuration().dsl()
   override val table: Table<Record>
-    get() = this.dao.table
+    get() = dao.table
 }
 
 interface WithEntityJooqDaoAdapter<
     Entity : WithEntity<Entity>,
     Record : TableRecord<Record>,
-    Pojo> : EntityRepo<Entity>, WithFindByIds<Entity>, WithEntityToPojo<Entity, Pojo> {
+    Pojo> : EntityRepo<Entity>,
+  WithJooqFindByIds<Entity, Record, Pojo>,
+  WithEntityToPojo<Entity, Pojo> {
 
-  val dao: DAO<Record, Pojo, Long>
   val dsl: DSLContext
     get() = dao.configuration().dsl()
-  val table: Table<Record>
-    get() = dao.table
 
   override fun create(models: Iterable<Entity>) = dao.insert(models.map { it.toPojo() })
 

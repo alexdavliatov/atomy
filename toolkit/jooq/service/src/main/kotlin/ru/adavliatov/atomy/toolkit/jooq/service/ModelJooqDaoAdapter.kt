@@ -1,23 +1,21 @@
 package ru.adavliatov.atomy.toolkit.jooq.service
 
 import org.jooq.DSLContext
-import org.jooq.Table
 import org.jooq.TableRecord
-import ru.adavliatov.atomy.common.domain.WithEntity
-import ru.adavliatov.atomy.common.domain.WithModel
-import ru.adavliatov.atomy.common.service.repo.ModelRepo
+import ru.adavliatov.atomy.common.domain.*
+import ru.adavliatov.atomy.common.service.repo.*
 import javax.sql.DataSource
 
 @Suppress("unused")
 abstract class ModelJooqDaoAdapter<
-        Model : WithModel<Model>,
-        Record : TableRecord<Record>,
-        Pojo>(val ds: DataSource) : WithModelJooqDaoAdapter<Model, Record, Pojo> {
+    Model : WithModel<Model>,
+    Record : TableRecord<Record>,
+    Pojo>(val ds: DataSource) : WithModelJooqDaoAdapter<Model, Record, Pojo>,
+  WithJooqFindByIds<Model, Record, Pojo>,
+  WithIdField<Record> {
 
   override val dsl: DSLContext
-    get() = this.dao.configuration().dsl()
-  override val table: Table<Record>
-    get() = this.dao.table
+    get() = dao.configuration().dsl()
 }
 
 @Suppress("unused")
