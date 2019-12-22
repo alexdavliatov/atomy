@@ -14,7 +14,7 @@ interface WithTable<Record : TableRecord<Record>> {
 interface WithJooqDao<
     Entity,
     Record : TableRecord<Record>,
-    Pojo>: WithTable<Record> {
+    Pojo> : WithTable<Record> {
   val dao: DAO<Record, Pojo, Long>
   override val table: Table<Record>
     get() = dao.table
@@ -47,17 +47,17 @@ interface WithModelToPojo<Model, Pojo> :
   fun Iterable<Pojo>.toModelSet(): Set<Model> = mapToSet { it.toModel() }
 }
 
-interface WithIdField<Record : TableRecord<Record>>: WithTable<Record> {
+interface WithIdField<Record : TableRecord<Record>> : WithTable<Record> {
   val idField: Lazy<Field<Long>>
     get() = lazy { table.field("id", Long::class.java) }
 }
 
-interface WithUidIdField<Record : TableRecord<Record>>: WithTable<Record> {
+interface WithUidIdField<Record : TableRecord<Record>> : WithTable<Record> {
   val uidField: Lazy<Field<UUID>>
     get() = lazy { table.field("uid", UUID::class.java) }
 }
 
-interface WithClientIdField<Record : TableRecord<Record>>: WithTable<Record> {
+interface WithClientIdField<Record : TableRecord<Record>> : WithTable<Record> {
   val clientIdField: Lazy<Field<String>>
     get() = lazy { table.field("client_id", String::class.java) }
 }

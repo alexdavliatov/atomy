@@ -1,6 +1,14 @@
 package ru.adavliatov.atomy.toolkit.jooq.serialize
 
-import org.jooq.*
+import org.jooq.Binding
+import org.jooq.BindingGetResultSetContext
+import org.jooq.BindingGetSQLInputContext
+import org.jooq.BindingGetStatementContext
+import org.jooq.BindingRegisterContext
+import org.jooq.BindingSQLContext
+import org.jooq.BindingSetSQLOutputContext
+import org.jooq.BindingSetStatementContext
+import org.jooq.Converter
 import org.jooq.impl.DSL
 import java.sql.SQLException
 import java.sql.SQLFeatureNotSupportedException
@@ -29,20 +37,22 @@ class TimestampWithTimezoneBinder : Binding<OffsetDateTime, Instant> {
 
   @Throws(SQLException::class)
   override fun register(ctx: BindingRegisterContext<Instant>) =
-      ctx.statement().registerOutParameter(ctx.index(), VARCHAR)
+    ctx.statement().registerOutParameter(ctx.index(), VARCHAR)
 
   @Throws(SQLException::class)
   override fun set(ctx: BindingSetStatementContext<Instant>) = ctx.statement()
-      .setString(ctx.index(), Objects.toString(ctx.convert(converter()).value(), null))
+    .setString(ctx.index(), Objects.toString(ctx.convert(converter()).value(), null))
 
   @Throws(SQLException::class)
   override fun set(ctx: BindingSetSQLOutputContext<Instant>) = throw SQLFeatureNotSupportedException()
 
   @Throws(SQLException::class)
-  override fun get(ctx: BindingGetResultSetContext<Instant>) = ctx.convert(converter()).value(ctx.resultSet().getObject(ctx.index(), OffsetDateTime::class.java))
+  override fun get(ctx: BindingGetResultSetContext<Instant>) =
+    ctx.convert(converter()).value(ctx.resultSet().getObject(ctx.index(), OffsetDateTime::class.java))
 
   @Throws(SQLException::class)
-  override fun get(ctx: BindingGetStatementContext<Instant>) = ctx.convert(converter()).value(ctx.statement().getObject(ctx.index(), OffsetDateTime::class.java))
+  override fun get(ctx: BindingGetStatementContext<Instant>) =
+    ctx.convert(converter()).value(ctx.statement().getObject(ctx.index(), OffsetDateTime::class.java))
 
   @Throws(SQLException::class)
   override fun get(ctx: BindingGetSQLInputContext<Instant>) = throw SQLFeatureNotSupportedException()

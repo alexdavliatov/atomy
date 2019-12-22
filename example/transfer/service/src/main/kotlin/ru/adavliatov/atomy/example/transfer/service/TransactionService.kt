@@ -1,10 +1,8 @@
 package ru.adavliatov.atomy.example.transfer.service
 
-import ru.adavliatov.atomy.example.transfer.domain.Account
-import ru.adavliatov.atomy.example.transfer.domain.Transaction
-import ru.adavliatov.atomy.example.transfer.service.repo.AccountRepo
-import ru.adavliatov.atomy.example.transfer.service.repo.TransactionRepo
-import ru.adavliatov.atomy.example.transfer.type.Money
+import ru.adavliatov.atomy.example.transfer.domain.*
+import ru.adavliatov.atomy.example.transfer.service.repo.*
+import ru.adavliatov.atomy.example.transfer.type.*
 
 @Suppress("unused")
 class TransactionService(

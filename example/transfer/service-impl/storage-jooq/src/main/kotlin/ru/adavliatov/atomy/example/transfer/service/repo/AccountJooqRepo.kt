@@ -10,7 +10,7 @@ import ru.adavliatov.atomy.toolkit.jooq.ext.JooqExtensions.toJooqConfig
 import ru.adavliatov.atomy.toolkit.jooq.service.*
 import javax.sql.DataSource
 
-open class AccountJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Account, AccountsRecord, Accounts>(ds), 
+open class AccountJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Account, AccountsRecord, Accounts>(ds),
   AccountRepo,
   WithJooqFetchOrCreateModel<Account, AccountsRecord, Accounts> {
   override val dao: AccountsDao = AccountsDao(ds.toJooqConfig())

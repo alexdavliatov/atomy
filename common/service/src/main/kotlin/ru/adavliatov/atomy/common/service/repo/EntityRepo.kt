@@ -1,9 +1,7 @@
 package ru.adavliatov.atomy.common.service.repo
 
-import ru.adavliatov.atomy.common.domain.Id
+import ru.adavliatov.atomy.common.domain.*
 import ru.adavliatov.atomy.common.domain.States.DELETED
-import ru.adavliatov.atomy.common.domain.WithEntity
-import ru.adavliatov.atomy.common.domain.WithModel
 import ru.adavliatov.atomy.common.domain.ext.ModelExtensions.ids
 
 interface EntityRepo<Entity : WithEntity<Entity>> : ReadOnlyEntityRepo<Entity>, WriteOnlyEntityRepo<Entity>

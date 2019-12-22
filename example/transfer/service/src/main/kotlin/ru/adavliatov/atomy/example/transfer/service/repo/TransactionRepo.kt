@@ -1,7 +1,6 @@
 package ru.adavliatov.atomy.example.transfer.service.repo
 
-import ru.adavliatov.atomy.common.service.repo.EntityRepo
-import ru.adavliatov.atomy.common.service.repo.ModelRepo
-import ru.adavliatov.atomy.example.transfer.domain.Transaction
+import ru.adavliatov.atomy.common.service.repo.*
+import ru.adavliatov.atomy.example.transfer.domain.*
 
 interface TransactionRepo : ModelRepo<Transaction>
