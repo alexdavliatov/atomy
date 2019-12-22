@@ -32,9 +32,11 @@ include(
     ":example:selfie:item:domain",
     ":example:selfie:item:service",
     ":example:selfie:item:service-impl",
+    ":example:selfie:item:service-impl:storage-jooq",
     ":example:selfie:item:ui",
     ":example:selfie:item:ui:api",
     ":example:selfie:item:ui:cmd",
+    ":example:selfie:item:app",
     //< selfie
 
     //> transfer
