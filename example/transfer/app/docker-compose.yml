@@ -2,9 +2,10 @@ version: '3.1'
 
 services:
   db:
-    image: postgres
+    image: postgres:alpine
+    container_name: transfer_wdb
     ports:
-      - 5432:5432
+      - 9990:5432
     environment:
       POSTGRES_DB: transfer
       POSTGRES_USER: transfer_admin
