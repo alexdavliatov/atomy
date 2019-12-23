@@ -4,7 +4,11 @@ include(
   ":common",
   ":common:ext",
   ":common:type:name",
-  ":common:type:json",
+
+  ":common:type:json:core",
+  ":common:type:json:jackson-impl",
+  ":common:type:json:gson-impl",
+
   ":common:domain",
   ":common:service",
   ":common:ui:api",
