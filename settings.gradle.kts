@@ -9,6 +9,10 @@ include(
   ":common:type:json:jackson-impl",
   ":common:type:json:gson-impl",
 
+  ":common:type:ref:core",
+  ":common:type:ref:json-impl",
+  ":common:type:ref:string-impl",
+
   ":common:domain",
   ":common:service",
   ":common:ui:api",
