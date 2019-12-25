@@ -26,27 +26,29 @@ include(
   ":toolkit:jooq:ext",
   ":toolkit:jooq:serialize",
   ":toolkit:jooq:service",
+  ":toolkit:jooq:plugin-jackson",
+  ":toolkit:jooq:plugin-gson",
 
   ":example",
 
-  //> selfie
-  ":example:selfie",
+  //> selfi
+  ":example:selfi",
 
-  ":example:selfie:shared",
-  ":example:selfie:shared:type",
-  ":example:selfie:shared:type:repeat",
-  ":example:selfie:shared:type:duration",
+  ":example:selfi:shared",
+  ":example:selfi:shared:type",
+  ":example:selfi:shared:type:repeat",
+  ":example:selfi:shared:type:duration",
 
-  ":example:selfie:item",
-  ":example:selfie:item:type",
-  ":example:selfie:item:domain",
-  ":example:selfie:item:service",
-  ":example:selfie:item:service-impl",
-  ":example:selfie:item:service-impl:storage-jooq",
-  ":example:selfie:item:ui",
-  ":example:selfie:item:ui:api",
-  ":example:selfie:item:ui:cmd",
-  ":example:selfie:item:app",
+  ":example:selfi:item",
+  ":example:selfi:item:type",
+  ":example:selfi:item:domain",
+  ":example:selfi:item:service",
+  ":example:selfi:item:service-impl",
+  ":example:selfi:item:service-impl:storage-jooq",
+  ":example:selfi:item:ui",
+  ":example:selfi:item:ui:api",
+  ":example:selfi:item:ui:cmd",
+  ":example:selfi:item:app",
   //< selfie
 
   //> transfer

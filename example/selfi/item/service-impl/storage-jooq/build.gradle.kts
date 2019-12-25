@@ -11,7 +11,7 @@ val dbUser = System.getProperty("dbUser") ?: "selfi_admin"
 val dbPassword = System.getProperty("dbPassword") ?: "yIe7fq4h#k!KOCthDo5r@Jt"
 
 jooq {
-  version = "3.12.3"
+  version = "3.11.9"
   edition = JooqEdition.OSS
 
   val java = project.the<JavaPluginConvention>()
@@ -49,22 +49,22 @@ jooq {
         forcedTypes {
           forcedType {
             userType = "java.time.Instant"
-            converter = "ru.adavliatov.atomy.toolkit.jooq.serializeTimestampToInstantConverter"
+            converter = "ru.adavliatov.atomy.toolkit.jooq.serialize.TimestampToInstantConverter"
             types = """.*TIMESTAMP\ WITHOUT\ TIME\ ZONE.*"""
           }
           forcedType {
             userType = "java.time.Instant"
-            binding = "ru.adavliatov.atomy.toolkit.jooq.serializeTimestampWithTimezoneBinder"
+            binding = "ru.adavliatov.atomy.toolkit.jooq.serialize.TimestampWithTimezoneBinder"
             types = """.*TIMESTAMP\ WITH\ TIME\ ZONE.*"""
           }
-//                    forcedType {
-//                        userType = "com.fasterxml.jackson.databind.JsonNode"
-//                        binding = "ru.yandex.contest.toolkit.jooq.converter.JsonBinder"
-//                        types = """.*JSONB.*"""
-//                    }
+          forcedType {
+            userType = "ru.adavliatov.common.type.json.impl.jackson.JacksonJson"
+            binding = "ru.adavliatov.atomy.toolkit.jooq.serialize.plugin.jackson.JsonBinder"
+            types = ".*JSON.*"
+          }
           forcedType {
             userType = "java.time.Instant"
-            converter = "ru.adavliatov.atomy.toolkit.jooq.serializeTimestampToInstantConverter"
+            converter = "ru.adavliatov.atomy.toolkit.jooq.serialize.TimestampToInstantConverter"
             types = """.*TIMESTAMP.*"""
           }
         }
@@ -90,8 +90,9 @@ jooq {
 
 
 dependencies {
-  implementation(project(":example:selfie:item:service"))
+  implementation(project(":example:selfi:item:service"))
   implementation(project(":toolkit:jooq:service"))
+  implementation(project(":toolkit:jooq:plugin-jackson"))
 
   implementation(group = "org.postgresql", name = "postgresql", version = "42.2.5")
   "jooqRuntime"("org.postgresql:postgresql:42.2.5")

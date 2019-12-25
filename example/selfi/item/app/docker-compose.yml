@@ -3,7 +3,7 @@ version: '3.1'
 
 services:
   db:
-    image: postgres:alpine
+    image: postgres:11.6-alpine
     container_name: item_wdb
     ports:
       - 5432:5432

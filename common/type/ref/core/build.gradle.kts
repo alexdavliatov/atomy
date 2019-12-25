@@ -1,3 +1,3 @@
 dependencies {
-    api(project(":common:type:error"))
+  api(project(":common:type:error"))
 }

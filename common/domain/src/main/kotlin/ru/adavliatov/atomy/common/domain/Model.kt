@@ -1,7 +1,7 @@
 package ru.adavliatov.atomy.common.domain
 
 import ru.adavliatov.atomy.common.domain.States.DELETED
-import ru.adavliatov.atomy.common.type.ref.WithRef
+import ru.adavliatov.atomy.common.type.ref.*
 import java.time.Instant
 import java.time.Instant.now
 

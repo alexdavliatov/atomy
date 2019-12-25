@@ -1,5 +1,4 @@
 plugins {
-  id("nu.studer.jooq")
 }
 
 val jooqVersion: String by project

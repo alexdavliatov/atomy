@@ -11,7 +11,7 @@ val dbUser = System.getProperty("dbUser") ?: "transfer_admin"
 val dbPassword = System.getProperty("dbPassword") ?: "yIe7fq5klj78dKOCthDo5r@Jt"
 
 jooq {
-  version = "3.12.3"
+  version = "3.11.9"
   edition = JooqEdition.OSS
 
   val java = project.the<JavaPluginConvention>()

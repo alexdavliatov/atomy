@@ -1,7 +1,7 @@
 package ru.adavliatov.atomy.common.domain
 
 import ru.adavliatov.atomy.common.domain.error.DomainErrors.InvalidStateNameError
-import ru.adavliatov.atomy.common.ext.*
+import ru.adavliatov.atomy.common.ext.ValidationExtensions
 
 data class State(val name: String) {
   init {

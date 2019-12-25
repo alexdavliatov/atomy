@@ -1,8 +1,7 @@
 package ru.adavliatov.atomy.common.domain.ext
 
-import ru.adavliatov.atomy.common.domain.Id
-import ru.adavliatov.atomy.common.domain.WithEntity
-import ru.adavliatov.atomy.common.type.ref.ConsumerRef
+import ru.adavliatov.atomy.common.domain.*
+import ru.adavliatov.atomy.common.type.ref.*
 
 object IdExtensions {
   fun <E : WithEntity<E>> Iterable<Id<E>>.checkedIds(): Iterable<Long> = map { it.checkedId }

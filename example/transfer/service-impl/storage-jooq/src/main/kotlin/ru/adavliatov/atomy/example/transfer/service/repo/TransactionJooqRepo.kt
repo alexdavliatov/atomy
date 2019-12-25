@@ -1,6 +1,5 @@
 package ru.adavliatov.atomy.example.transfer.service.repo
 
-import ru.adavliatov.atomy.common.domain.*
 import ru.adavliatov.atomy.example.transfer.domain.*
 import ru.adavliatov.atomy.example.transfer.service.repo.generated.transaction.tables.daos.*
 import ru.adavliatov.atomy.example.transfer.service.repo.generated.transaction.tables.pojos.*

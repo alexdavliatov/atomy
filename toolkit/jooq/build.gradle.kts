@@ -1,6 +1,5 @@
 plugins {
   kotlin("jvm")
-  id("nu.studer.jooq") apply false
 }
 
 
