@@ -58,8 +58,8 @@ jooq {
             types = """.*TIMESTAMP\ WITH\ TIME\ ZONE.*"""
           }
           forcedType {
-            userType = "ru.adavliatov.common.type.json.impl.jackson.JacksonJson"
-            binding = "ru.adavliatov.atomy.toolkit.jooq.serialize.plugin.jackson.JsonBinder"
+            userType = "ru.adavliatov.common.type.json.impl.JacksonJson"
+            binding = "ru.adavliatov.atomy.toolkit.jooq.serialize.plugin.JacksonJsonBinder"
             types = ".*JSON.*"
           }
           forcedType {
@@ -91,6 +91,7 @@ jooq {
 
 dependencies {
   implementation(project(":example:selfi:item:service"))
+  implementation(project(":common:type:ref:json-impl"))
   implementation(project(":toolkit:jooq:service"))
   implementation(project(":toolkit:jooq:plugin-jackson"))
 

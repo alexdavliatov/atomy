@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS item.items
 (
     id          BIGSERIAL,
     uid         UUID         NOT NULL       DEFAULT gen_random_uuid(),
+    consumer    JSONB,
     ref         JSONB,
     state       VARCHAR(255) NOT NULL,
     created_at  TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() AT TIME ZONE 'utc'),

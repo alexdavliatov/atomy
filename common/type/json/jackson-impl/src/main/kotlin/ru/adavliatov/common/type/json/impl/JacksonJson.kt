@@ -1,14 +1,14 @@
-package ru.adavliatov.common.type.json.impl.gson
+package ru.adavliatov.common.type.json.impl
 
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ArrayNode
 import ru.adavliatov.atomy.common.ext.TypeExtensions.takeAs
 import ru.adavliatov.atomy.common.type.json.*
 
 @Suppress("MemberVisibilityCanBePrivate")
 //todo (adavliatov): checks
-class JacksonJson(val node: JsonNode) : Json<JacksonContext> {
+class JacksonJson(val node: JsonNode) :
+  Json<JacksonContext> {
   override fun isNull(): Boolean = node.isNull
   override fun isNode(): Boolean = node.isObject
   override fun isArray(): Boolean = node.isArray
@@ -43,8 +43,7 @@ class JacksonJson(val node: JsonNode) : Json<JacksonContext> {
   }
 
   companion object {
-    fun JsonNode.toJson() = JacksonJson(this)
+    fun JsonNode.toJson() =
+      JacksonJson(this)
   }
 }
-
-data class JacksonContext(val mapper: ObjectMapper) : JsonContext

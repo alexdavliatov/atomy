@@ -12,14 +12,14 @@ import org.jooq.BindingSetSQLOutputContext
 import org.jooq.BindingSetStatementContext
 import org.jooq.Converter
 import org.jooq.impl.DSL
-import ru.adavliatov.common.type.json.impl.gson.*
-import ru.adavliatov.common.type.json.impl.gson.JacksonJson.Companion.toJson
+import ru.adavliatov.common.type.json.impl.*
+import ru.adavliatov.common.type.json.impl.JacksonJson.Companion.toJson
 import java.sql.SQLException
 import java.sql.SQLFeatureNotSupportedException
 import java.sql.Types.VARCHAR
 import java.util.*
 
-class JsonBinder(val mapper: ObjectMapper = ObjectMapper().configure(FAIL_ON_UNKNOWN_PROPERTIES, false)) :
+class JacksonJsonBinder(val mapper: ObjectMapper = ObjectMapper().configure(FAIL_ON_UNKNOWN_PROPERTIES, false)) :
   Binding<Any, JacksonJson> {
 
   override fun converter() = object : Converter<Any, JacksonJson> {
@@ -31,7 +31,7 @@ class JsonBinder(val mapper: ObjectMapper = ObjectMapper().configure(FAIL_ON_UNK
     override fun fromType() = Any::class.java
 
     @Suppress("UNCHECKED_CAST")
-    override fun toType(): Class<JacksonJson>? = JacksonJson::class.java
+    override fun toType(): Class<JacksonJson> = JacksonJson::class.java
   }
 
   @Throws(SQLException::class)

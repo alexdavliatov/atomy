@@ -40,10 +40,10 @@ class GsonJson(val node: JsonElement) : Json<GsonContext> {
   }
 
   private inline fun <reified T> JsonElement.to(context: GsonContext): T = context.gson.fromJson(this, T::class.java)
-  private fun JsonElement.toJson() = GsonJson(this)
 
   companion object {
     fun JsonElement.nodeAt(field: String): JsonElement = asJsonObject.getAsJsonObject(field)
+    fun JsonElement.toJson() = GsonJson(this)
   }
 }
 
