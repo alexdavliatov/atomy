@@ -1,7 +1,10 @@
 package ru.adavliatov.atomy.example.transfer.domain
 
-import ru.adavliatov.atomy.common.domain.*
-import ru.adavliatov.atomy.example.transfer.type.*
+import ru.adavliatov.atomy.common.domain.Id
+import ru.adavliatov.atomy.common.domain.State
+import ru.adavliatov.atomy.common.domain.WithModel
+import ru.adavliatov.atomy.example.transfer.type.Currency
+import ru.adavliatov.atomy.example.transfer.type.Money
 import ru.adavliatov.atomy.example.transfer.type.MoneyExtensions.zero
 import java.time.Instant
 
@@ -40,5 +43,6 @@ data class Account(
     .withDefault { zero(currency) }
     .getValue(currency)
 
-  fun deposit(money: Money): Account = copy()
+    @Suppress("UNUSED_PARAMETER")
+    fun deposit(money: Money): Account = copy()
 }

@@ -1,8 +1,8 @@
 package ru.adavliatov.atomy.example.transfer.domain.error
 
-import ru.adavliatov.atomy.common.domain.error.HttpWrapperErrors.InvalidArgumentError
-import ru.adavliatov.atomy.common.domain.error.HttpWrapperErrors.NotFoundError
-import ru.adavliatov.atomy.example.transfer.domain.*
+import ru.adavliatov.atome.common.type.error.HttpWrapperErrors.InvalidArgumentError
+import ru.adavliatov.atome.common.type.error.HttpWrapperErrors.NotFoundError
+import ru.adavliatov.atomy.example.transfer.domain.Operation
 import ru.adavliatov.atomy.example.transfer.domain.error.code.TransactionErrorCodes.InvalidOperationName
 import ru.adavliatov.atomy.example.transfer.domain.error.code.TransactionErrorCodes.OperationNotFound
 

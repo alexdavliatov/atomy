@@ -1,4 +1,4 @@
-package ru.adavliatov.atomy.common.domain.error.code
+package ru.adavliatov.atome.common.type.error.code
 
 interface ErrorCode {
   val code: String
@@ -24,12 +24,4 @@ object ErrorCodes {
   object ConflictOccured : CommonErrorCode("internal", "Internal server error")
   object NotImplemented : CommonErrorCode("not-implemented", "Not implemented error")
   object MultipleErrorsOccurred : CommonErrorCode("multiple-errors-occurred", "Multiple Errors Occurred")
-
-  //domain error codes
-  object InvalidStateName : CommonErrorCode("invalid-state-name", "Invalid state name")
-
-  object InvalidClientId : CommonErrorCode("invalid-client-id", "Invalid client id")
-
-  object EmptyId : CommonErrorCode("empty-id", "Invalid client id")
-  object EmptyRef : CommonErrorCode("empty-external-id", "Invalid client id")
 }

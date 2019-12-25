@@ -1,7 +1,7 @@
 package ru.adavliatov.atomy.common.service.domain.error
 
-import ru.adavliatov.atomy.common.domain.*
-import ru.adavliatov.atomy.common.domain.error.HttpWrapperErrors.NotFoundError
+import ru.adavliatov.atome.common.type.error.HttpWrapperErrors.NotFoundError
+import ru.adavliatov.atomy.common.domain.Id
 
 object RepoErrors {
   class NotFoundRepoError(message: String) : NotFoundError(message = message) {

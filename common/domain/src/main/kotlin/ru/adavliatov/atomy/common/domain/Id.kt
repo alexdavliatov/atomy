@@ -1,9 +1,13 @@
 package ru.adavliatov.atomy.common.domain
 
 import ru.adavliatov.atomy.common.domain.error.DomainErrors.EmptyIdError
-import ru.adavliatov.atomy.common.domain.error.DomainErrors.EmptyRefError
+import ru.adavliatov.atomy.common.type.ref.ConsumerId
+import ru.adavliatov.atomy.common.type.ref.ConsumerRef
+import ru.adavliatov.atomy.common.type.ref.Ref
+import ru.adavliatov.atomy.common.type.ref.WithRef
+import ru.adavliatov.atomy.common.type.ref.error.RefErrors.EmptyRefError
 import java.util.*
-import java.util.UUID.*
+import java.util.UUID.randomUUID
 import kotlin.Long.Companion.MAX_VALUE
 import kotlin.random.Random
 import kotlin.reflect.KClass

@@ -1,6 +1,6 @@
 package ru.adavliatov.atomy.example.transfer.type.error.code
 
-import ru.adavliatov.atomy.common.domain.error.code.*
+import ru.adavliatov.atome.common.type.error.code.CommonErrorCode
 
 object MoneyErrorCodes {
   object InvalidCurrency : CommonErrorCode("invalid-currency", "Invalid currency")

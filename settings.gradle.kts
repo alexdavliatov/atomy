@@ -5,13 +5,15 @@ include(
   ":common:ext",
   ":common:type:name",
 
+  ":common:type:error",
+
   ":common:type:json:core",
   ":common:type:json:jackson-impl",
   ":common:type:json:gson-impl",
 
   ":common:type:ref:core",
   ":common:type:ref:json-impl",
-  ":common:type:ref:string-impl",
+  ":common:type:ref:text-impl",
 
   ":common:domain",
   ":common:service",
