@@ -70,6 +70,7 @@ jooq {
         }
       }
       generate {
+        isGeneratedAnnotation = false
         isDeprecated = false
         isRecords = true
         isImmutablePojos = true
@@ -96,7 +97,10 @@ dependencies {
   implementation(project(":toolkit:jooq:plugin-jackson"))
 
   implementation(group = "org.postgresql", name = "postgresql", version = "42.2.5")
+  implementation(group = "com.zaxxer", name = "HikariCP", version = "3.4.1")
   "jooqRuntime"("org.postgresql:postgresql:42.2.5")
+
+  testImplementation(group = "org.hamcrest", name = "hamcrest-all", version = "1.3")
 }
 
 tasks {

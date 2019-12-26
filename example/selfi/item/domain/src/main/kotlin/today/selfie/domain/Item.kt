@@ -16,7 +16,7 @@ data class Item(
   override val id: Id<Item>,
   override val state: State,
   override val createdAt: Instant,
-  override val modifiedAt: Instant,
+  override val modifiedAt: Instant = createdAt,
 
   val name: NameValue,
   val duration: Duration?,

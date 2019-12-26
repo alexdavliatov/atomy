@@ -1,4 +1,4 @@
-package ru.adavliatov.atomy.toolkit.jooq.serialize.plugin.jackson
+package ru.adavliatov.atomy.toolkit.jooq.serialize.plugin
 
 import com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -24,7 +24,7 @@ class JacksonJsonBinder(val mapper: ObjectMapper = ObjectMapper().configure(FAIL
 
   override fun converter() = object : Converter<Any, JacksonJson> {
     override fun from(t: Any?): JacksonJson =
-      (t?.let { mapper.createObjectNode() } ?: mapper.readTree(t as String)).toJson()
+      (t?.let { mapper.readTree(t as String) } ?: mapper.nullNode()).toJson()
 
     override fun to(u: JacksonJson?): String? = u?.run { mapper.writeValueAsString(node) }
 

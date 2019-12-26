@@ -1,11 +1,17 @@
 package ru.adavliatov.atomy.toolkit.jooq.service
 
+import org.jooq.Configuration
 import org.jooq.DAO
 import org.jooq.Field
 import org.jooq.Table
 import org.jooq.TableRecord
 import ru.adavliatov.atomy.common.ext.CollectionExtensions.mapToSet
 import java.util.*
+import javax.sql.DataSource
+
+interface WithJooqConfig {
+  fun DataSource.toJooqConfig(): Configuration
+}
 
 interface WithTable<Record : TableRecord<Record>> {
   val table: Table<Record>

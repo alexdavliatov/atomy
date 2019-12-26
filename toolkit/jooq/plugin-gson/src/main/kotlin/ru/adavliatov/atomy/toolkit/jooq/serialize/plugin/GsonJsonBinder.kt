@@ -1,4 +1,4 @@
-package ru.adavliatov.atomy.toolkit.jooq.serialize.plugin.jackson
+package ru.adavliatov.atomy.toolkit.jooq.serialize.plugin
 
 import com.google.gson.Gson
 import com.google.gson.JsonElement

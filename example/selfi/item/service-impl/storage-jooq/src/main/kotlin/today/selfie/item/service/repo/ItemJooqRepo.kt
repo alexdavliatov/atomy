@@ -1,5 +1,6 @@
 package today.selfie.item.service.repo
 
+import org.jooq.SQLDialect.POSTGRES_10
 import ru.adavliatov.atomy.common.domain.*
 import ru.adavliatov.atomy.common.type.name.*
 import ru.adavliatov.atomy.common.type.ref.*
@@ -16,7 +17,7 @@ import javax.sql.DataSource
 
 open class ItemJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Item, ItemsRecord, Items>(ds),
   ItemRepo {
-  override val dao: ItemsDao = ItemsDao(ds.toJooqConfig())
+  override val dao: ItemsDao = ItemsDao(ds.toJooqConfig().set(POSTGRES_10))
 
   override val entityClass: Class<Item> = Item::class.java
   override val pojoClass: Class<Items> = Items::class.java
@@ -24,8 +25,8 @@ open class ItemJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Item, ItemsRecord,
   override fun Item.toPojo(): Items = Items(
     id.checkedId,
     id.uid,
-    (id.ref.consumer as JsonConsumerId<*>).value as JacksonJson,
-    (id.ref.ref as JsonConsumerRef<*>).value as JacksonJson,
+    id.ref.consumer.let { it as JsonConsumerId<*> }.let { it.value as JacksonJson },
+    id.ref.ref?.let { it as JsonConsumerId<*> }?.let { it.value as JacksonJson },
     state.name,
     createdAt,
     modifiedAt,

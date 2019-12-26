@@ -2,7 +2,6 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 CREATE SCHEMA IF NOT EXISTS item;
 
--- accounts
 CREATE TABLE IF NOT EXISTS item.items
 (
     id          BIGSERIAL,
