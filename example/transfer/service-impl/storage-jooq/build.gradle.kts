@@ -60,11 +60,6 @@ jooq {
             binding = "ru.adavliatov.atomy.toolkit.jooq.serializeTimestampWithTimezoneBinder"
             types = """.*TIMESTAMP\ WITH\ TIME\ ZONE.*"""
           }
-//                    forcedType {
-//                        userType = "com.fasterxml.jackson.databind.JsonNode"
-//                        binding = "ru.yandex.contest.toolkit.jooq.converter.JsonBinder"
-//                        types = """.*JSONB.*"""
-//                    }
           forcedType {
             userType = "java.time.Instant"
             converter = "ru.adavliatov.atomy.toolkit.jooq.serializeTimestampToInstantConverter"

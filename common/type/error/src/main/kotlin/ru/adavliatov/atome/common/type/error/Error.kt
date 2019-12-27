@@ -8,7 +8,7 @@ import ru.adavliatov.atome.common.type.error.code.ErrorCodes.NotFound
 import ru.adavliatov.atome.common.type.error.code.ErrorCodes.Unknown
 
 open class Error(
-  private val code: ErrorCode = Unknown,
+  val code: ErrorCode = Unknown,
   override val message: String = code.message,
   cause: Throwable? = null
 ) : RuntimeException(message, cause)

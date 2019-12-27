@@ -91,10 +91,10 @@ jooq {
 
 
 dependencies {
-  implementation(project(":example:selfi:item:service"))
-  implementation(project(":common:type:ref:json-impl"))
-  implementation(project(":toolkit:jooq:service"))
-  implementation(project(":toolkit:jooq:plugin-jackson"))
+  api(project(":example:selfi:item:service"))
+  api(project(":common:type:ref:json-impl"))
+  api(project(":toolkit:jooq:service"))
+  api(project(":toolkit:jooq:plugin-jackson"))
 
   implementation(group = "org.postgresql", name = "postgresql", version = "42.2.5")
   implementation(group = "com.zaxxer", name = "HikariCP", version = "3.4.1")

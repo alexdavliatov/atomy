@@ -6,7 +6,7 @@ flyway {
   url = "jdbc:postgresql://dockerhost:9990/transfer"
   user = "transfer_admin"
   password = "yIe7fq5klj78dKOCthDo5r@Jt"
-//  locations = arrayOf("classpath:ru/yandex/contest/migrations/sql")
+//  locations = arrayOf("classpath:ru/adavliatov/contest/migrations/sql")
 }
 
 val flywayVersion: String by project
