@@ -20,9 +20,10 @@ shadowJar.apply {
   manifest.attributes.apply {
     put("Implementation-Title", "Roles service")
     put("Implementation-Version", "1.0.0")
-    put("Main-Class", "ru.adavliatov.role.app.RoleAppKt")
+    put("Main-Class", "today.selfi.app.ItemAppKt")
 
-    archiveName = "role-app.jar"
+    @Suppress("DEPRECATION")
+    archiveName = "item-app.jar"
   }
 }
 
@@ -58,27 +59,27 @@ compileKotlin.kotlinOptions {
 tasks {
   val shadowJar by getting(com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar::class)
 
-  val buildRole by creating(Exec::class) {
+  val buildItem by creating(Exec::class) {
     dependsOn(shadowJar)
-    commandLine = listOf("docker-compose", "build", "role")
+    commandLine = listOf("docker-compose", "build", "item")
   }
 
-  val buildRoleFromSources by creating { dependsOn(jar, buildRole) }
+  val buildItemFromSources by creating { dependsOn(jar, buildItem) }
 
-  val roleUp by creating(Exec::class) {
-    mustRunAfter(buildRoleFromSources)
-    commandLine = listOf("docker-compose", "up", "-d", "role")
+  val itemUp by creating(Exec::class) {
+    mustRunAfter(buildItemFromSources)
+    commandLine = listOf("docker-compose", "up", "-d", "item")
   }
-  val roleUpFromSources by creating { dependsOn(buildRoleFromSources, roleUp) }
+  @Suppress("UNUSED_VARIABLE") val itemUpFromSources by creating { dependsOn(buildItemFromSources, itemUp) }
 
-  val image = "registry.adavliatov.net/contest/edu-roles"
-  val tagRole by creating(Exec::class) {
-    dependsOn(buildRoleFromSources)
+  val image = "registry.net/adavliatov/selfi-item"
+  val tagItem by creating(Exec::class) {
+    dependsOn(buildItemFromSources)
     commandLine = listOf("docker", "tag", "$image:latest", "$image:${System.getProperty("version")}")
   }
 
-  val pushRole by creating(Exec::class) {
-    dependsOn(tagRole)
+  @Suppress("UNUSED_VARIABLE") val pushItem by creating(Exec::class) {
+    dependsOn(tagItem)
     commandLine = listOf("docker", "push", "$image:${System.getProperty("version")}")
   }
 }
