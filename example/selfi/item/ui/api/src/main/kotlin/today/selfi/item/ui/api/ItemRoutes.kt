@@ -7,8 +7,8 @@ import ru.adavliatov.atomy.common.domain.*
 import ru.adavliatov.atomy.common.type.ref.*
 import ru.adavliatov.atomy.common.type.ref.imp.json.*
 import ru.adavliatov.common.type.json.impl.*
-import today.selfie.domain.Item
-import today.selfie.domain.JsonNodeBuilders.node
+import today.selfie.item.domain.Item
+import today.selfie.item.domain.JsonNodeBuilders.node
 import today.selfie.item.service.repo.ItemRepo
 
 class ItemRoutes(val itemRepo: ItemRepo) : CrudHandler {

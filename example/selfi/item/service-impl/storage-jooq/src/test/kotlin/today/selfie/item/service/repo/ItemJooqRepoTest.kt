@@ -2,7 +2,7 @@ package today.selfie.item.service.repo
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import today.selfie.domain.ItemDsl.item
+import today.selfie.item.domain.ItemDsl.item
 import javax.sql.DataSource
 
 class ItemJooqRepoTest {

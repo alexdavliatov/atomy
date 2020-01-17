@@ -11,8 +11,8 @@ import ru.adavliatov.atomy.example.selfie.item.service.repo.generated.tables.rec
 import ru.adavliatov.atomy.toolkit.jooq.ext.JooqExtensions.toJooqConfig
 import ru.adavliatov.atomy.toolkit.jooq.service.*
 import ru.adavliatov.common.type.json.impl.*
-import today.selfie.domain.Item
-import today.selfie.domain.MissingDetails
+import today.selfie.item.domain.Item
+import today.selfie.item.domain.MissingDetails
 import javax.sql.DataSource
 
 open class ItemJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Item, ItemsRecord, Items>(ds),
