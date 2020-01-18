@@ -36,6 +36,7 @@ include(
 
   ":example:selfi:shared",
   ":example:selfi:shared:type",
+  ":example:selfi:shared:type:ref",
   ":example:selfi:shared:type:repeat",
   ":example:selfi:shared:type:duration",
 
@@ -49,6 +50,9 @@ include(
   ":example:selfi:item:ui:api",
   ":example:selfi:item:ui:cmd",
   ":example:selfi:item:app",
+
+  ":example:selfi:profile",
+  ":example:selfi:profile:domain",
   //< selfie
 
   //> transfer

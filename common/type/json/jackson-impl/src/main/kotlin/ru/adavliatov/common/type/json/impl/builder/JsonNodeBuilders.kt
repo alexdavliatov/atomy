@@ -1,4 +1,4 @@
-package today.selfie.item.domain
+package ru.adavliatov.common.type.json.impl.builder
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
@@ -16,20 +16,12 @@ object JsonNodeBuilders {
   fun node(
     k1: String?, v1: String?, k2: String?,
     v2: String?
-  ): ObjectNodeBuilder = node(
-      k1,
-      v1
-  ).with(k2, v2)
+  ): ObjectNodeBuilder = node(k1, v1).with(k2, v2)
 
   fun node(
     k1: String?, v1: String?, k2: String?, v2: String?,
     k3: String?, v3: String?
-  ): ObjectNodeBuilder = node(
-      k1,
-      v1,
-      k2,
-      v2
-  ).with(k3, v3)
+  ): ObjectNodeBuilder = node(k1, v1, k2, v2).with(k3, v3)
 
   fun node(k1: String?, builder: JsonNodeBuilder<*>): ObjectNodeBuilder = node().with(k1, builder)
 
@@ -37,21 +29,18 @@ object JsonNodeBuilders {
    * Factory methods for an [ObjectNode] builder.
    */
   @JvmOverloads
-  fun node(factory: JsonNodeFactory = JsonNodeFactory.instance): ObjectNodeBuilder =
-      ObjectNodeBuilder(factory)
+  fun node(factory: JsonNodeFactory = JsonNodeFactory.instance): ObjectNodeBuilder = ObjectNodeBuilder(factory)
 
   /**
    * Factory methods for an [ArrayNode] builder.
    */
-  fun array(): ArrayNodeBuilder =
-      array(JsonNodeFactory.instance)
+  fun array(): ArrayNodeBuilder = array(JsonNodeFactory.instance)
 
   fun array(vararg values: Boolean): ArrayNodeBuilder = array().with(*values)
   fun array(vararg values: Int): ArrayNodeBuilder = array().with(*values)
   fun array(vararg values: String?): ArrayNodeBuilder = array().with(*values)
   fun array(vararg builders: JsonNodeBuilder<*>?): ArrayNodeBuilder = array().with(*builders)
-  fun array(factory: JsonNodeFactory): ArrayNodeBuilder =
-      ArrayNodeBuilder(factory)
+  fun array(factory: JsonNodeFactory): ArrayNodeBuilder = ArrayNodeBuilder(factory)
 
   interface JsonNodeBuilder<T : JsonNode?> {
     /**

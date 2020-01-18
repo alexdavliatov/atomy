@@ -6,7 +6,7 @@ plugins {
   id("nu.studer.jooq")
 }
 
-val dbUrl = System.getProperty("dbUrl") ?: "jdbc:postgresql://dockerhost:5432/selfi_dev"
+val dbUrl = System.getProperty("dbUrl") ?: "jdbc:postgresql://dockerhost:9990/selfi_dev"
 val dbUser = System.getProperty("dbUser") ?: "selfi_admin"
 val dbPassword = System.getProperty("dbPassword") ?: "yIe7fq4h#k!KOCthDo5r@Jt"
 

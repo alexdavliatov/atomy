@@ -5,7 +5,7 @@ import ru.adavliatov.atomy.common.type.name.*
 import ru.adavliatov.atomy.common.type.ref.*
 import ru.adavliatov.atomy.common.type.ref.imp.json.*
 import ru.adavliatov.common.type.json.impl.*
-import today.selfie.item.domain.JsonNodeBuilders.node
+import ru.adavliatov.common.type.json.impl.builder.JsonNodeBuilders.node
 import java.time.Instant
 
 object ItemDsl {
