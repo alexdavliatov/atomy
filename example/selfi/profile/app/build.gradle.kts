@@ -18,20 +18,20 @@ val logbackVersion: String by project
 val shadowJar: com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar by tasks
 shadowJar.apply {
   manifest.attributes.apply {
-    put("Implementation-Title", "Items service")
+    put("Implementation-Title", "Profiles service")
     put("Implementation-Version", "1.0.0")
-    put("Main-Class", "today.selfi.app.ItemAppKt")
+    put("Main-Class", "today.selfi.app.ProfileAppKt")
 
     @Suppress("DEPRECATION")
-    archiveName = "item-app.jar"
+    archiveName = "profile-app.jar"
   }
 }
 
 val flywayVersion: String by project
 dependencies {
   implementation(project(":common:ui:api"))
-  implementation(project(":example:selfi:item:ui:api"))
-  implementation(project(":example:selfi:item:service-impl:storage-jooq"))
+//  implementation(project(":example:selfi:profile:ui:api"))
+  implementation(project(":example:selfi:profile:service-impl:storage-jooq"))
   implementation(group = "com.fasterxml.jackson.core", name = "jackson-databind", version = "2.10.1")
 
   implementation(group = "org.flywaydb", name = "flyway-core", version = flywayVersion)
@@ -59,27 +59,27 @@ compileKotlin.kotlinOptions {
 tasks {
   val shadowJar by getting(com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar::class)
 
-  val buildItem by creating(Exec::class) {
+  val buildProfile by creating(Exec::class) {
     dependsOn(shadowJar)
-    commandLine = listOf("docker-compose", "build", "item")
+    commandLine = listOf("docker-compose", "build", "profile")
   }
 
-  val buildItemFromSources by creating { dependsOn(jar, buildItem) }
+  val buildProfileFromSources by creating { dependsOn(jar, buildProfile) }
 
-  val itemUp by creating(Exec::class) {
-    mustRunAfter(buildItemFromSources)
-    commandLine = listOf("docker-compose", "up", "-d", "item")
+  val profileUp by creating(Exec::class) {
+    mustRunAfter(buildProfileFromSources)
+    commandLine = listOf("docker-compose", "up", "-d", "profile")
   }
-  @Suppress("UNUSED_VARIABLE") val itemUpFromSources by creating { dependsOn(buildItemFromSources, itemUp) }
+  @Suppress("UNUSED_VARIABLE") val profileUpFromSources by creating { dependsOn(buildProfileFromSources, profileUp) }
 
-  val image = "registry.net/adavliatov/selfi-item"
-  val tagItem by creating(Exec::class) {
-    dependsOn(buildItemFromSources)
+  val image = "registry.net/adavliatov/selfi-profile"
+  val tagProfile by creating(Exec::class) {
+    dependsOn(buildProfileFromSources)
     commandLine = listOf("docker", "tag", "$image:latest", "$image:${System.getProperty("version")}")
   }
 
-  @Suppress("UNUSED_VARIABLE") val pushItem by creating(Exec::class) {
-    dependsOn(tagItem)
+  @Suppress("UNUSED_VARIABLE") val pushProfile by creating(Exec::class) {
+    dependsOn(tagProfile)
     commandLine = listOf("docker", "push", "$image:${System.getProperty("version")}")
   }
 }
