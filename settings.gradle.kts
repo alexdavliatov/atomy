@@ -53,6 +53,9 @@ include(
 
   ":example:selfi:profile",
   ":example:selfi:profile:domain",
+  ":example:selfi:profile:service",
+  ":example:selfi:profile:service-impl",
+  ":example:selfi:profile:service-impl:storage-jooq",
   //< selfie
 
   //> transfer
