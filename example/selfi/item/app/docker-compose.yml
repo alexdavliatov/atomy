@@ -2,9 +2,9 @@
 version: '3.1'
 
 services:
-  db:
+  item_db:
     image: postgres:11.6-alpine
-    container_name: item_wdb
+    container_name: selfi_item_wdb_dev
     ports:
       - 9990:5432
     environment:
@@ -12,7 +12,7 @@ services:
       POSTGRES_USER: selfi_admin
       POSTGRES_PASSWORD: yIe7fq4h#k!KOCthDo5r@Jt
     volumes:
-      - selfi_dbdata:/var/lib/postgresql/data
+      - selfi_dbdata:/var/lib/postgresql/data/item
 
 volumes:
   selfi_dbdata:

@@ -6,9 +6,9 @@ plugins {
 }
 
 flyway {
-  url = "jdbc:postgresql://dockerhost:9990/selfi_dev"
-  user = "selfi_admin"
-  password = "yIe7fq4h#k!KOCthDo5r@Jt"
+  url = "jdbc:postgresql://dockerhost:9991/profile_dev"
+  user = "profile_admin"
+  password = "yIe!df#Do5r@fGU"
 //  locations = arrayOf("classpath:ru/adavliatov/contest/migrations/sql")
 }
 

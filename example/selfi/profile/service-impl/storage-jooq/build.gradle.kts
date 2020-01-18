@@ -6,9 +6,9 @@ plugins {
   id("nu.studer.jooq")
 }
 
-val dbUrl = System.getProperty("dbUrl") ?: "jdbc:postgresql://dockerhost:9991/selfi_dev"
-val dbUser = System.getProperty("dbUser") ?: "selfi_admin"
-val dbPassword = System.getProperty("dbPassword") ?: "yIe7fq4h#k!KOCthDo5r@Jt"
+val dbUrl = System.getProperty("dbUrl") ?: "jdbc:postgresql://dockerhost:9991/profile_dev"
+val dbUser = System.getProperty("dbUser") ?: "profile_admin"
+val dbPassword = System.getProperty("dbPassword") ?: "yIe!df#Do5r@fGU"
 
 jooq {
   version = "3.11.9"
@@ -30,8 +30,10 @@ jooq {
         excludes = "flyway_schema_version"
         schemata {
           schema {
-            withInputSchema("profile")
             withInputSchema("account")
+          }
+          schema {
+            withInputSchema("profile")
           }
         }
         isIncludeTables = true
