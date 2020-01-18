@@ -4,7 +4,7 @@ import org.jooq.SQLDialect.POSTGRES_10
 import ru.adavliatov.atomy.common.domain.*
 import ru.adavliatov.atomy.common.type.name.*
 import ru.adavliatov.atomy.common.type.ref.*
-import ru.adavliatov.atomy.common.type.ref.imp.json.*
+import ru.adavliatov.atomy.common.type.ref.impl.json.*
 import ru.adavliatov.atomy.example.selfie.item.service.repo.generated.tables.daos.*
 import ru.adavliatov.atomy.example.selfie.item.service.repo.generated.tables.pojos.*
 import ru.adavliatov.atomy.example.selfie.item.service.repo.generated.tables.records.*

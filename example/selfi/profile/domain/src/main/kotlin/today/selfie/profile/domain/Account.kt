@@ -1,10 +1,7 @@
-package today.selfie.Account.domain
+package today.selfie.profile.domain
 
-import ru.adavliatov.atomy.common.domain.Id
-import ru.adavliatov.atomy.common.domain.State
-import ru.adavliatov.atomy.common.domain.WithModel
-import ru.adavliatov.atomy.common.type.name.NameValue
-import ru.adavliatov.atomy.common.type.name.ValueHolder
+import ru.adavliatov.atomy.common.domain.*
+import ru.adavliatov.atomy.common.type.name.*
 import java.time.Instant
 
 typealias OwnerId = Long

@@ -4,11 +4,9 @@ import io.javalin.apibuilder.CrudHandler
 import io.javalin.http.Context
 import ru.adavliatov.atome.common.type.error.HttpWrapperErrors.InvalidArgumentError
 import ru.adavliatov.atomy.common.domain.*
-import ru.adavliatov.atomy.common.type.ref.*
-import ru.adavliatov.atomy.common.type.ref.imp.json.*
-import ru.adavliatov.common.type.json.impl.*
+import ru.adavliatov.common.type.json.impl.builder.JsonNodeBuilders.node
+import today.selfi.shared.ref.ext.RefExtensions.ref
 import today.selfie.item.domain.Item
-import today.selfie.item.domain.JsonNodeBuilders.node
 import today.selfie.item.service.repo.ItemRepo
 
 class ItemRoutes(val itemRepo: ItemRepo) : CrudHandler {
@@ -21,7 +19,8 @@ class ItemRoutes(val itemRepo: ItemRepo) : CrudHandler {
   }
 
   override fun getAll(ctx: Context) {
-    val clientId = ctx.header("clientId") ?: throw InvalidArgumentError(message = "No client id provided")
+      @Suppress("UNUSED_VARIABLE")
+      val clientId = ctx.header("clientId") ?: throw InvalidArgumentError(message = "No client id provided")
     ctx.json(itemRepo.findAll())
   }
 
@@ -29,13 +28,7 @@ class ItemRoutes(val itemRepo: ItemRepo) : CrudHandler {
     val clientId = ctx.header("clientId") ?: throw InvalidArgumentError(message = "No client id provided")
     val rawId = ctx.pathParam("id").toLong()
     val id = Id.newId<Item>(
-      Ref(
-        JsonConsumerId(
-          JacksonJson(
-            node().with("id", clientId).end()!!
-          )
-        )
-      )
+        ref(node().with("id", clientId).end()!!)
     ).withId(rawId)
     ctx.json(itemRepo.findByIdChecked(id))
   }

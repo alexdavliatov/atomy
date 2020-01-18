@@ -1,4 +1,4 @@
-package ru.adavliatov.atomy.common.type.ref.imp.json
+package ru.adavliatov.atomy.common.type.ref.impl.json
 
 import ru.adavliatov.atomy.common.type.name.*
 import ru.adavliatov.atomy.common.type.ref.*
