@@ -12,7 +12,7 @@ services:
       POSTGRES_USER: profile_admin
       POSTGRES_PASSWORD: yIe!df#Do5r@fGU
     volumes:
-      - selfi_dbdata:/var/lib/postgresql/data
+      - selfi_dbdata:/var/lib/postgresql/data/profile
 
 volumes:
   selfi_dbdata:

@@ -57,6 +57,13 @@ include(
   ":example:selfi:profile:service-impl",
   ":example:selfi:profile:service-impl:storage-jooq",
   ":example:selfi:profile:app",
+
+  ":example:selfi:auth",
+  ":example:selfi:auth:domain",
+  ":example:selfi:auth:service",
+  ":example:selfi:auth:service-impl",
+  ":example:selfi:auth:service-impl:storage-jooq",
+  ":example:selfi:auth:app",
   //< selfie
 
   //> transfer
