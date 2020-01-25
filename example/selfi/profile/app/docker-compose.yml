@@ -11,8 +11,9 @@ services:
       POSTGRES_DB: profile_dev
       POSTGRES_USER: profile_admin
       POSTGRES_PASSWORD: yIe!df#Do5r@fGU
+      PGDATA: /var/lib/postgresql/data/profile
     volumes:
-      - selfi_dbdata:/var/lib/postgresql/data/profile
+      - selfi_profile_dbdata:/var/lib/postgresql/data/profile
 
 volumes:
-  selfi_dbdata:
+  selfi_profile_dbdata:

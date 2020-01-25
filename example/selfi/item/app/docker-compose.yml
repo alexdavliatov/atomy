@@ -11,8 +11,9 @@ services:
       POSTGRES_DB: selfi_dev
       POSTGRES_USER: selfi_admin
       POSTGRES_PASSWORD: yIe7fq4h#k!KOCthDo5r@Jt
+      PGDATA: /var/lib/postgresql/data/item
     volumes:
-      - selfi_dbdata:/var/lib/postgresql/data/item
+      - selfi_item_dbdata:/var/lib/postgresql/data/item
 
 volumes:
-  selfi_dbdata:
+  selfi_item_dbdata:

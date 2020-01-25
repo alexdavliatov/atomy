@@ -11,8 +11,9 @@ services:
       POSTGRES_DB: auth_dev
       POSTGRES_USER: auth_admin
       POSTGRES_PASSWORD: yIe7fq4h#k!Ktn&shDo5r@Jt
+      PGDATA: /var/lib/postgresql/data/auth
     volumes:
-      - selfi_dbdata:/var/lib/postgresql/data/auth
+      - selfi_auth_dbdata:/var/lib/postgresql/data/auth
 
 volumes:
-  selfi_dbdata:
+  selfi_auth_dbdata:
