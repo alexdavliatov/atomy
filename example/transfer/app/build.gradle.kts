@@ -3,7 +3,7 @@ plugins {
 }
 
 flyway {
-  url = "jdbc:postgresql://dockerhost:9990/transfer"
+  url = "jdbc:postgresql://dockerhost:7990/transfer"
   user = "transfer_admin"
   password = "yIe7fq5klj78dKOCthDo5r@Jt"
 //  locations = arrayOf("classpath:ru/adavliatov/contest/migrations/sql")

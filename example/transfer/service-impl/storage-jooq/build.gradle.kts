@@ -6,7 +6,7 @@ plugins {
   id("nu.studer.jooq")
 }
 
-val dbUrl = System.getProperty("dbUrl") ?: "jdbc:postgresql://dockerhost:9990/transfer"
+val dbUrl = System.getProperty("dbUrl") ?: "jdbc:postgresql://dockerhost:7990/transfer"
 val dbUser = System.getProperty("dbUser") ?: "transfer_admin"
 val dbPassword = System.getProperty("dbPassword") ?: "yIe7fq5klj78dKOCthDo5r@Jt"
 

@@ -5,7 +5,7 @@ services:
     image: postgres:alpine
     container_name: transfer_wdb
     ports:
-      - 9990:5432
+      - 7990:5432
     environment:
       POSTGRES_DB: transfer
       POSTGRES_USER: transfer_admin
