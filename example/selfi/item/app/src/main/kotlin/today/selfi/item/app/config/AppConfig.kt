@@ -1,7 +1,7 @@
-package today.selfi.app.config
+package today.selfi.item.app.config
 
-import today.selfi.app.config.AppConfigDSL.appConfig
-import today.selfi.app.config.Environment.DEV
+import today.selfi.item.app.config.AppConfigDSL.appConfig
+import today.selfi.item.app.config.Environment.DEV
 
 inline class Port(val port: Int)
 data class AppConfig(val port: Port)
@@ -21,7 +21,8 @@ object AppConfigDSL {
 
   @AppConfigDSL
   class AppConfigBuilder {
-    var port: Port = Port(85)
+    var port: Port =
+      Port(85)
 
     fun build() = AppConfig(port)
   }

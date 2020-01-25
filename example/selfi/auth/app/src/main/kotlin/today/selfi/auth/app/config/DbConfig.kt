@@ -1,7 +1,7 @@
-package today.selfi.app.config
+package today.selfi.auth.app.config
 
-import today.selfi.app.config.DbConfigDSL.dbConfig
-import today.selfi.app.config.Environment.DEV
+import today.selfi.auth.app.config.DbConfigDSL.dbConfig
+import today.selfi.auth.app.config.Environment.DEV
 
 data class DbConfig(
   val url: String,

@@ -20,7 +20,7 @@ shadowJar.apply {
   manifest.attributes.apply {
     put("Implementation-Title", "Items service")
     put("Implementation-Version", "1.0.0")
-    put("Main-Class", "today.selfi.app.ItemAppKt")
+    put("Main-Class", "today.selfi.auth.app.ItemAppKt")
 
     @Suppress("DEPRECATION")
     archiveName = "item-app.jar"

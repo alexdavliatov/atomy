@@ -1,4 +1,4 @@
-package today.selfi.app.config
+package today.selfi.item.app.config
 
 enum class Environment {
   DEV,

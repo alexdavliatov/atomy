@@ -1,4 +1,4 @@
-package today.selfi.app.config
+package today.selfi.item.app.config
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -7,7 +7,7 @@ import java.sql.Connection
 import java.util.logging.*
 import javax.sql.DataSource
 
-class DataSourceWrapper(private val dbConfig: DbConfig) : DataSource {
+class DataSourceWrapper(dbConfig: DbConfig) : DataSource {
   private val hikariDS = HikariDataSource(dbConfig.toHikariConfig())
 
   override fun setLogWriter(out: PrintWriter?) {

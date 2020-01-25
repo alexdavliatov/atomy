@@ -1,7 +1,7 @@
-package today.selfi.app.config
+package today.selfi.auth.app.config
 
-import today.selfi.app.config.AppConfigDSL.appConfig
-import today.selfi.app.config.Environment.DEV
+import today.selfi.auth.app.config.AppConfigDSL.appConfig
+import today.selfi.auth.app.config.Environment.DEV
 
 inline class Port(val port: Int)
 data class AppConfig(val port: Port)

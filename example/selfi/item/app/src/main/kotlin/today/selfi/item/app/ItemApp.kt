@@ -1,4 +1,4 @@
-package today.selfi.app
+package today.selfi.item.app
 
 import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder.crud
@@ -10,12 +10,12 @@ import org.koin.core.logger.Level.DEBUG
 import org.koin.dsl.module
 import org.slf4j.LoggerFactory
 import ru.adavliatov.atomy.common.ui.api.serializer.*
-import today.selfi.app.config.AppConfig
-import today.selfi.app.config.AppConfigs
-import today.selfi.app.config.DataSourceWrapper
-import today.selfi.app.config.DbConfigs
-import today.selfi.app.config.Environment
-import today.selfi.app.config.Environment.DEV
+import today.selfi.item.app.config.AppConfig
+import today.selfi.item.app.config.AppConfigs
+import today.selfi.item.app.config.DataSourceWrapper
+import today.selfi.item.app.config.DbConfigs
+import today.selfi.item.app.config.Environment
+import today.selfi.item.app.config.Environment.DEV
 import today.selfi.item.ui.api.ItemRoutes
 import today.selfie.item.service.repo.ItemJooqRepo
 import today.selfie.item.service.repo.ItemRepo
@@ -66,7 +66,13 @@ fun main(vararg args: String) {
   startKoin {
     printLogger(DEBUG)
 
-    modules(listOf(configModule, repoModule, apiModule))
+    modules(
+      listOf(
+        configModule,
+        repoModule,
+        apiModule
+      )
+    )
   }
 
   ItemApp().start()
