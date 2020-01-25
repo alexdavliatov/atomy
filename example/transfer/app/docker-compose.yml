@@ -10,7 +10,8 @@ services:
       POSTGRES_DB: transfer
       POSTGRES_USER: transfer_admin
       POSTGRES_PASSWORD: yIe7fq5klj78dKOCthDo5r@Jt
+      PGDATA: /var/lib/postgresql/transfer/data
     volumes:
-      - transfer_dbdata:/var/lib/postgresql/data/transfer
+      - transfer_dbdata:/var/lib/postgresql/transfer/data
 volumes:
   transfer_dbdata:
