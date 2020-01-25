@@ -1,6 +1,7 @@
 package today.selfie.profile.domain
 
 import ru.adavliatov.atomy.common.domain.*
+import ru.adavliatov.atomy.common.type.name.*
 import ru.adavliatov.common.type.json.impl.builder.JsonNodeBuilders.node
 import today.selfi.shared.ref.ext.RefExtensions.ref
 import java.time.Instant
@@ -19,9 +20,8 @@ class ProfileBuilder {
   var state = State("active")
   var createdAt: Instant = Instant.now()
   var modifiedAt: Instant = createdAt
+  var name: NameValue = NameValue("Bruce Wayne")
 
-  fun build(): Profile = Profile(
-    id, state, createdAt, modifiedAt
-  )
+  fun build(): Profile = Profile(id, state, createdAt, modifiedAt, name)
 }
 
