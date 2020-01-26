@@ -16,14 +16,14 @@ import today.selfi.auth.app.config.DataSourceWrapper
 import today.selfi.auth.app.config.DbConfigs
 import today.selfi.auth.app.config.Environment
 import today.selfi.auth.app.config.Environment.DEV
-import today.selfi.item.ui.api.ItemRoutes
-import today.selfie.item.service.repo.ItemJooqRepo
+import today.selfi.auth.service.repo.AccountJooqRepo
+import today.selfi.item.ui.api.AuthRoutes
 import today.selfie.item.service.repo.ItemRepo
 import javax.sql.DataSource
 
 class ItemApp : KoinComponent {
   private val appConfig by inject<AppConfig>()
-  private val itemRoutes by inject<ItemRoutes>()
+  private val itemRoutes by inject<AuthRoutes>()
 
   fun start() {
     val app = Javalin
@@ -55,11 +55,11 @@ val configModule = module {
 
 val repoModule = module {
   single { DataSourceWrapper(get()) as DataSource }
-  single { ItemJooqRepo(get()) as ItemRepo }
+  single { AccountJooqRepo(get()) as ItemRepo }
 }
 
 val apiModule = module {
-  single { ItemRoutes(get()) }
+  single { AuthRoutes(get()) }
 }
 
 fun main(vararg args: String) {
