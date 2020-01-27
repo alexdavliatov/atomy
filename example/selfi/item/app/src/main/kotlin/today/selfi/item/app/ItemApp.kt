@@ -2,6 +2,7 @@ package today.selfi.item.app
 
 import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder.crud
+import io.javalin.apibuilder.ApiBuilder.get
 import io.javalin.plugin.json.JavalinJackson
 import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin
@@ -36,6 +37,7 @@ class ItemApp : KoinComponent {
 
     JavalinJackson.configure(JsonMapper.mapper())
     app.routes {
+      get("") { it.result("Hello, world!") }
       crud("item/:id", itemRoutes)
     }
   }

@@ -1,7 +1,8 @@
 package today.selfi.auth.app
 
 import io.javalin.Javalin
-import io.javalin.apibuilder.ApiBuilder.crud
+import io.javalin.apibuilder.ApiBuilder.get
+import io.javalin.apibuilder.ApiBuilder.post
 import io.javalin.plugin.json.JavalinJackson
 import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin
@@ -21,7 +22,7 @@ import today.selfi.item.ui.api.AuthRoutes
 import today.selfie.item.service.repo.ItemRepo
 import javax.sql.DataSource
 
-class ItemApp : KoinComponent {
+class AuthApp : KoinComponent {
   private val appConfig by inject<AppConfig>()
   private val itemRoutes by inject<AuthRoutes>()
 
@@ -36,12 +37,23 @@ class ItemApp : KoinComponent {
 
     JavalinJackson.configure(JsonMapper.mapper())
     app.routes {
-      crud("item/:id", itemRoutes)
+      get("") { it.result("Hello, world!") }
+      get("login") { ctx ->
+        ctx.redirect("https://accounts.google.com/o/oauth2/auth?access_type=offline&prompt=consent&response_type=code&client_id=788673326191-cttogru95u9738b2ml1oovdb6sthvjft.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Fselfi.today%2Foauth%2Fgoogle%2Fcallback&scope=profile&state=secret894887")
+      }
+      post("oauth/google/callback") { ctx ->
+        println(ctx)
+        ctx.res.status = 200
+      }
+      get("oauth/google/callback") { ctx ->
+        println(ctx)
+        ctx.res.status = 200
+      }
     }
   }
 
   companion object {
-    val log = LoggerFactory.getLogger(ItemApp::class.java)
+    val log = LoggerFactory.getLogger(AuthApp::class.java)
   }
 }
 
@@ -69,5 +81,5 @@ fun main(vararg args: String) {
     modules(listOf(configModule, repoModule, apiModule))
   }
 
-  ItemApp().start()
+  AuthApp().start()
 }

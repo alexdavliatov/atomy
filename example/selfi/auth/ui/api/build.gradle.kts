@@ -15,4 +15,6 @@ dependencies {
   implementation(group = "org.pac4j", name = "pac4j-oidc", version = "4.0.0-RC2")
   implementation(group = "org.pac4j", name = "pac4j-jwt", version = "4.0.0-RC2")
   implementation(group = "org.pac4j", name = "pac4j-config", version = "4.0.0-RC2")
+
+  implementation(group = "com.github.scribejava", name = "scribejava-apis", version = "6.4.1")
 }

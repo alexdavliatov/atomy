@@ -7,7 +7,7 @@ inline class Port(val port: Int)
 data class AppConfig(val port: Port)
 
 object AppConfigs : Configs<AppConfig>(
-  mapOf(DEV to appConfig { port = Port(9900) })
+  mapOf(DEV to appConfig { port = Port(8080) })
     .withDefault {
       appConfig {}
     }
@@ -21,8 +21,7 @@ object AppConfigDSL {
 
   @AppConfigDSL
   class AppConfigBuilder {
-    var port: Port =
-      Port(85)
+    var port: Port = Port(8080)
 
     fun build() = AppConfig(port)
   }

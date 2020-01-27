@@ -30,7 +30,7 @@ jooq {
         excludes = "flyway_schema_version"
         schemata {
           schema {
-            withInputSchema("auth")
+            withInputSchema("account")
           }
         }
         isIncludeTables = true

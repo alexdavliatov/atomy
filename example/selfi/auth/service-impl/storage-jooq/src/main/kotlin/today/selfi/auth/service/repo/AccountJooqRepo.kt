@@ -1,14 +1,19 @@
 package today.selfi.auth.service.repo
 
 import org.jooq.SQLDialect.POSTGRES_10
+import ru.adavliatov.atomy.common.domain.*
+import ru.adavliatov.atomy.common.type.name.*
+import ru.adavliatov.atomy.common.type.ref.*
 import ru.adavliatov.atomy.common.type.ref.impl.json.*
-import ru.adavliatov.atomy.example.selfie.profile.service.repo.generated.account.tables.daos.*
-import ru.adavliatov.atomy.example.selfie.profile.service.repo.generated.account.tables.pojos.*
-import ru.adavliatov.atomy.example.selfie.profile.service.repo.generated.account.tables.records.*
+import ru.adavliatov.atomy.example.selfie.auth.service.repo.generated.tables.daos.*
+import ru.adavliatov.atomy.example.selfie.auth.service.repo.generated.tables.pojos.*
+import ru.adavliatov.atomy.example.selfie.auth.service.repo.generated.tables.records.*
 import ru.adavliatov.atomy.toolkit.jooq.ext.JooqExtensions.toJooqConfig
 import ru.adavliatov.atomy.toolkit.jooq.service.*
 import ru.adavliatov.common.type.json.impl.*
 import today.selfie.profile.domain.Account
+import today.selfie.profile.domain.MissingDetails
+import today.selfie.profile.domain.Origin
 import javax.sql.DataSource
 
 open class AccountJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Account, AccountsRecord, Accounts>(ds),

@@ -7,7 +7,7 @@ inline class Port(val port: Int)
 data class AppConfig(val port: Port)
 
 object AppConfigs : Configs<AppConfig>(
-  mapOf(DEV to appConfig { port = Port(9900) })
+  mapOf(DEV to appConfig { port = Port(8080) })
     .withDefault {
       appConfig {}
     }
