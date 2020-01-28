@@ -17,8 +17,9 @@ import today.selfi.auth.app.config.DataSourceWrapper
 import today.selfi.auth.app.config.DbConfigs
 import today.selfi.auth.app.config.Environment
 import today.selfi.auth.app.config.Environment.DEV
+import today.selfi.auth.app.config.ServerFactory
 import today.selfi.auth.service.repo.AccountJooqRepo
-import today.selfi.item.ui.api.AuthRoutes
+import today.selfi.auth.ui.api.AuthRoutes
 import today.selfie.item.service.repo.ItemRepo
 import javax.sql.DataSource
 
@@ -29,6 +30,8 @@ class AuthApp : KoinComponent {
   fun start() {
     val app = Javalin
       .create { config ->
+        config.server { ServerFactory.secureServer(appConfig.port, appConfig.securePort) }
+        config.enforceSsl = true
         config.requestLogger { ctx, executionTimeMs ->
           log.debug("[${ctx.req.requestURI} completed in ${executionTimeMs}ms]")
         }
@@ -38,6 +41,7 @@ class AuthApp : KoinComponent {
     JavalinJackson.configure(JsonMapper.mapper())
     app.routes {
       get("") { it.result("Hello, world!") }
+      post("") { it.result("Hello, world!") }
       get("login") { ctx ->
         ctx.redirect("https://accounts.google.com/o/oauth2/auth?access_type=offline&prompt=consent&response_type=code&client_id=788673326191-cttogru95u9738b2ml1oovdb6sthvjft.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Fselfi.today%2Foauth%2Fgoogle%2Fcallback&scope=profile&state=secret894887")
       }

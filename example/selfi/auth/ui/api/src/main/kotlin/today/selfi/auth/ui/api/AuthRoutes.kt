@@ -1,4 +1,4 @@
-package today.selfi.item.ui.api
+package today.selfi.auth.ui.api
 
 import io.javalin.apibuilder.CrudHandler
 import io.javalin.http.Context

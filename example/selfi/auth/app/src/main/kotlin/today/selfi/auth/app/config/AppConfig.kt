@@ -4,10 +4,10 @@ import today.selfi.auth.app.config.AppConfigDSL.appConfig
 import today.selfi.auth.app.config.Environment.DEV
 
 inline class Port(val port: Int)
-data class AppConfig(val port: Port)
+data class AppConfig(val port: Port, val securePort: Port)
 
 object AppConfigs : Configs<AppConfig>(
-  mapOf(DEV to appConfig { port = Port(8080) })
+  mapOf(DEV to appConfig { })
     .withDefault {
       appConfig {}
     }
@@ -21,8 +21,9 @@ object AppConfigDSL {
 
   @AppConfigDSL
   class AppConfigBuilder {
-    var port: Port = Port(85)
+    var port: Port = Port(8080)
+    var securePort: Port = Port(8443)
 
-    fun build() = AppConfig(port)
+    fun build() = AppConfig(port, securePort)
   }
 }
