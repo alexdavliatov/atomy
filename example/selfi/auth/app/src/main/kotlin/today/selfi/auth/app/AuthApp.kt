@@ -17,7 +17,6 @@ import today.selfi.auth.app.config.DataSourceWrapper
 import today.selfi.auth.app.config.DbConfigs
 import today.selfi.auth.app.config.Environment
 import today.selfi.auth.app.config.Environment.DEV
-import today.selfi.auth.app.config.ServerFactory
 import today.selfi.auth.service.repo.AccountJooqRepo
 import today.selfi.auth.ui.api.AuthRoutes
 import today.selfie.item.service.repo.ItemRepo
@@ -25,13 +24,12 @@ import javax.sql.DataSource
 
 class AuthApp : KoinComponent {
   private val appConfig by inject<AppConfig>()
-  private val itemRoutes by inject<AuthRoutes>()
+  private val authRoutes by inject<AuthRoutes>()
 
   fun start() {
     val app = Javalin
       .create { config ->
-        config.server { ServerFactory.secureServer(appConfig.port, appConfig.securePort) }
-        config.enforceSsl = true
+        //        config.server { ServerFactory.secureServer(appConfig.port, appConfig.securePort) }
         config.requestLogger { ctx, executionTimeMs ->
           log.debug("[${ctx.req.requestURI} completed in ${executionTimeMs}ms]")
         }

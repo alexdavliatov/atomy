@@ -1,0 +1,62 @@
+version: '3.1'
+
+services:
+  item_db:
+    image: postgres:11.6-alpine
+    container_name: selfi_item_wdb_dev
+    ports:
+      - 9990:5432
+    environment:
+      POSTGRES_DB: selfi_dev
+      POSTGRES_USER: selfi_admin
+      POSTGRES_PASSWORD: yIe7fq4h#k!KOCthDo5r@Jt
+      PGDATA: /var/lib/postgresql/data/item
+    volumes:
+      - selfi_item_dbdata:/var/lib/postgresql/data/item
+  profile_db:
+    image: postgres:11.6-alpine
+    container_name: selfi_profile_wdb_dev
+    ports:
+      - 9991:5432
+    environment:
+      POSTGRES_DB: profile_dev
+      POSTGRES_USER: profile_admin
+      POSTGRES_PASSWORD: yIe!df#Do5r@fGU
+      PGDATA: /var/lib/postgresql/data/profile
+    volumes:
+      - selfi_profile_dbdata:/var/lib/postgresql/data/profile
+  auth_db:
+    image: postgres:11.6-alpine
+    container_name: selfi_auth_wdb_dev
+    ports:
+      - 9992:5432
+    environment:
+      POSTGRES_DB: auth_dev
+      POSTGRES_USER: auth_admin
+      POSTGRES_PASSWORD: yIe7fq4h#k!Ktn&shDo5r@Jt
+      PGDATA: /var/lib/postgresql/data/auth
+    volumes:
+      - selfi_auth_dbdata:/var/lib/postgresql/data/auth
+  nginx:
+    image: nginx:1.15-alpine
+    restart: unless-stopped
+    volumes:
+      - ./data/nginx:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    ports:
+      - "80:80"
+      - "443:443"
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+  certbot:
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+volumes:
+  selfi_auth_dbdata:
+  selfi_item_dbdata:
+  selfi_profile_dbdata:
