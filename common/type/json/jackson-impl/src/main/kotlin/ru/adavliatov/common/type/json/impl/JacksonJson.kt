@@ -3,7 +3,7 @@ package ru.adavliatov.common.type.json.impl
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import ru.adavliatov.atomy.common.ext.TypeExtensions.takeAs
-import ru.adavliatov.atomy.common.type.json.*
+import ru.adavliatov.atomy.common.type.json.Json
 
 @Suppress("MemberVisibilityCanBePrivate")
 //todo (adavliatov): checks

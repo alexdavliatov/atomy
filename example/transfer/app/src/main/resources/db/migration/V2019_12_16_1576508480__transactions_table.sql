@@ -10,8 +10,8 @@ CREATE TABLE IF NOT EXISTS transaction.transactions
     created_at   TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() AT TIME ZONE 'utc'),
     modified_at  TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() AT TIME ZONE 'utc'),
 
-    from_account BIGINT NOT NULL,
-    to_account   BIGINT NOT NULL,
+    from_account BIGINT       NOT NULL,
+    to_account   BIGINT       NOT NULL,
     operation    VARCHAR(255) NOT NULL,
     money        JSONB,
 

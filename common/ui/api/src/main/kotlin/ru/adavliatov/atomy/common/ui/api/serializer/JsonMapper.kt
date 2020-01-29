@@ -6,7 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module
 import com.fasterxml.jackson.module.kotlin.KotlinModule
-import ru.adavliatov.atomy.common.domain.*
+import ru.adavliatov.atomy.common.domain.Id
+import ru.adavliatov.atomy.common.domain.State
 import java.time.Instant
 
 object JsonMapper {

@@ -4,7 +4,7 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import java.io.PrintWriter
 import java.sql.Connection
-import java.util.logging.*
+import java.util.logging.Logger
 import javax.sql.DataSource
 
 class DataSourceWrapper(dbConfig: DbConfig) : DataSource {

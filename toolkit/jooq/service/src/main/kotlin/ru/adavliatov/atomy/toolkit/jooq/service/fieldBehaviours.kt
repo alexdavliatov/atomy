@@ -2,11 +2,12 @@ package ru.adavliatov.atomy.toolkit.jooq.service
 
 import org.jooq.Configuration
 import org.jooq.DAO
+import org.jooq.DSLContext
 import org.jooq.Field
 import org.jooq.Table
 import org.jooq.TableRecord
 import ru.adavliatov.atomy.common.ext.CollectionExtensions.mapToSet
-import java.util.*
+import java.util.UUID
 import javax.sql.DataSource
 
 interface WithJooqConfig {
@@ -17,11 +18,17 @@ interface WithTable<Record : TableRecord<Record>> {
   val table: Table<Record>
 }
 
+interface WithDsl {
+  val dsl: DSLContext
+}
+
 interface WithJooqDao<
     Entity,
     Record : TableRecord<Record>,
-    Pojo> : WithTable<Record> {
+    Pojo> : WithTable<Record>, WithDsl {
   val dao: DAO<Record, Pojo, Long>
+  override val dsl: DSLContext
+    get() = dao.configuration().dsl()
   override val table: Table<Record>
     get() = dao.table
 }
@@ -58,7 +65,7 @@ interface WithIdField<Record : TableRecord<Record>> : WithTable<Record> {
     get() = lazy { table.field("id", Long::class.java) }
 }
 
-interface WithUidIdField<Record : TableRecord<Record>> : WithTable<Record> {
+interface WithUidField<Record : TableRecord<Record>> : WithTable<Record> {
   val uidField: Lazy<Field<UUID>>
     get() = lazy { table.field("uid", UUID::class.java) }
 }
@@ -66,6 +73,11 @@ interface WithUidIdField<Record : TableRecord<Record>> : WithTable<Record> {
 interface WithClientIdField<Record : TableRecord<Record>> : WithTable<Record> {
   val clientIdField: Lazy<Field<String>>
     get() = lazy { table.field("client_id", String::class.java) }
+}
+
+interface WithStateField<Record : TableRecord<Record>> : WithTable<Record> {
+  val stateField: Lazy<Field<String>>
+    get() = lazy { table.field("state", String::class.java) }
 }
 
 interface WithField<FieldType> {

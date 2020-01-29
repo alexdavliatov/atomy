@@ -1,33 +1,10 @@
 package ru.adavliatov.atomy.toolkit.jooq.service
 
 import org.jooq.Constraint
-import org.jooq.DAO
-import org.jooq.DSLContext
 import org.jooq.Field
 import org.jooq.TableRecord
-import ru.adavliatov.atomy.common.domain.*
-import ru.adavliatov.atomy.common.domain.ext.IdExtensions.checkedIdsToArray
-import ru.adavliatov.atomy.common.ext.CollectionExtensions.mapToSet
-import ru.adavliatov.atomy.common.service.repo.*
-
-@Suppress("unused")
-interface WithJooqFindByIds<
-    Entity : WithEntity<Entity>,
-    Record : TableRecord<Record>,
-    Pojo> : WithJooqDao<Entity, Record, Pojo>,
-  WithIdField<Record>,
-  WithFindByIds<Entity> {
-  override val dao: DAO<Record, Pojo, Long>
-
-  fun Pojo.toModel(): Entity
-
-  override fun findByIds(ids: Iterable<Id<Entity>>): Set<Entity> = dao
-    .fetch(
-      idField.value,
-      *ids.checkedIdsToArray()
-    )
-    .mapToSet { it.toModel() }
-}
+import ru.adavliatov.atomy.common.domain.WithEntity
+import ru.adavliatov.atomy.common.service.repo.WithFetchOrCreate
 
 @Suppress("unused")
 interface WithJooqFetchOrCreateModel<
@@ -46,12 +23,10 @@ interface WithJooqFetchOrCreate<
     Record : TableRecord<Record>,
     Pojo> : WithIdField<Record>,
   WithJooqDao<Model, Record, Pojo>,
-  WithUidIdField<Record>,
+  WithUidField<Record>,
   WithField<FieldType>,
   WithFetchOrCreate<Model>,
   WithModelToPojo<Model, Pojo> {
-  val dsl: DSLContext
-
   val insertOnDuplicateIgnoreConstraint: Constraint
 
   val fields: Lazy<List<Field<*>>>

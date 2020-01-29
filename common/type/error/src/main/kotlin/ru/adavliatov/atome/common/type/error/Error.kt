@@ -1,7 +1,8 @@
 package ru.adavliatov.atome.common.type.error
 
 import ru.adavliatov.atome.common.type.error.HttpWrapperErrors.InvalidArgumentError
-import ru.adavliatov.atome.common.type.error.code.*
+import ru.adavliatov.atome.common.type.error.code.ErrorCode
+import ru.adavliatov.atome.common.type.error.code.ErrorCodes
 import ru.adavliatov.atome.common.type.error.code.ErrorCodes.BadRequest
 import ru.adavliatov.atome.common.type.error.code.ErrorCodes.MultipleErrorsOccurred
 import ru.adavliatov.atome.common.type.error.code.ErrorCodes.NotFound

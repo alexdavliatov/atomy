@@ -3,9 +3,10 @@ package ru.adavliatov.atomy.toolkit.jooq.service
 import org.jooq.DSLContext
 import org.jooq.Table
 import org.jooq.TableRecord
-import ru.adavliatov.atomy.common.domain.*
-import ru.adavliatov.atomy.common.domain.ext.IdExtensions.checkedIds
-import ru.adavliatov.atomy.common.service.repo.*
+import ru.adavliatov.atomy.common.domain.WithEntity
+import ru.adavliatov.atomy.common.service.repo.EntityRepo
+import ru.adavliatov.atomy.toolkit.jooq.service.behaviour.WithJooqFindByIds
+import ru.adavliatov.atomy.toolkit.jooq.service.behaviour.WithJooqRemoveEntityByIds
 import javax.sql.DataSource
 
 @Suppress("unused")
@@ -25,17 +26,13 @@ interface WithEntityJooqDaoAdapter<
     Record : TableRecord<Record>,
     Pojo> : EntityRepo<Entity>,
   WithJooqFindByIds<Entity, Record, Pojo>,
-  WithEntityToPojo<Entity, Pojo> {
-
-  val dsl: DSLContext
-    get() = dao.configuration().dsl()
-
+  WithJooqRemoveEntityByIds<Entity, Record>,
+  WithEntityToPojo<Entity, Pojo>,
+  WithDsl {
   override fun create(models: Iterable<Entity>) = dao.insert(models.map { it.toPojo() })
 
   override fun modify(model: Entity): Entity = model.apply { dao.update(toPojo()) }
   override fun modify(models: Iterable<Entity>) = dao.update(models.map { it.toPojo() })
-  override fun removeByIds(ids: Iterable<Id<Entity>>): Unit = dao.deleteById(ids.checkedIds().toSet())
-
   override fun findAll(): Iterable<Entity> = dao.findAll().map { it.toEntity() }
 
   override fun count(): Long = dao.count()

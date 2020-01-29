@@ -1,11 +1,11 @@
 package ru.adavliatov.atomy.example.transfer.service.repo
 
-import ru.adavliatov.atomy.example.transfer.domain.*
+import ru.adavliatov.atomy.example.transfer.domain.Transaction
 import ru.adavliatov.atomy.example.transfer.service.repo.generated.transaction.tables.daos.*
 import ru.adavliatov.atomy.example.transfer.service.repo.generated.transaction.tables.pojos.*
 import ru.adavliatov.atomy.example.transfer.service.repo.generated.transaction.tables.records.*
 import ru.adavliatov.atomy.toolkit.jooq.ext.JooqExtensions.toJooqConfig
-import ru.adavliatov.atomy.toolkit.jooq.service.*
+import ru.adavliatov.atomy.toolkit.jooq.service.ModelJooqDaoAdapter
 import javax.sql.DataSource
 
 open class TransactionJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Transaction, TransactionsRecord, Transactions>(ds),

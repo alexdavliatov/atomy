@@ -16,7 +16,7 @@ import java.sql.Types.VARCHAR
 import java.time.Instant
 import java.time.OffsetDateTime
 import java.time.ZoneOffset.UTC
-import java.util.*
+import java.util.Objects
 
 class TimestampWithTimezoneBinder : Binding<OffsetDateTime, Instant> {
 

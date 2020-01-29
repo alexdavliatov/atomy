@@ -5,8 +5,10 @@ import com.github.scribejava.core.builder.ServiceBuilder
 import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Verb
 import java.io.IOException
-import java.util.*
-import java.util.concurrent.*
+import java.util.HashMap
+import java.util.Random
+import java.util.Scanner
+import java.util.concurrent.ExecutionException
 
 object Google20Example {
   private const val NETWORK_NAME = "Google"

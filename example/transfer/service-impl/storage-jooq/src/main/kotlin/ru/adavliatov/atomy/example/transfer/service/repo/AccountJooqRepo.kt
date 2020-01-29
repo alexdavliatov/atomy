@@ -1,12 +1,14 @@
 package ru.adavliatov.atomy.example.transfer.service.repo
 
-import ru.adavliatov.atomy.example.transfer.domain.*
+import ru.adavliatov.atomy.example.transfer.domain.Account
+import ru.adavliatov.atomy.example.transfer.domain.Name
 import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.Keys.*
 import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.daos.*
 import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.pojos.*
 import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.records.*
 import ru.adavliatov.atomy.toolkit.jooq.ext.JooqExtensions.toJooqConfig
-import ru.adavliatov.atomy.toolkit.jooq.service.*
+import ru.adavliatov.atomy.toolkit.jooq.service.ModelJooqDaoAdapter
+import ru.adavliatov.atomy.toolkit.jooq.service.WithJooqFetchOrCreateModel
 import javax.sql.DataSource
 
 open class AccountJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Account, AccountsRecord, Accounts>(ds),

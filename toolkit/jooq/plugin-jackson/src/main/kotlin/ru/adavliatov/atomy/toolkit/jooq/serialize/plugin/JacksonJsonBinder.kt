@@ -12,12 +12,12 @@ import org.jooq.BindingSetSQLOutputContext
 import org.jooq.BindingSetStatementContext
 import org.jooq.Converter
 import org.jooq.impl.DSL
-import ru.adavliatov.common.type.json.impl.*
+import ru.adavliatov.common.type.json.impl.JacksonJson
 import ru.adavliatov.common.type.json.impl.JacksonJson.Companion.toJson
 import java.sql.SQLException
 import java.sql.SQLFeatureNotSupportedException
 import java.sql.Types.VARCHAR
-import java.util.*
+import java.util.Objects
 
 class JacksonJsonBinder(val mapper: ObjectMapper = ObjectMapper().configure(FAIL_ON_UNKNOWN_PROPERTIES, false)) :
   Binding<Any, JacksonJson> {

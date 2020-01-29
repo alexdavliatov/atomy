@@ -1,7 +1,10 @@
 package today.selfie.item.domain
 
-import ru.adavliatov.atomy.common.domain.*
-import ru.adavliatov.atomy.common.type.name.*
+import ru.adavliatov.atomy.common.domain.Id
+import ru.adavliatov.atomy.common.domain.State
+import ru.adavliatov.atomy.common.domain.WithModel
+import ru.adavliatov.atomy.common.type.name.NameValue
+import ru.adavliatov.atomy.common.type.name.ValueHolder
 import today.selfie.common.type.duration.Duration
 import today.selfie.common.type.repeat.Repeat
 import today.selfie.item.domain.ItemTitles.GOAL
@@ -13,15 +16,15 @@ import java.time.Instant
 typealias OwnerId = Long
 
 data class Item(
-    override val id: Id<Item>,
-    override val state: State,
-    override val createdAt: Instant,
-    override val modifiedAt: Instant = createdAt,
+  override val id: Id<Item>,
+  override val state: State,
+  override val createdAt: Instant,
+  override val modifiedAt: Instant = createdAt,
 
-    val name: NameValue,
-    val duration: Duration?,
-    val ownerId: OwnerId,
-    val details: ItemDetails
+  val name: NameValue,
+  val duration: Duration?,
+  val ownerId: OwnerId,
+  val details: ItemDetails
 ) : WithModel<Item> {
   val title: ItemTitle
     get() = details.title

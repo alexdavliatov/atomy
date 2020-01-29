@@ -1,16 +1,18 @@
 package today.selfi.auth.service.repo
 
 import org.jooq.SQLDialect.POSTGRES_10
-import ru.adavliatov.atomy.common.domain.*
-import ru.adavliatov.atomy.common.type.name.*
-import ru.adavliatov.atomy.common.type.ref.*
-import ru.adavliatov.atomy.common.type.ref.impl.json.*
-import ru.adavliatov.atomy.example.selfie.auth.service.repo.generated.tables.daos.*
-import ru.adavliatov.atomy.example.selfie.auth.service.repo.generated.tables.pojos.*
-import ru.adavliatov.atomy.example.selfie.auth.service.repo.generated.tables.records.*
+import ru.adavliatov.atomy.common.domain.Id
+import ru.adavliatov.atomy.common.domain.State
+import ru.adavliatov.atomy.common.type.name.NameValue
+import ru.adavliatov.atomy.common.type.ref.Ref
+import ru.adavliatov.atomy.common.type.ref.impl.json.JsonConsumerId
+import ru.adavliatov.atomy.common.type.ref.impl.json.JsonConsumerRef
+import ru.adavliatov.atomy.example.selfie.auth.service.repo.generated.tables.daos.AccountsDao
+import ru.adavliatov.atomy.example.selfie.auth.service.repo.generated.tables.pojos.Accounts
+import ru.adavliatov.atomy.example.selfie.auth.service.repo.generated.tables.records.AccountsRecord
 import ru.adavliatov.atomy.toolkit.jooq.ext.JooqExtensions.toJooqConfig
-import ru.adavliatov.atomy.toolkit.jooq.service.*
-import ru.adavliatov.common.type.json.impl.*
+import ru.adavliatov.atomy.toolkit.jooq.service.ModelJooqDaoAdapter
+import ru.adavliatov.common.type.json.impl.JacksonJson
 import today.selfie.profile.domain.Account
 import today.selfie.profile.domain.MissingDetails
 import today.selfie.profile.domain.Origin

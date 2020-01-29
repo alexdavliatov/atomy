@@ -21,6 +21,12 @@ interface WithFindByIds<Entity : WithEntity<Entity>> {
 }
 
 @Suppress("unused")
+interface WithRemoveByIds<Entity : WithEntity<Entity>> {
+  fun removeById(id: Id<Entity>) = removeByIds(setOf(id))
+  fun removeByIds(ids: Iterable<Id<Entity>>)
+}
+
+@Suppress("unused")
 interface WithFindByExternalIds<Entity : WithRef> {
   fun findByExternalIds(refs: Refs): Set<Entity>
 }

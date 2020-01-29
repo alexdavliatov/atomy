@@ -1,10 +1,13 @@
 package ru.adavliatov.atomy.common.domain
 
 import ru.adavliatov.atomy.common.domain.error.DomainErrors.EmptyIdError
-import ru.adavliatov.atomy.common.type.ref.*
+import ru.adavliatov.atomy.common.type.ref.ConsumerId
+import ru.adavliatov.atomy.common.type.ref.ConsumerRef
+import ru.adavliatov.atomy.common.type.ref.Ref
+import ru.adavliatov.atomy.common.type.ref.WithRef
 import ru.adavliatov.atomy.common.type.ref.error.RefErrors.EmptyRefError
-import java.util.*
-import java.util.UUID.*
+import java.util.UUID
+import java.util.UUID.randomUUID
 import kotlin.Long.Companion.MAX_VALUE
 import kotlin.random.Random
 import kotlin.reflect.KClass
@@ -22,12 +25,16 @@ data class Id<E : WithEntity<E>>(
   val checkedId: Long
     get() = id ?: throw EmptyIdError(this)
 
+  val checkedUid: UUID
+    get() = uid ?: throw EmptyIdError(this)
+
   val uncheckedRef: ConsumerRef?
     get() = ref.ref
   val checkedRef: ConsumerRef
     get() = ref.ref ?: throw EmptyRefError(ref)
 
   fun withId(id: Long) = copy(id = id)
+  fun withUid(uid: UUID) = copy(uid = uid)
   fun withRef(ref: Ref) = copy(ref = ref)
 
   override fun equals(other: Any?): Boolean {

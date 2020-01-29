@@ -1,6 +1,7 @@
 package today.selfie.common.type.repeat
 
-import ru.adavliatov.atomy.common.type.name.*
+import ru.adavliatov.atomy.common.type.name.NameValue
+import ru.adavliatov.atomy.common.type.name.ValueHolder
 
 interface Content
 

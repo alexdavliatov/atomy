@@ -4,7 +4,8 @@ import ru.adavliatov.atomy.common.ext.ValidationExtensions.validate
 import ru.adavliatov.atomy.example.transfer.type.AmountExtensions.isValid
 import ru.adavliatov.atomy.example.transfer.type.AmountExtensions.zero
 import ru.adavliatov.atomy.example.transfer.type.CurrencyExtensions.isValid
-import ru.adavliatov.atomy.example.transfer.type.error.*
+import ru.adavliatov.atomy.example.transfer.type.error.DifferentCurrenciesError
+import ru.adavliatov.atomy.example.transfer.type.error.InvalidCurrencyError
 
 typealias Currency = String
 typealias Amount = Long

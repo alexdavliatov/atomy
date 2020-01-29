@@ -1,6 +1,6 @@
 package ru.adavliatov.atomy.common.ext
 
-import java.util.*
+import java.util.HashSet
 
 object CollectionExtensions {
   fun <T, R> Iterable<T>.mapToSet(transform: (T) -> R): Set<R> = mapTo(HashSet(), transform)

@@ -3,7 +3,7 @@ package today.selfi.auth.ui.api
 import io.javalin.apibuilder.CrudHandler
 import io.javalin.http.Context
 import ru.adavliatov.atome.common.type.error.HttpWrapperErrors.InvalidArgumentError
-import ru.adavliatov.atomy.common.domain.*
+import ru.adavliatov.atomy.common.domain.Id
 import ru.adavliatov.common.type.json.impl.builder.JsonNodeBuilders.node
 import today.selfi.shared.ref.ext.RefExtensions.ref
 import today.selfie.item.domain.Item

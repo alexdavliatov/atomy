@@ -3,7 +3,7 @@ package ru.adavliatov.atomy.toolkit.jooq.serialize.plugin
 import com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.jooq.Converter
-import ru.adavliatov.common.type.json.impl.*
+import ru.adavliatov.common.type.json.impl.JacksonJson
 import ru.adavliatov.common.type.json.impl.JacksonJson.Companion.toJson
 
 class JsonConverter(val mapper: ObjectMapper = ObjectMapper().configure(FAIL_ON_UNKNOWN_PROPERTIES, false)) :

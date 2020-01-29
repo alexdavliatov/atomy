@@ -2,7 +2,8 @@ package ru.adavliatov.common.type.json.impl.gson
 
 import com.google.gson.Gson
 import com.google.gson.JsonElement
-import ru.adavliatov.atomy.common.type.json.*
+import ru.adavliatov.atomy.common.type.json.Json
+import ru.adavliatov.atomy.common.type.json.JsonContext
 
 @Suppress("MemberVisibilityCanBePrivate")
 //todo (adavliatov): checks

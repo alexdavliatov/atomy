@@ -5,8 +5,8 @@ import com.github.scribejava.core.builder.ServiceBuilder
 import com.github.scribejava.core.model.OAuthRequest
 import com.github.scribejava.core.model.Verb
 import java.io.IOException
-import java.util.*
-import java.util.concurrent.*
+import java.util.Scanner
+import java.util.concurrent.ExecutionException
 
 object TwitterExample {
   private const val PROTECTED_RESOURCE_URL = "https://api.twitter.com/1.1/account/verify_credentials.json"

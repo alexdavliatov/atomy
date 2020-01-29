@@ -1,8 +1,9 @@
 package ru.adavliatov.atomy.example.transfer.type.error
 
 import ru.adavliatov.atome.common.type.error.HttpWrapperErrors.InvalidArgumentError
-import ru.adavliatov.atomy.example.transfer.type.*
-import ru.adavliatov.atomy.example.transfer.type.error.code.*
+import ru.adavliatov.atomy.example.transfer.type.Amount
+import ru.adavliatov.atomy.example.transfer.type.Currency
+import ru.adavliatov.atomy.example.transfer.type.error.code.MoneyErrorCodes
 import ru.adavliatov.atomy.example.transfer.type.error.code.MoneyErrorCodes.DifferentCurrencies
 import ru.adavliatov.atomy.example.transfer.type.error.code.MoneyErrorCodes.InvalidAmount
 

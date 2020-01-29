@@ -1,7 +1,8 @@
 package today.selfie.profile.domain
 
-import ru.adavliatov.atomy.common.domain.*
-import ru.adavliatov.atomy.common.type.name.*
+import ru.adavliatov.atomy.common.domain.Id
+import ru.adavliatov.atomy.common.domain.State
+import ru.adavliatov.atomy.common.type.name.NameValue
 import ru.adavliatov.common.type.json.impl.builder.JsonNodeBuilders.node
 import today.selfi.shared.ref.ext.RefExtensions.ref
 import java.time.Instant

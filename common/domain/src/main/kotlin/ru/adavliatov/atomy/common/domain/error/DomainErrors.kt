@@ -1,8 +1,8 @@
 package ru.adavliatov.atomy.common.domain.error
 
-import ru.adavliatov.atome.common.type.error.*
-import ru.adavliatov.atome.common.type.error.code.*
-import ru.adavliatov.atomy.common.domain.*
+import ru.adavliatov.atome.common.type.error.Error
+import ru.adavliatov.atome.common.type.error.code.CommonErrorCode
+import ru.adavliatov.atomy.common.domain.Id
 import ru.adavliatov.atomy.common.domain.error.DomainErrorCodes.EmptyId
 import ru.adavliatov.atomy.common.domain.error.DomainErrorCodes.InvalidClientId
 import ru.adavliatov.atomy.common.domain.error.DomainErrorCodes.InvalidStateName
@@ -12,6 +12,7 @@ object DomainErrors {
   object InvalidStateNameError : Error(InvalidStateName)
 
   class EmptyIdError(id: Id<*>) : Error(EmptyId, "Required id $id is empty")
+  class EmptyUidError(id: Id<*>) : Error(EmptyId, "Required uid $id is empty")
   object InvalidConsumerError : Error(InvalidClientId)
 }
 

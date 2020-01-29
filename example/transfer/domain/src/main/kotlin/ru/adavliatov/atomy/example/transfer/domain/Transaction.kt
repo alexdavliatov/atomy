@@ -1,10 +1,12 @@
 package ru.adavliatov.atomy.example.transfer.domain
 
-import ru.adavliatov.atomy.common.domain.*
+import ru.adavliatov.atomy.common.domain.Id
+import ru.adavliatov.atomy.common.domain.State
+import ru.adavliatov.atomy.common.domain.WithModel
 import ru.adavliatov.atomy.common.ext.ValidationExtensions.validate
 import ru.adavliatov.atomy.example.transfer.domain.Operations.ITEMS
 import ru.adavliatov.atomy.example.transfer.domain.error.TransactionErrors.InvalidOperationNameError
-import ru.adavliatov.atomy.example.transfer.type.*
+import ru.adavliatov.atomy.example.transfer.type.Money
 import java.time.Instant
 
 data class Transaction(

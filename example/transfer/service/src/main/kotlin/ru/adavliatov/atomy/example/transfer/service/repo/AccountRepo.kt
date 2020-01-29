@@ -1,8 +1,10 @@
 package ru.adavliatov.atomy.example.transfer.service.repo
 
 import ru.adavliatov.atomy.common.service.domain.error.RepoErrors.NotFoundRepoError
-import ru.adavliatov.atomy.common.service.repo.*
-import ru.adavliatov.atomy.example.transfer.domain.*
+import ru.adavliatov.atomy.common.service.repo.ModelRepo
+import ru.adavliatov.atomy.common.service.repo.WithFetchOrCreate
+import ru.adavliatov.atomy.example.transfer.domain.Account
+import ru.adavliatov.atomy.example.transfer.domain.Name
 
 interface AccountRepo : ModelRepo<Account>, WithFetchOrCreate<Account> {
   fun findByName(name: Name): Account?
