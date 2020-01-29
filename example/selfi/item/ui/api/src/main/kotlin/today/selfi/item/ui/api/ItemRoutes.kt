@@ -18,7 +18,7 @@ class ItemRoutes(val itemRepo: ItemRepo) : CrudHandler {
 
     itemRepo
       .fetchOrCreate(items)
-      .run { ctx.json(this) }
+      .run { ctx.status(201).json(this) }
   }
 
   override fun delete(ctx: Context, resourceId: String) {
@@ -59,7 +59,18 @@ class ItemRoutes(val itemRepo: ItemRepo) : CrudHandler {
   }
 
   override fun update(ctx: Context, resourceId: String) {
-    TODO("not implemented")
+    val clientId = ctx.clientId()
+    val rawId = ctx.pathParam("id").toLong()
+    val id = Id.newId<Item>(
+      ref(node().with("id", clientId).end()!!)
+    ).withId(rawId)
+    val view = ctx.bodyAsClass(ItemView::class.java)
+    itemRepo.findById(id)
+      ?.run {
+        itemRepo.modify(view.toModel(clientId))
+        ctx.status(200)
+      }
+      ?: ctx.status(404)
   }
 
   companion object {
