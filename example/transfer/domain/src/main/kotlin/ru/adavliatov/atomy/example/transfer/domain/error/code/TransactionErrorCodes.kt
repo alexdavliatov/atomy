@@ -1,6 +1,6 @@
 package ru.adavliatov.atomy.example.transfer.domain.error.code
 
-import ru.adavliatov.atome.common.type.error.code.CommonErrorCode
+import ru.adavliatov.atomy.common.type.error.code.*
 
 object TransactionErrorCodes {
   object InvalidOperationName : CommonErrorCode("invalid-operation-name", "Invalid operation name")

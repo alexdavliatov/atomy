@@ -1,6 +1,6 @@
 package today.selfi.auth.app.domain
 
-import ru.adavliatov.atome.common.type.error.HttpWrapperErrors.NotFoundError
+import ru.adavliatov.atomy.common.type.error.HttpWrapperErrors.NotFoundError
 import today.selfi.auth.app.config.Environment
 
 class ConfigNotFoundError(clazz: Class<*>, env: Environment) :

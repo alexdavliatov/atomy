@@ -1,6 +1,6 @@
 package today.selfi.item.app.domain
 
-import ru.adavliatov.atome.common.type.error.HttpWrapperErrors.NotFoundError
+import ru.adavliatov.atomy.common.type.error.HttpWrapperErrors.NotFoundError
 import today.selfi.item.app.config.Environment
 
 class ConfigNotFoundError(clazz: Class<*>, env: Environment) :

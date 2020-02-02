@@ -1,14 +1,17 @@
 package today.selfi.profile.service.repo
 
 import org.jooq.SQLDialect.POSTGRES_10
-import ru.adavliatov.atomy.common.type.ref.impl.json.JsonConsumerId
-import ru.adavliatov.atomy.example.selfie.profile.service.repo.generated.profile.tables.daos.*
-import ru.adavliatov.atomy.example.selfie.profile.service.repo.generated.profile.tables.pojos.*
-import ru.adavliatov.atomy.example.selfie.profile.service.repo.generated.profile.tables.records.*
+import ru.adavliatov.atomy.common.domain.*
+import ru.adavliatov.atomy.common.type.json.impl.*
+import ru.adavliatov.atomy.common.type.name.*
+import ru.adavliatov.atomy.common.type.ref.*
+import ru.adavliatov.atomy.common.type.ref.impl.json.*
 import ru.adavliatov.atomy.toolkit.jooq.ext.JooqExtensions.toJooqConfig
-import ru.adavliatov.atomy.toolkit.jooq.service.ModelJooqDaoAdapter
-import ru.adavliatov.common.type.json.impl.JacksonJson
-import today.selfie.profile.domain.Profile
+import ru.adavliatov.atomy.toolkit.jooq.service.*
+import today.selfi.profile.domain.Profile
+import today.selfi.profile.service.repo.generated.tables.daos.ProfilesDao
+import today.selfi.profile.service.repo.generated.tables.pojos.Profiles
+import today.selfi.profile.service.repo.generated.tables.records.ProfilesRecord
 import javax.sql.DataSource
 
 open class ProfileJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Profile, ProfilesRecord, Profiles>(ds),
@@ -35,7 +38,7 @@ open class ProfileJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Profile, Profil
       uid,
       Ref(
         JsonConsumerId(consumer),
-        JsonConsumerRef(ref)
+        ref?.let { JsonConsumerRef(it) }
       ),
       Profile::class
     ),

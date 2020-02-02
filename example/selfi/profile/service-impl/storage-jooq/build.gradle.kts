@@ -61,7 +61,7 @@ jooq {
             types = """.*TIMESTAMP\ WITH\ TIME\ ZONE.*"""
           }
           forcedType {
-            userType = "ru.adavliatov.common.type.json.impl.JacksonJson"
+            userType = "ru.adavliatov.atomy.common.type.json.impl.JacksonJson"
             binding = "ru.adavliatov.atomy.toolkit.jooq.serialize.plugin.JacksonJsonBinder"
             types = ".*JSON.*"
           }
@@ -82,7 +82,7 @@ jooq {
         isDaos = true
       }
       target {
-        packageName = "ru.adavliatov.atomy.example.selfie.profile.service.repo.generated"
+        packageName = "today.selfi.profile.service.repo.generated"
         directory = "src/generated/kotlin"
       }
       strategy {

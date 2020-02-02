@@ -14,12 +14,12 @@ import org.jooq.BindingSetStatementContext
 import org.jooq.Converter
 import org.jooq.conf.ParamType
 import org.jooq.impl.DSL
-import ru.adavliatov.common.type.json.impl.gson.GsonJson
-import ru.adavliatov.common.type.json.impl.gson.GsonJson.Companion.toJson
+import ru.adavliatov.atomy.common.type.json.impl.*
+import ru.adavliatov.atomy.common.type.json.impl.GsonJson.Companion.toJson
 import java.sql.SQLException
 import java.sql.SQLFeatureNotSupportedException
 import java.sql.Types
-import java.util.Objects
+import java.util.*
 
 class GsonJsonBinder : Binding<Any, GsonJson> {
   override fun converter() = object : Converter<Any, GsonJson> {

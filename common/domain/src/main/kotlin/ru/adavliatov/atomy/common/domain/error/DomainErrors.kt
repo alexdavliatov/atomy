@@ -1,11 +1,11 @@
 package ru.adavliatov.atomy.common.domain.error
 
-import ru.adavliatov.atome.common.type.error.Error
-import ru.adavliatov.atome.common.type.error.code.CommonErrorCode
-import ru.adavliatov.atomy.common.domain.Id
+import ru.adavliatov.atomy.common.domain.*
 import ru.adavliatov.atomy.common.domain.error.DomainErrorCodes.EmptyId
 import ru.adavliatov.atomy.common.domain.error.DomainErrorCodes.InvalidClientId
 import ru.adavliatov.atomy.common.domain.error.DomainErrorCodes.InvalidStateName
+import ru.adavliatov.atomy.common.type.error.*
+import ru.adavliatov.atomy.common.type.error.code.*
 
 @Suppress("unused")
 object DomainErrors {

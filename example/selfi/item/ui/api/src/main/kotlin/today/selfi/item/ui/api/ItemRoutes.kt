@@ -2,31 +2,31 @@ package today.selfi.item.ui.api
 
 import io.javalin.apibuilder.CrudHandler
 import io.javalin.http.Context
-import ru.adavliatov.atomy.common.domain.Id
-import ru.adavliatov.common.type.json.impl.builder.JsonNodeBuilders.node
+import ru.adavliatov.atomy.common.domain.*
+import ru.adavliatov.atomy.common.type.error.*
+import ru.adavliatov.atomy.common.type.ref.*
+import today.selfi.item.domain.Item
+import today.selfi.item.service.repo.ItemRepo
 import today.selfi.item.ui.api.view.ItemView
-import today.selfi.shared.ref.ext.RefExtensions.ref
-import today.selfie.item.domain.Item
-import today.selfie.item.service.repo.ItemRepo
-import java.util.UUID
+import today.selfi.shared.type.ref.ext.RefExtensions
+import java.util.*
 
-class ItemRoutes(val itemRepo: ItemRepo) : CrudHandler {
+class ItemRoutes(private val itemRepo: ItemRepo) : CrudHandler {
   override fun create(ctx: Context) {
-    val clientId = ctx.clientId()
+    val consumer = ctx.consumer()
+    val owner = 0L
     val views = ctx.bodyAsClass(Array<ItemView>::class.java).toList()
-    val items = views.map { it.toModel(clientId) }
+    val itemIds = views.map { it.toModel(owner, consumer) }
 
     itemRepo
-      .fetchOrCreate(items)
+      .fetchOrCreate(itemIds)
       .run { ctx.status(201).json(this) }
   }
 
   override fun delete(ctx: Context, resourceId: String) {
-    val clientId = ctx.clientId()
+    val consumer = ctx.consumer()
     val resource = UUID.fromString(resourceId)
-    val id = Id.newId<Item>(
-      ref(node().with("id", clientId).end()!!)
-    ).withUid(resource)
+    val id = Id.newId<Item>(consumer).withUid(resource)
 
     itemRepo
       .findById(id)
@@ -36,13 +36,11 @@ class ItemRoutes(val itemRepo: ItemRepo) : CrudHandler {
   }
 
   override fun getAll(ctx: Context) {
-    val clientId = ctx.clientId()
+    val consumer = ctx.consumer()
     val uids = ctx.bodyAsClass(Array<UUID>::class.java).toList()
     uids
       .map {
-        Id.newId<Item>(
-          ref(node().with("id", clientId).end()!!)
-        ).withUid(it)
+        Id.newId<Item>(Ref(consumer)).withUid(it)
       }
       .let {
         ctx.json(itemRepo.findByIds(it))
@@ -50,31 +48,31 @@ class ItemRoutes(val itemRepo: ItemRepo) : CrudHandler {
   }
 
   override fun getOne(ctx: Context, resourceId: String) {
-    val clientId = ctx.clientId()
+    val consumer = ctx.consumer()
     val rawId = ctx.pathParam("id").toLong()
-    val id = Id.newId<Item>(
-      ref(node().with("id", clientId).end()!!)
-    ).withId(rawId)
+    val id = Id.newId<Item>(Ref(consumer)).withId(rawId)
     ctx.json(itemRepo.findByIdChecked(id))
   }
 
   override fun update(ctx: Context, resourceId: String) {
-    val clientId = ctx.clientId()
+    val uid = UUID.fromString(resourceId)
+    val consumer = ctx.consumer()
     val rawId = ctx.pathParam("id").toLong()
-    val id = Id.newId<Item>(
-      ref(node().with("id", clientId).end()!!)
-    ).withId(rawId)
+    val id = Id.newId<Item>(Ref(consumer)).withId(rawId)
     val view = ctx.bodyAsClass(ItemView::class.java)
     itemRepo.findById(id)
+      ?.run { view.toModel(uid, consumer)(itemRepo) }
       ?.run {
-        itemRepo.modify(view.toModel(clientId))
+        itemRepo.modify(this)
         ctx.status(200)
       }
       ?: ctx.status(404)
   }
 
   companion object {
-    fun Context.clientId() =
-      header("clientId")// ?: throw HttpWrapperErrors.InvalidArgumentError(message = "No client id provided")
+    fun Context.consumer() =
+      header("consumer")
+        ?.run { RefExtensions.consumer(this) }
+        ?: throw HttpWrapperErrors.InvalidArgumentError(message = "No client id provided")
   }
 }

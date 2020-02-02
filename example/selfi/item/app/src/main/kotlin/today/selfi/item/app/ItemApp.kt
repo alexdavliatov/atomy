@@ -10,16 +10,16 @@ import org.koin.core.inject
 import org.koin.core.logger.Level.DEBUG
 import org.koin.dsl.module
 import org.slf4j.LoggerFactory
-import ru.adavliatov.atomy.common.ui.api.serializer.JsonMapper
+import ru.adavliatov.atomy.common.ui.api.serializer.*
 import today.selfi.item.app.config.AppConfig
 import today.selfi.item.app.config.AppConfigs
 import today.selfi.item.app.config.DataSourceWrapper
 import today.selfi.item.app.config.DbConfigs
 import today.selfi.item.app.config.Environment
 import today.selfi.item.app.config.Environment.DEV
+import today.selfi.item.service.repo.ItemJooqRepo
+import today.selfi.item.service.repo.ItemRepo
 import today.selfi.item.ui.api.ItemRoutes
-import today.selfie.item.service.repo.ItemJooqRepo
-import today.selfie.item.service.repo.ItemRepo
 import javax.sql.DataSource
 
 class ItemApp : KoinComponent {

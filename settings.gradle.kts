@@ -65,7 +65,7 @@ include(
   ":example:selfi:auth:service-impl:storage-jooq",
   ":example:selfi:auth:ui:api",
   ":example:selfi:auth:app",
-  //< selfie
+  //< selfi
 
   //> transfer
   ":example:transfer",
