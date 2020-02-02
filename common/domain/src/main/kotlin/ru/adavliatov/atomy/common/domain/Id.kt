@@ -1,23 +1,19 @@
 package ru.adavliatov.atomy.common.domain
 
 import ru.adavliatov.atomy.common.domain.error.DomainErrors.EmptyIdError
-import ru.adavliatov.atomy.common.type.ref.ConsumerId
-import ru.adavliatov.atomy.common.type.ref.ConsumerRef
-import ru.adavliatov.atomy.common.type.ref.Ref
-import ru.adavliatov.atomy.common.type.ref.WithRef
+import ru.adavliatov.atomy.common.type.ref.*
 import ru.adavliatov.atomy.common.type.ref.error.RefErrors.EmptyRefError
-import java.util.UUID
-import java.util.UUID.randomUUID
+import java.util.*
+import java.util.UUID.*
 import kotlin.Long.Companion.MAX_VALUE
 import kotlin.random.Random
-import kotlin.reflect.KClass
 
 @Suppress("unused")
 data class Id<E : WithEntity<E>>(
   val id: Long? = null,
   val uid: UUID? = null,
   val ref: Ref,
-  val model: KClass<E>
+  val model: Class<E>
 ) {
   val isNew: Boolean
     get() = id == null
@@ -55,17 +51,24 @@ data class Id<E : WithEntity<E>>(
     val random = Random
 
     inline fun <reified E : WithEntity<E>> newId(ref: Ref) =
-      Id(ref = ref, model = E::class)
+      Id(ref = ref, model = E::class.java)
 
     inline fun <reified E : WithEntity<E>> newId(consumerId: ConsumerId) =
-      Id(ref = Ref(consumerId), model = E::class)
+      Id(ref = Ref(consumerId), model = E::class.java)
 
     inline fun <reified E : WithEntity<E>> randomIdWith(ref: Ref): Id<E> =
       Id(
         random.nextLong(0, MAX_VALUE),
         randomUUID(),
         ref,
-        E::class
+        E::class.java
+      )
+
+    inline fun <reified E : WithEntity<E>> randomNewIdWith(ref: Ref): Id<E> =
+      Id(
+        uid = randomUUID(),
+        ref = ref,
+        model = E::class.java
       )
   }
 }

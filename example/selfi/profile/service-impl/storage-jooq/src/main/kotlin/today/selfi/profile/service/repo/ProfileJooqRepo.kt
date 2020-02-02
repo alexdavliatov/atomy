@@ -40,7 +40,7 @@ open class ProfileJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Profile, Profil
         JsonConsumerId(consumer),
         ref?.let { JsonConsumerRef(it) }
       ),
-      Profile::class
+      entityClass
     ),
     State(state),
     createdAt,

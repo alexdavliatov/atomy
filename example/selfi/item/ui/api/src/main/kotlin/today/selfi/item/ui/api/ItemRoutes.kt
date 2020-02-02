@@ -16,10 +16,10 @@ class ItemRoutes(private val itemRepo: ItemRepo) : CrudHandler {
     val consumer = ctx.consumer()
     val owner = 0L
     val views = ctx.bodyAsClass(Array<ItemView>::class.java).toList()
-    val itemIds = views.map { it.toModel(owner, consumer) }
+    val items = views.map { it.toModel(owner, consumer) }
 
     itemRepo
-      .fetchOrCreate(itemIds)
+      .fetchOrCreate(items)
       .run { ctx.status(201).json(this) }
   }
 
@@ -36,6 +36,11 @@ class ItemRoutes(private val itemRepo: ItemRepo) : CrudHandler {
   }
 
   override fun getAll(ctx: Context) {
+//    val consumer = ctx.consumer()
+    ctx.json(itemRepo.findAll())
+  }
+
+  fun multiple(ctx: Context) {
     val consumer = ctx.consumer()
     val uids = ctx.bodyAsClass(Array<UUID>::class.java).toList()
     uids
@@ -49,16 +54,15 @@ class ItemRoutes(private val itemRepo: ItemRepo) : CrudHandler {
 
   override fun getOne(ctx: Context, resourceId: String) {
     val consumer = ctx.consumer()
-    val rawId = ctx.pathParam("id").toLong()
-    val id = Id.newId<Item>(Ref(consumer)).withId(rawId)
+    val uid = UUID.fromString(resourceId)
+    val id = Id.newId<Item>(Ref(consumer)).withUid(uid)
     ctx.json(itemRepo.findByIdChecked(id))
   }
 
   override fun update(ctx: Context, resourceId: String) {
-    val uid = UUID.fromString(resourceId)
     val consumer = ctx.consumer()
-    val rawId = ctx.pathParam("id").toLong()
-    val id = Id.newId<Item>(Ref(consumer)).withId(rawId)
+    val uid = UUID.fromString(resourceId)
+    val id = Id.newId<Item>(Ref(consumer)).withUid(uid)
     val view = ctx.bodyAsClass(ItemView::class.java)
     itemRepo.findById(id)
       ?.run { view.toModel(uid, consumer)(itemRepo) }

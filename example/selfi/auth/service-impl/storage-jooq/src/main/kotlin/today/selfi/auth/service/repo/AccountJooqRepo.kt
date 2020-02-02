@@ -42,9 +42,9 @@ open class AccountJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Account, Accoun
       uid,
       Ref(
         JsonConsumerId(consumer),
-        JsonConsumerRef(ref)
+        ref?.let { JsonConsumerRef(it) }
       ),
-      Account::class
+      entityClass
     ),
     State(state),
     createdAt,

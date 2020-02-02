@@ -49,9 +49,9 @@ open class ItemJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Item, ItemsRecord,
       uid,
       Ref(
         JsonConsumerId(consumer),
-        JsonConsumerRef(ref)
+        ref?.let { JsonConsumerRef(it) }
       ),
-      Item::class
+      entityClass
     ),
     State(state),
     createdAt,

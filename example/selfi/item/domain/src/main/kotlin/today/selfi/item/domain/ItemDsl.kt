@@ -11,12 +11,11 @@ object ItemDsl {
   fun item(builder: ItemBuilder = ItemBuilder(), body: ItemBuilder.() -> Unit) = builder.apply(body).build()
 }
 
+//todo (adavliatov): introduce common builder (*Suit)
 class ItemBuilder {
   var id: Id<Item> = Id.randomIdWith(
     ref = ref(TextNode(aRandomString()))
   )
-
-  private fun aRandomString() = UUID.randomUUID().toString()
 
   var state = State("active")
   var createdAt = Instant.now()
@@ -30,5 +29,9 @@ class ItemBuilder {
   fun build(): Item = Item(
     id, state, createdAt, modifiedAt, name, duration, ownerId, details
   )
+
+  companion object {
+    private fun aRandomString() = UUID.randomUUID().toString()
+  }
 }
 

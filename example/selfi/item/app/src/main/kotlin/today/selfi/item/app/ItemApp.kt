@@ -38,6 +38,7 @@ class ItemApp : KoinComponent {
     JavalinJackson.configure(JsonMapper.mapper())
     app.routes {
       get("") { it.result("Hello, world!") }
+      get("item/multiple", itemRoutes::multiple)
       crud("item/:id", itemRoutes)
     }
   }

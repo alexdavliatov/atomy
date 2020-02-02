@@ -3,18 +3,19 @@ package ru.adavliatov.atomy.toolkit.jooq.service
 import org.jooq.Constraint
 import org.jooq.Field
 import org.jooq.TableRecord
-import ru.adavliatov.atomy.common.domain.WithEntity
-import ru.adavliatov.atomy.common.service.repo.WithFetchOrCreate
+import ru.adavliatov.atomy.common.domain.*
+import ru.adavliatov.atomy.common.service.repo.*
+import java.util.*
 
 @Suppress("unused")
 interface WithJooqFetchOrCreateModel<
     Model : WithEntity<Model>,
     Record : TableRecord<Record>,
     Pojo> : WithIdField<Record>,
-  WithClientIdField<Record>,
-  WithJooqFetchOrCreate<String, Model, Record, Pojo> {
-  override val specificField: Field<String>
-    get() = clientIdField.value
+  WithUidField<Record>,
+  WithJooqFetchOrCreate<UUID, Model, Record, Pojo> {
+  override val specificField: Field<UUID>
+    get() = uidField.value
 }
 
 interface WithJooqFetchOrCreate<

@@ -7,7 +7,7 @@ import org.jooq.Field
 import org.jooq.Table
 import org.jooq.TableRecord
 import ru.adavliatov.atomy.common.ext.CollectionExtensions.mapToSet
-import java.util.UUID
+import java.util.*
 import javax.sql.DataSource
 
 interface WithJooqConfig {
@@ -70,9 +70,9 @@ interface WithUidField<Record : TableRecord<Record>> : WithTable<Record> {
     get() = lazy { table.field("uid", UUID::class.java) }
 }
 
-interface WithClientIdField<Record : TableRecord<Record>> : WithTable<Record> {
-  val clientIdField: Lazy<Field<String>>
-    get() = lazy { table.field("client_id", String::class.java) }
+interface WithConsumerField<Record : TableRecord<Record>> : WithTable<Record> {
+  val consumerField: Lazy<Field<String>>
+    get() = lazy { table.field("consumer", String::class.java) }
 }
 
 interface WithStateField<Record : TableRecord<Record>> : WithTable<Record> {
