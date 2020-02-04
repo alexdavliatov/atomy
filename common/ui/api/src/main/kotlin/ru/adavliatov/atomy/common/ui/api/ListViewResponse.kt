@@ -1,22 +1,24 @@
 package ru.adavliatov.atomy.common.ui.api
 
-import ru.yandex.commune.page.PageWithData
-import ru.yandex.contest.extension.reversed
+import ru.adavliatov.atomy.common.type.chunk.*
+import ru.adavliatov.atomy.common.type.page.*
+import ru.adavliatov.atomy.common.type.page.ext.CollectionExtensions.reversed
+import ru.adavliatov.atomy.common.ui.api.ext.CollectionExtensions.sortedBy
 
-data class ListViewResponse<Model, View>(val count: Int, val items: List<Any?>) {
+data class ListViewResponse<Model, View : Any>(val count: Long, val items: List<Any?>) {
   constructor(
-    models: PageWithData<Model>,
-    chunk: Chunk,
+    models: Chunk<Model>,
+    page: Page,
     modelToView: (Model) -> View,
     propertyExtractor: (View) -> Any?,
     propertyProjector: (View) -> Any? = { it }
   ) : this(
-    models.page.entitiesCount,
-    models.data.map { modelToView(it) }
+    models.total,
+    models.items.map { modelToView(it) }
       .sortedBy { propertyExtractor(it) }
       .map { propertyProjector(it) }
-      .reversed(chunk)
+      .reversed(page)
   )
 
-  constructor(views: PageWithData<View>) : this(views.page.entitiesCount, views.data)
+  constructor(views: Chunk<View>) : this(views.total, views.items)
 }

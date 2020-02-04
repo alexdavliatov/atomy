@@ -3,8 +3,10 @@ rootProject.name = "ru.adavliatov.atomy"
 include(
   ":common",
   ":common:ext",
-  ":common:type:name",
 
+  ":common:type:name",
+  ":common:type:chunk",
+  ":common:type:page",
   ":common:type:error",
 
   ":common:type:json:core",
@@ -18,7 +20,7 @@ include(
   ":common:domain",
   ":common:service",
   ":common:ui:api",
-  ":common:ui:cmd",
+  ":common:ui:cli",
   ":common:app",
 
   ":toolkit",
@@ -78,7 +80,6 @@ include(
   ":example:transfer:service-impl:storage-jooq",
   //> ui
   ":example:transfer:ui:api",
-  ":example:transfer:ui:cmd",
   ":example:transfer:app"
   //< transfer
 )

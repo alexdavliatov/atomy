@@ -1,115 +1,127 @@
 package ru.adavliatov.atomy.common.ui.api
 
+import ru.adavliatov.atomy.common.type.chunk.*
+import ru.adavliatov.atomy.common.type.page.*
+import ru.adavliatov.atomy.common.ui.api.domain.*
+import ru.adavliatov.atomy.common.ui.api.domain.error.*
+import ru.adavliatov.atomy.common.ui.api.domain.error.StatusCodes.CREATED
+import ru.adavliatov.atomy.common.ui.api.domain.error.StatusCodes.NO_CONTENT
+import ru.adavliatov.atomy.common.ui.api.domain.error.StatusCodes.OK
+import ru.yandex.contest.web.api.priv.admin.v1.PropertyExtractor
+import ru.yandex.contest.web.api.priv.admin.v1.PropertyProjector
 import kotlin.reflect.KClass
 
 interface WithNew<Id, View> {
-  fun new(user: User, view: View): IdWrapper<Id>
+  fun new(auth: Auth, view: View): IdWrapper<Id>
 
-  fun User.canCreate(): Boolean = false
+  fun Auth.canCreate(): Boolean = false
 
-  @ApiOperation("Create entity")
-  @PostMapping(value = [""])
-  fun new(
-    @ModelAttribute user: User,
-    @Valid @RequestBody request: View,
-    response: HttpServletResponse
+  fun newRoute(
+    context: Context,
+    request: View
   ): IdWrapper<Id> {
-    if (!user.canCreate()) throw PermissionDeniedError(CanNotCreate)
+    val (_, response, auth) = context
+    if (!auth.canCreate()) throw PermissionDeniedError(CanNotCreate)
 
-    return new(user, request).also { response.status = CREATED.value() }
+    return new(auth, request)
+      .also { response.withStatusCode(CREATED) }
   }
 
 }
 
 interface WithModify<Id, View> {
-  fun modify(user: User, id: Id, view: View)
+  fun modify(auth: Auth, id: Id, view: View)
 
-  fun User.canModify(modelId: Id): Boolean = false
+  fun Auth.canModify(modelId: Id): Boolean = false
 
-  @ApiOperation("Update entity")
-  @PatchMapping(value = ["{entityId}"])
   fun modify(
-    @ModelAttribute user: User,
-    @PathVariable(value = "entityId") id: Id,
-    @RequestBody view: View,
-    response: HttpServletResponse
+    context: Context,
+    id: Id,
+    view: View
   ) {
-    if (!user.canModify(id)) throw PermissionDeniedError(CanNotModify)
+    val (_, response, auth) = context
+    if (!auth.canModify(id)) throw PermissionDeniedError(CanNotModify)
 
-    modify(user, id, view).also { response.status = NO_CONTENT.value() }
+    modify(auth, id, view)
+      .also { response.withStatusCode(NO_CONTENT) }
   }
 }
 
 interface WithRemove<Id> {
-  fun remove(user: User, id: Id)
+  fun remove(auth: Auth, id: Id)
 
-  fun User.canRemove(modelId: Id): Boolean = false
+  fun Auth.canRemove(modelId: Id): Boolean = false
 
-  @ApiOperation("Remove entity")
-  @DeleteMapping(value = ["{entityId}"])
   fun remove(
-    @ModelAttribute user: User,
-    @PathVariable(value = "entityId") id: Id,
-    response: HttpServletResponse
+    context: Context,
+    id: Id
   ) {
-    if (!user.canRemove(id)) throw PermissionDeniedError(CanNotRemove)
+    val (_, response, auth) = context
+    if (!auth.canRemove(id)) throw PermissionDeniedError(CanNotRemove)
 
-    remove(user, id).also { response.status = NO_CONTENT.value() }
+    remove(auth, id)
+      .also { response.withStatusCode(NO_CONTENT) }
   }
 }
 
+typealias FieldName = String
 interface WithOne<Id, Model, View> : WithViewableModel<Model, View>, WithPropertyProjector<View> {
-  fun one(user: User, id: Id): Model?
+  fun one(auth: Auth, id: Id): Model?
 
-  fun User.canAccess(modelId: Id): Boolean = false
+  fun Auth.canAccess(modelId: Id): Boolean = false
 
-  @ApiOperation("Get entity")
-  @GetMapping(value = ["{entityId}"])
   fun oneRoute(
-    @ModelAttribute user: User,
-    @PathVariable(value = "entityId") id: Id,
-    @RequestParam(name = "fields", required = false) properties: List<String>?
+    context: Context,
+    id: Id,
+    properties: List<FieldName>?
   ): Any? {
-    if (!user.canAccess(id)) throw PermissionDeniedError(CanNotAccess)
-    val model = one(user, id) ?: throw NotFoundError()
+    val (_, response, auth) = context
+    if (!auth.canAccess(id)) throw PermissionDeniedError(CanNotAccess)
+    val model = one(auth, id) ?: throw NotFoundError()
 
-    return model.toView().let { propertyProjector.project(it, properties?.toSet()) }
+    return model.toView()
+      .let { propertyProjector.project(it, properties?.toSet()) }
+      .also { response.withStatusCode(OK) }
   }
 }
 
-interface WithPaginated<Model, View> : WithViewableModel<Model, View>, WithPropertyExtractor<View>,
+interface WithPaginated<Model, View : Any> :
+  WithViewableModel<Model, View>,
+  WithPropertyExtractor<View>,
   WithPropertyProjector<View> {
-  fun all(user: User, chunk: Chunk): PageWithData<Model>
+  fun all(auth: Auth, page: Page): Chunk<Model>
 
-  @ApiOperation("Paginated entities")
-  @GetMapping(value = [""])
-  fun allRoute(@ModelAttribute user: User, @ModelAttribute chunk: Chunk) =
+  fun allRoute(
+    context: Context,
+    page: Page
+  ) {
+    val (_, response, auth) = context
+
     ListViewResponse(
-      all(user, chunk),
-      chunk,
+      all(auth, page),
+      page,
       toView(),
-      { propertyExtractor.extractProperty(it, chunk.sortBy) },
-      { propertyProjector.project(it, chunk.properties) }
+      { propertyExtractor.extractProperty(it, page.sortBy) },
+      { propertyProjector.project(it, page.properties) }
     )
+  }
 }
 
-interface WithMultiple<Id, Model, View> : WithViewableModel<Model, View>, WithPropertyExtractor<View>,
+interface WithMultiple<Id, Model, View : Any> : WithViewableModel<Model, View>, WithPropertyExtractor<View>,
   WithPropertyProjector<View> {
-  fun multiple(user: User, ids: List<Id>, chunk: Chunk): PageWithData<Model>
+  fun multiple(auth: Auth, ids: List<Id>, page: Page): Chunk<Model>
 
-  @ApiOperation("Paginated entities")
-  @GetMapping(value = ["multiple"])
   fun multipleRoute(
-    @ModelAttribute user: User,
-    @ModelAttribute chunk: Chunk,
-    @RequestParam(name = "ids", required = false) ids: List<Id>?
+    auth: Auth,
+    page: Page,
+    ids: List<Id>?
   ) =
     ListViewResponse(
-      multiple(user, ids ?: listOf(), chunk),
-      chunk,
+      multiple(auth, ids ?: listOf(), page),
+      page,
       toView(),
-      { propertyExtractor.extractProperty(it, chunk.sortBy) },
-      { propertyProjector.project(it, chunk.properties) }
+      { propertyExtractor.extractProperty(it, page.sortBy) },
+      { propertyProjector.project(it, page.properties) }
     )
 }
 
@@ -130,16 +142,6 @@ abstract class WithPropertyHandler<View : Any>(klass: KClass<View>) : WithProper
   WithPropertyProjector<View> {
   override val propertyExtractor: PropertyExtractor<View> = PropertyExtractor(klass)
   override val propertyProjector: PropertyProjector<View> = PropertyProjector(klass)
-}
-
-interface WithUserMeta {
-  val securityService: SecurityService
-
-  fun User.isSuper() = hasSuperRole()(securityService)
-
-  fun <T> T.validateAccess(user: User, userIdProducer: T.() -> Long): T = apply {
-    validate({ user.isSuper() || user.id == userIdProducer(this) }, PermissionDeniedError(CanNotAccess))
-  }
 }
 
 open class IdWrapper<Id>(val id: Id)
