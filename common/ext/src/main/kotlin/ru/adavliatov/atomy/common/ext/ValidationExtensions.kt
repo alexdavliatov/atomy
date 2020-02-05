@@ -38,6 +38,18 @@ object ValidationExtensions {
 
   inline fun <reified T : Error> Error.validateType() = takeAs<T>() ?: throw this
 
+  inline fun <reified E> assertThrows(invoker: () -> Unit, errorMatcher: E.() -> Unit) {
+    try {
+      invoker.invoke()
+    } catch (error: Throwable) {
+      assert(error is E) { "Expected ${E::class} error, got ${error::class}" }
+      errorMatcher(error as E)
+
+      return
+    }
+    throw IllegalStateException("Error ${E::class} not thrown")
+  }
+
 }
 
 @UseExperimental(ExperimentalContracts::class)

@@ -1,11 +1,10 @@
-package ru.yandex.contest.web.api.priv.admin.v1
+package ru.adavliatov.atomy.common.ui.api
 
-import ru.yandex.contest.domain.ObjectWithId
-import ru.yandex.contest.extension.classGettersByName
-import ru.yandex.contest.extension.propertyValueByName
+import ru.adavliatov.atomy.common.ui.api.ext.ReflectionExtensions.classGettersByName
+import ru.adavliatov.atomy.common.ui.api.ext.ReflectionExtensions.propertyValueByName
 import kotlin.reflect.KClass
 
-class PropertyExtractor<V>(val klass: KClass<*>) {
+class PropertyExtractor<V>(klass: KClass<*>) {
   private val gettersByName = classGettersByName(klass)
 
   fun extractProperty(view: V, propertyName: String?, defaultValue: (V) -> Any?) =
@@ -13,8 +12,10 @@ class PropertyExtractor<V>(val klass: KClass<*>) {
       ?: defaultValue(view)
 
   fun extractProperty(view: V, propertyName: String?) =
-    if (view is ObjectWithId<*>)
-      extractProperty(view, propertyName) { view.id }
-    else
+    if (gettersByName.isNotEmpty()) {
+      val getter = gettersByName["createdAt"] ?: gettersByName.values.first()
+      extractProperty(view, propertyName) { getter.call(view) }
+    } else
       throw IllegalArgumentException("No default value provided")
+
 }
