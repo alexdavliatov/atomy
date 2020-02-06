@@ -1,8 +1,8 @@
 package ru.adavliatov.atomy.common.ui.api.domain.error
 
 //import ru.adavliatov.atome.common.type.error.code.ErrorCodes.UnknownError
-import ru.adavliatov.atomy.common.type.error.*
-import ru.adavliatov.atomy.common.type.error.code.*
+import ru.adavliatov.atomy.common.type.error.Error
+import ru.adavliatov.atomy.common.type.error.code.ErrorCode
 import ru.adavliatov.atomy.common.type.error.code.ErrorCodes.BadRequest
 import ru.adavliatov.atomy.common.type.error.code.ErrorCodes.ConflictOccured
 import ru.adavliatov.atomy.common.type.error.code.ErrorCodes.Forbidden
@@ -17,7 +17,7 @@ import ru.adavliatov.atomy.common.ui.api.domain.error.StatusCodes.INTERNAL_SERVE
 import ru.adavliatov.atomy.common.ui.api.domain.error.StatusCodes.NOT_FOUND
 import ru.adavliatov.atomy.common.ui.api.domain.error.StatusCodes.NOT_IMPLEMENTED
 import ru.adavliatov.atomy.common.ui.api.domain.error.StatusCodes.UNAUTHORIZED
-import java.util.UUID.*
+import java.util.UUID.randomUUID
 
 typealias StatusCode = Int
 

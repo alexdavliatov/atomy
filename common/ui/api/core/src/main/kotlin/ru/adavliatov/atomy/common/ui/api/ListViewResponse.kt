@@ -1,7 +1,7 @@
 package ru.adavliatov.atomy.common.ui.api
 
-import ru.adavliatov.atomy.common.type.chunk.*
-import ru.adavliatov.atomy.common.type.page.*
+import ru.adavliatov.atomy.common.type.chunk.Chunk
+import ru.adavliatov.atomy.common.type.page.Page
 import ru.adavliatov.atomy.common.type.page.ext.CollectionExtensions.reversed
 import ru.adavliatov.atomy.common.ui.api.ext.CollectionExtensions.sortedBy
 

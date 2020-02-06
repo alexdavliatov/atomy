@@ -19,7 +19,11 @@ include(
 
   ":common:domain",
   ":common:service",
+
   ":common:ui:api",
+  ":common:ui:api:core",
+  ":common:ui:api:plugin",
+
   ":common:ui:cli",
   ":common:app",
 

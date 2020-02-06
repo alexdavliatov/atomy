@@ -1,7 +1,6 @@
 package ru.adavliatov.atomy.common.type.page
 
-import ru.adavliatov.atomy.common.type.chunk.*
-import ru.adavliatov.atomy.common.type.page.SortDirection.*
+import ru.adavliatov.atomy.common.type.page.SortDirection.DESC
 
 data class Page(
   val limit: Int = 50,

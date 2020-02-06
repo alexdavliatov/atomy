@@ -1,8 +1,16 @@
 package ru.adavliatov.atomy.toolkit.jooq.ext
 
+import org.jooq.Condition
 import org.jooq.Configuration
+import org.jooq.TableField
+import org.jooq.TableRecord
+import org.jooq.impl.DSL
+import org.jooq.impl.DSL.`val`
+import org.jooq.impl.DSL.all
+import org.jooq.impl.DSL.any
 import org.jooq.impl.DataSourceConnectionProvider
 import org.jooq.impl.DefaultConfiguration
+import org.jooq.util.postgres.PostgresDSL.arrayOverlap
 import javax.sql.DataSource
 
 @Suppress("unused")
@@ -35,7 +43,7 @@ object PostgresJooqExtensions {
 
   fun DataSource.toJooqConfig() = DefaultConfiguration()
     .set(this)
-    .set(POSTGRES_10)
+//    .set(POSTGRES_10)
 
   fun Iterable<Condition>.joinWithOr() = reduce { acc, condition -> acc.or(condition) }
   fun Iterable<Condition>.joinWithAnd() = reduce { acc, condition -> acc.or(condition) }
