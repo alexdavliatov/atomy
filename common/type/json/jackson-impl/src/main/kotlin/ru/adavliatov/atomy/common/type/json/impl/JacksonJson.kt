@@ -3,7 +3,7 @@ package ru.adavliatov.atomy.common.type.json.impl
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import ru.adavliatov.atomy.common.ext.TypeExtensions.takeAs
-import ru.adavliatov.atomy.common.type.json.*
+import ru.adavliatov.atomy.common.type.json.Json
 
 @Suppress("MemberVisibilityCanBePrivate")
 //todo (adavliatov): checks
@@ -43,7 +43,6 @@ class JacksonJson(val node: JsonNode) :
   }
 
   companion object {
-    fun JsonNode.toJson() =
-      JacksonJson(this)
+    fun JsonNode.toJson() = JacksonJson(this)
   }
 }

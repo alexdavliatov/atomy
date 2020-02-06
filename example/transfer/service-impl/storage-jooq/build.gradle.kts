@@ -52,22 +52,28 @@ jooq {
         forcedTypes {
           forcedType {
             userType = "java.time.Instant"
-            converter = "ru.adavliatov.atomy.toolkit.jooq.serializeTimestampToInstantConverter"
+            converter = "ru.adavliatov.atomy.toolkit.jooq.serialize.TimestampToInstantConverter"
             types = """.*TIMESTAMP\ WITHOUT\ TIME\ ZONE.*"""
           }
           forcedType {
             userType = "java.time.Instant"
-            binding = "ru.adavliatov.atomy.toolkit.jooq.serializeTimestampWithTimezoneBinder"
+            binding = "ru.adavliatov.atomy.toolkit.jooq.serialize.TimestampWithTimezoneBinder"
             types = """.*TIMESTAMP\ WITH\ TIME\ ZONE.*"""
           }
           forcedType {
+            userType = "ru.adavliatov.atomy.common.type.json.impl.JacksonJson"
+            binding = "ru.adavliatov.atomy.toolkit.jooq.serialize.plugin.JacksonJsonBinder"
+            types = ".*JSON.*"
+          }
+          forcedType {
             userType = "java.time.Instant"
-            converter = "ru.adavliatov.atomy.toolkit.jooq.serializeTimestampToInstantConverter"
+            converter = "ru.adavliatov.atomy.toolkit.jooq.serialize.TimestampToInstantConverter"
             types = """.*TIMESTAMP.*"""
           }
         }
       }
       generate {
+        isGeneratedAnnotation = false
         isDeprecated = false
         isRecords = true
         isImmutablePojos = true
@@ -88,6 +94,7 @@ jooq {
 
 
 dependencies {
+  implementation(project(":common:type:ref:json-impl"))
   implementation(project(":example:transfer:service"))
   implementation(project(":toolkit:jooq:service"))
 

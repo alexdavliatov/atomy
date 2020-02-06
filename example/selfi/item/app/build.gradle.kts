@@ -29,7 +29,7 @@ shadowJar.apply {
 
 val flywayVersion: String by project
 dependencies {
-  implementation(project(":common:ui:api"))
+  implementation(project(":common:ui:api:core"))
   implementation(project(":example:selfi:item:ui:api"))
   implementation(project(":example:selfi:item:service-impl:storage-jooq"))
   implementation(group = "com.fasterxml.jackson.core", name = "jackson-databind", version = "2.10.1")

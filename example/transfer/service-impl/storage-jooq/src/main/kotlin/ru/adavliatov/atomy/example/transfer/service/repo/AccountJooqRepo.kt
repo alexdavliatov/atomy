@@ -1,11 +1,13 @@
 package ru.adavliatov.atomy.example.transfer.service.repo
 
+import ru.adavliatov.atomy.common.domain.Id
+import ru.adavliatov.atomy.common.domain.State
 import ru.adavliatov.atomy.example.transfer.domain.Account
 import ru.adavliatov.atomy.example.transfer.domain.Name
-import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.Keys.*
-import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.daos.*
-import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.pojos.*
-import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.records.*
+import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.Keys.ACCOUNTS_NAME_UNQ
+import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.daos.AccountsDao
+import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.pojos.Accounts
+import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.records.AccountsRecord
 import ru.adavliatov.atomy.toolkit.jooq.ext.JooqExtensions.toJooqConfig
 import ru.adavliatov.atomy.toolkit.jooq.service.ModelJooqDaoAdapter
 import ru.adavliatov.atomy.toolkit.jooq.service.WithJooqFetchOrCreateModel
@@ -33,7 +35,7 @@ open class AccountJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Account, Accoun
   )
 
   override fun Accounts.toModel(): Account = Account(
-    Id(id, uid, null!!, Account::class),
+    Id(id, uid, ref(ref), Account::class.java),
     State(state),
     createdAt,
     modifiedAt,
