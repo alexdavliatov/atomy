@@ -6,7 +6,7 @@ import ru.adavliatov.atomy.common.ui.api.domain.Auth
 import ru.adavliatov.atomy.common.ui.api.domain.Context
 import ru.adavliatov.atomy.common.ui.api.domain.Response
 
-interface WithMultiple<Id, Model, View : Any> : WithViewableModel<Model, View>,
+interface WithMultiple<Id, Model, View> : WithViewableModel<Model, View>,
   WithPropertyExtractor<View>,
   WithPropertyProjector<View> {
   fun multiple(auth: Auth, ids: List<Id>, page: Page): Chunk<Model>

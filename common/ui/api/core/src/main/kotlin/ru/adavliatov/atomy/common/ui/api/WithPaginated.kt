@@ -6,7 +6,7 @@ import ru.adavliatov.atomy.common.ui.api.domain.Auth
 import ru.adavliatov.atomy.common.ui.api.domain.Context
 import ru.adavliatov.atomy.common.ui.api.domain.Response
 
-interface WithPaginated<Model, View : Any> :
+interface WithPaginated<Model, View> :
   WithViewableModel<Model, View>,
   WithPropertyExtractor<View>,
   WithPropertyProjector<View> {

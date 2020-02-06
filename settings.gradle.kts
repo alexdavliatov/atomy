@@ -22,7 +22,7 @@ include(
 
   ":common:ui:api",
   ":common:ui:api:core",
-  ":common:ui:api:plugin",
+  ":common:ui:api:plugin:javalin",
 
   ":common:ui:cli",
   ":common:app",

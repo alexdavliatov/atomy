@@ -10,7 +10,7 @@ import org.koin.core.inject
 import org.koin.core.logger.Level.DEBUG
 import org.koin.dsl.module
 import org.slf4j.LoggerFactory
-import ru.adavliatov.atomy.common.ui.api.serializer.*
+import ru.adavliatov.atomy.common.ui.api.serializer.JsonMapper
 import today.selfi.item.app.config.AppConfig
 import today.selfi.item.app.config.AppConfigs
 import today.selfi.item.app.config.DataSourceWrapper
@@ -40,6 +40,7 @@ class ItemApp : KoinComponent {
       get("") { it.result("Hello, world!") }
       get("item/multiple", itemRoutes::multiple)
       crud("item/:id", itemRoutes)
+
     }
   }
 
