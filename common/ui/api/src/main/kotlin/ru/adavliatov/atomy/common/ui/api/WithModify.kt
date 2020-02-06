@@ -2,9 +2,10 @@ package ru.adavliatov.atomy.common.ui.api
 
 import ru.adavliatov.atomy.common.ui.api.domain.Auth
 import ru.adavliatov.atomy.common.ui.api.domain.Context
-import ru.adavliatov.atomy.common.ui.api.domain.error.AccessErrorCodes
+import ru.adavliatov.atomy.common.ui.api.domain.Response
+import ru.adavliatov.atomy.common.ui.api.domain.error.AccessErrorCodes.CanNotModify
 import ru.adavliatov.atomy.common.ui.api.domain.error.PermissionDeniedError
-import ru.adavliatov.atomy.common.ui.api.domain.error.StatusCodes
+import ru.adavliatov.atomy.common.ui.api.domain.error.StatusCodes.NO_CONTENT
 
 interface WithModify<Id, View> {
   fun modify(auth: Auth, id: Id, view: View)
@@ -15,13 +16,11 @@ interface WithModify<Id, View> {
     context: Context,
     id: Id,
     view: View
-  ) {
+  ): Response {
     val (_, response, auth) = context
-    if (!auth.canModify(id)) throw PermissionDeniedError(
-      AccessErrorCodes.CanNotModify
-    )
+    if (!auth.canModify(id)) throw PermissionDeniedError(CanNotModify)
 
     modify(auth, id, view)
-      .also { response.withStatusCode(StatusCodes.NO_CONTENT) }
+    return response.withStatusCode(NO_CONTENT)
   }
 }

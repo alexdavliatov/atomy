@@ -2,10 +2,10 @@ package ru.adavliatov.atomy.common.ui.api
 
 import ru.adavliatov.atomy.common.ui.api.domain.Auth
 import ru.adavliatov.atomy.common.ui.api.domain.Context
-import ru.adavliatov.atomy.common.ui.api.domain.error.AccessErrorCodes
+import ru.adavliatov.atomy.common.ui.api.domain.Response
+import ru.adavliatov.atomy.common.ui.api.domain.error.AccessErrorCodes.CanNotAccess
 import ru.adavliatov.atomy.common.ui.api.domain.error.NotFoundError
 import ru.adavliatov.atomy.common.ui.api.domain.error.PermissionDeniedError
-import ru.adavliatov.atomy.common.ui.api.domain.error.StatusCodes
 
 interface WithOne<Id, Model, View> : WithViewableModel<Model, View>,
   WithPropertyProjector<View> {
@@ -17,15 +17,16 @@ interface WithOne<Id, Model, View> : WithViewableModel<Model, View>,
     context: Context,
     id: Id,
     properties: List<FieldName>?
-  ): Any? {
+  ): Response {
     val (_, response, auth) = context
-    if (!auth.canAccess(id)) throw PermissionDeniedError(
-      AccessErrorCodes.CanNotAccess
-    )
+    if (!auth.canAccess(id)) throw PermissionDeniedError(CanNotAccess)
     val model = one(auth, id) ?: throw NotFoundError("Resource with $id not found")
 
-    return model.toView()
-      .let { propertyProjector.project(it, properties?.toSet()) }
-      .also { response.withStatusCode(StatusCodes.OK) }
+    return response
+      .withBody(
+        model
+          .toView()
+          .let { propertyProjector.project(it, properties?.toSet()) }
+      )
   }
 }

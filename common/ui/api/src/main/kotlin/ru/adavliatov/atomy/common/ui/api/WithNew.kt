@@ -2,9 +2,10 @@ package ru.adavliatov.atomy.common.ui.api
 
 import ru.adavliatov.atomy.common.ui.api.domain.Auth
 import ru.adavliatov.atomy.common.ui.api.domain.Context
-import ru.adavliatov.atomy.common.ui.api.domain.error.AccessErrorCodes
+import ru.adavliatov.atomy.common.ui.api.domain.Response
+import ru.adavliatov.atomy.common.ui.api.domain.error.AccessErrorCodes.CanNotCreate
 import ru.adavliatov.atomy.common.ui.api.domain.error.PermissionDeniedError
-import ru.adavliatov.atomy.common.ui.api.domain.error.StatusCodes
+import ru.adavliatov.atomy.common.ui.api.domain.error.StatusCodes.CREATED
 
 interface WithNew<Id, View> {
   fun new(auth: Auth, view: View): IdWrapper<Id>
@@ -14,14 +15,13 @@ interface WithNew<Id, View> {
   fun newRoute(
     context: Context,
     request: View
-  ): IdWrapper<Id> {
+  ): Response {
     val (_, response, auth) = context
-    if (!auth.canCreate()) throw PermissionDeniedError(
-      AccessErrorCodes.CanNotCreate
-    )
+    if (!auth.canCreate()) throw PermissionDeniedError(CanNotCreate)
 
-    return new(auth, request)
-      .also { response.withStatusCode(StatusCodes.CREATED) }
+    return response
+      .withStatusCode(CREATED)
+      .withBody(new(auth, request))
   }
 
 }
