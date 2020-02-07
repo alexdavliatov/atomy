@@ -12,7 +12,7 @@ interface ModelRepo<Model : WithModel<Model>> : EntityRepo<Model>
 
 @Suppress("unused")
 interface ReadOnlyEntityRepo<Entity : WithEntity<Entity>> : WithFindByIds<Entity> {
-  fun findAll(): Iterable<Entity>
+  fun findAll(): Collection<Entity>
 
   fun count(): Long = findAll().count().toLong()
 

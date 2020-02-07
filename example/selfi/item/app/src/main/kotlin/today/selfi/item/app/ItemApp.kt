@@ -36,6 +36,8 @@ class ItemApp : KoinComponent {
       .start(appConfig.port.port)
 
     JavalinJackson.configure(JsonMapper.mapper())
+
+    itemRoutes.routes("item")(app)
     app.routes {
       get("") { it.result("Hello, world!") }
 

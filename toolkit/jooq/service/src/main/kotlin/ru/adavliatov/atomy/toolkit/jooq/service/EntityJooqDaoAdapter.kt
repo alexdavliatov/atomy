@@ -33,7 +33,7 @@ interface WithEntityJooqDaoAdapter<
 
   override fun modify(model: Entity): Entity = model.apply { dao.update(toPojo()) }
   override fun modify(models: Iterable<Entity>) = dao.update(models.map { it.toPojo() })
-  override fun findAll(): Iterable<Entity> = dao.findAll().map { it.toEntity() }
+  override fun findAll(): Collection<Entity> = dao.findAll().map { it.toEntity() }
 
   override fun count(): Long = dao.count()
 }

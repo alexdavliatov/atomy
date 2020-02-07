@@ -43,13 +43,13 @@ interface CommonJavalinController<Id, Model, View> : CommonController<Id, Model,
     javalin.routes {
       path(url) {
         post(this::newRoute)
+        get("multiple", this::multipleRoute)
+        get(this::paginatedRoute)
         path(":id") {
           patch(this::modifyRoute)
           delete(this::removeRoute)
           get(this::oneRoute)
         }
-        get("multiple", this::multipleRoute)
-        get(this::paginatedRoute)
       }
     }
   }
@@ -58,6 +58,8 @@ interface CommonJavalinController<Id, Model, View> : CommonController<Id, Model,
 
 interface WithJavalinAuth {
   fun Context.auth(): Auth
+
+  fun Context.toCtx(): CommonContext = toCommonCtx(auth())
 }
 
 interface WithJavalinProps {
@@ -101,59 +103,66 @@ interface WithJavalinIds<Id> {
 }
 
 interface WithJavalinNew<Id, View> : WithNew<Id, View>,
+  WithJavalinAuth,
   WithJavalinCtxToView<View> {
   fun newRoute(ctx: Context) {
-    newRoute(ctx.toCommonCtx(), ctx.view())
+    newRoute(ctx.toCtx(), ctx.view())
   }
 }
 
 interface WithJavalinNews<Id, View> : WithNews<Id, View>,
+  WithJavalinAuth,
   WithJavalinCtxToViews<View> {
   fun newsRoute(ctx: Context) {
-    newsRoute(ctx.toCommonCtx(), ctx.views())
+    newsRoute(ctx.toCtx(), ctx.views())
   }
 }
 
 interface WithJavalinModify<Id, View> : WithModify<Id, View>,
   WithJavalinId<Id>,
+  WithJavalinAuth,
   WithJavalinCtxToView<View> {
   fun modifyRoute(ctx: Context) {
-    modifyRoute(ctx.toCommonCtx(), ctx.id(), ctx.view())
+    modifyRoute(ctx.toCtx(), ctx.id(), ctx.view())
   }
 }
 
 interface WithJavalinRemove<Id, View> : WithRemove<Id>,
   WithJavalinId<Id>,
+  WithJavalinAuth,
   WithJavalinCtxToView<View> {
   fun removeRoute(ctx: Context) {
-    remove(ctx.toCommonCtx(), ctx.id())
+    remove(ctx.toCtx(), ctx.id())
   }
 }
 
 interface WithJavalinOne<Id, Model, View> : WithOne<Id, Model, View>,
   WithJavalinId<Id>,
   WithJavalinCtxToView<View>,
+  WithJavalinAuth,
   WithJavalinProps {
   fun oneRoute(ctx: Context) {
-    oneRoute(ctx.toCommonCtx(), ctx.id(), ctx.props())
+    oneRoute(ctx.toCtx(), ctx.id(), ctx.props())
   }
 }
 
 interface WithJavalinMultiple<Id, Model, View> : WithMultiple<Id, Model, View>,
   WithJavalinIds<Id>,
   WithJavalinCtxToView<View>,
+  WithJavalinAuth,
   WithJavalinPage {
   fun multipleRoute(ctx: Context) {
-    multipleRoute(ctx.toCommonCtx(), ctx.page(), ctx.ids())
+    multipleRoute(ctx.toCtx(), ctx.page(), ctx.ids())
   }
 }
 
 interface WithJavalinPaginated<Id, Model, View> : WithPaginated<Model, View>,
   WithJavalinIds<Id>,
   WithJavalinCtxToView<View>,
+  WithJavalinAuth,
   WithJavalinPage {
   fun paginatedRoute(ctx: Context) {
-    paginatedRoute(ctx.toCommonCtx(), ctx.page())
+    paginatedRoute(ctx.toCtx(), ctx.page())
   }
 }
 
@@ -163,10 +172,10 @@ object JavalinExtensions {
 
   object NoAuth : Auth
 
-  fun Context.toCommonCtx() = CommonContext(
+  fun Context.toCommonCtx(auth: Auth) = CommonContext(
     request(),
     response(),
-    NoAuth
+    auth
   )
 }
 

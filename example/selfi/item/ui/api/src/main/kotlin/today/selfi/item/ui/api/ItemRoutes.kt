@@ -29,6 +29,12 @@ class ItemRoutes(private val itemRepo: ItemRepo) : CommonJavalinController<UUID,
   override fun Context.views(): Set<ItemView> = bodyAsClass(Array<ItemView>::class.java).toSet()
   override fun Context.auth(): ConsumerWithZeroOwnerAuth = ConsumerWithZeroOwnerAuth(consumer(), 0L)
 
+  override fun Auth.canCreate(): Boolean = true
+  override fun Auth.canAccess(modelId: UUID) = true
+  override fun Auth.canModify(modelId: UUID) = true
+  override fun Auth.canRemove(modelId: UUID) = true
+  override fun Auth.canCreateMultiple() = true
+
   override fun new(auth: Auth, view: ItemView): IdWrapper<UUID> {
     val (consumer, owner) = auth as ConsumerWithZeroOwnerAuth
     val item: Item = itemRepo.fetchOrCreate(view.toModel(owner, consumer))
@@ -80,7 +86,13 @@ class ItemRoutes(private val itemRepo: ItemRepo) : CommonJavalinController<UUID,
       .let { Chunk(it.size.toLong(), it.toList()) }
   }
 
-  override fun paginated(auth: Auth, page: Page): Chunk<Item> = TODO("not implemented")
+  override fun paginated(auth: Auth, page: Page): Chunk<Item> {
+    val (_, _) = auth as ConsumerWithZeroOwnerAuth
+
+    return itemRepo.findAll()
+      .let { Chunk(it.size.toLong(), it.toList()) }
+
+  }
 
   companion object {
     fun Context.consumer() =

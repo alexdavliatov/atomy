@@ -13,7 +13,7 @@ object CollectionExtensions {
     return when (fields.first()) {
       is Comparable<*> -> fields
         .filterIsInstance(Comparable::class.java)
-        .sorted { it as Comparable<Comparable<*>> }
+        .sortedBy { it as Comparable<Comparable<*>> }
       else -> fields
     }
       .asSequence()
