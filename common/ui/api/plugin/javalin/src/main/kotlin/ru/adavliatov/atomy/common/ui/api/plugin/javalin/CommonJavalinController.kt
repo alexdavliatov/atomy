@@ -1,5 +1,11 @@
 package ru.adavliatov.atomy.common.ui.api.plugin.javalin
 
+import io.javalin.Javalin
+import io.javalin.apibuilder.ApiBuilder.delete
+import io.javalin.apibuilder.ApiBuilder.get
+import io.javalin.apibuilder.ApiBuilder.patch
+import io.javalin.apibuilder.ApiBuilder.path
+import io.javalin.apibuilder.ApiBuilder.post
 import io.javalin.http.Context
 import ru.adavliatov.atomy.common.ext.UuidExtensions.uuid
 import ru.adavliatov.atomy.common.type.page.Page
@@ -31,7 +37,24 @@ interface CommonJavalinController<Id, Model, View> : CommonController<Id, Model,
   WithJavalinOne<Id, Model, View>,
   WithJavalinMultiple<Id, Model, View>,
   WithJavalinPaginated<Id, Model, View>,
-  WithJavalinAuth
+  WithJavalinAuth {
+
+  fun routes(url: String) = { javalin: Javalin ->
+    javalin.routes {
+      path(url) {
+        post(this::newRoute)
+        path(":id") {
+          patch(this::modifyRoute)
+          delete(this::removeRoute)
+          get(this::oneRoute)
+        }
+        get("multiple", this::multipleRoute)
+        get(this::paginatedRoute)
+      }
+    }
+  }
+
+}
 
 interface WithJavalinAuth {
   fun Context.auth(): Auth
