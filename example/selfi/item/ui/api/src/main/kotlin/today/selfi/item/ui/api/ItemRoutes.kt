@@ -43,63 +43,44 @@ class ItemRoutes(private val itemRepo: ItemRepo) : CommonJavalinController<UUID,
     itemRepo.fetchOrCreate(items)
   }
 
-  override fun modify(auth: Auth, id: UUID, view: ItemView): Unit = TODO("not implemented")
+  override fun modify(auth: Auth, id: UUID, view: ItemView) {
+    val (consumer, _) = auth as ConsumerWithZeroOwnerAuth
+    val modelId = Id.newId<Item>(Ref(consumer)).withUid(id)
 
-  override fun one(auth: Auth, id: UUID): Item? = TODO("not implemented")
-
-  override fun multiple(auth: Auth, ids: List<UUID>, page: Page): Chunk<Item> = TODO("not implemented")
-
-  override fun paginated(auth: Auth, page: Page): Chunk<Item> = TODO("not implemented")
-
-  fun delete(ctx: Context, resourceId: String) {
-    val consumer = ctx.consumer()
-    val resource = UUID.fromString(resourceId)
-    val id = Id.newId<Item>(consumer).withUid(resource)
-
-    itemRepo
-      .findById(id)
-      ?.run { itemRepo.remove(this) }
-      ?.let { ctx.status(200) }
-      ?: ctx.status(404)
-  }
-
-  fun getAll(ctx: Context) {
-//    val consumer = ctx.consumer()
-    ctx.json(itemRepo.findAll())
-  }
-
-  fun multiple(ctx: Context) {
-    val consumer = ctx.consumer()
-    val uids = ctx.bodyAsClass(Array<UUID>::class.java).toList()
-    uids
-      .map {
-        Id.newId<Item>(Ref(consumer)).withUid(it)
-      }
-      .let {
-        ctx.json(itemRepo.findByIds(it))
-      }
-  }
-
-  fun getOne(ctx: Context, resourceId: String) {
-    val consumer = ctx.consumer()
-    val uid = UUID.fromString(resourceId)
-    val id = Id.newId<Item>(Ref(consumer)).withUid(uid)
-    ctx.json(itemRepo.findByIdChecked(id))
-  }
-
-  fun update(ctx: Context, resourceId: String) {
-    val consumer = ctx.consumer()
-    val uid = UUID.fromString(resourceId)
-    val id = Id.newId<Item>(Ref(consumer)).withUid(uid)
-    val view = ctx.bodyAsClass(ItemView::class.java)
-    itemRepo.findById(id)
-      ?.run { view.toModel(uid, consumer)(itemRepo) }
+    itemRepo.findById(modelId)
+      ?.run { view.toModel(id, consumer)(itemRepo) }
       ?.run {
         itemRepo.modify(this)
-        ctx.status(200)
       }
-      ?: ctx.status(404)
   }
+
+  override fun remove(auth: Auth, id: UUID) {
+    val (consumer, _) = auth as ConsumerWithZeroOwnerAuth
+    val modelId = Id.newId<Item>(Ref(consumer)).withUid(id)
+
+    itemRepo
+      .findById(modelId)
+      ?.run { itemRepo.remove(this) }
+  }
+
+  override fun one(auth: Auth, id: UUID): Item? {
+    val (consumer, _) = auth as ConsumerWithZeroOwnerAuth
+    val modelId = Id.newId<Item>(Ref(consumer)).withUid(id)
+
+    return itemRepo
+      .findByIdChecked(modelId)
+  }
+
+  override fun multiple(auth: Auth, ids: List<UUID>, page: Page): Chunk<Item> {
+    val (consumer, _) = auth as ConsumerWithZeroOwnerAuth
+
+    return ids
+      .map { Id.newId<Item>(Ref(consumer)).withUid(it) }
+      .let { itemRepo.findByIds(it) }
+      .let { Chunk(it.size.toLong(), it.toList()) }
+  }
+
+  override fun paginated(auth: Auth, page: Page): Chunk<Item> = TODO("not implemented")
 
   companion object {
     fun Context.consumer() =

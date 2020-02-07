@@ -13,6 +13,7 @@ import ru.adavliatov.atomy.common.ui.api.WithNew
 import ru.adavliatov.atomy.common.ui.api.WithNews
 import ru.adavliatov.atomy.common.ui.api.WithOne
 import ru.adavliatov.atomy.common.ui.api.WithPaginated
+import ru.adavliatov.atomy.common.ui.api.WithRemove
 import ru.adavliatov.atomy.common.ui.api.WithView
 import ru.adavliatov.atomy.common.ui.api.domain.Auth
 import ru.adavliatov.atomy.common.ui.api.domain.Request
@@ -26,6 +27,7 @@ interface CommonJavalinController<Id, Model, View> : CommonController<Id, Model,
   WithJavalinNew<Id, View>,
   WithJavalinNews<Id, View>,
   WithJavalinModify<Id, View>,
+  WithJavalinRemove<Id, View>,
   WithJavalinOne<Id, Model, View>,
   WithJavalinMultiple<Id, Model, View>,
   WithJavalinPaginated<Id, Model, View>,
@@ -94,6 +96,14 @@ interface WithJavalinModify<Id, View> : WithModify<Id, View>,
   WithJavalinCtxToView<View> {
   fun modifyRoute(ctx: Context) {
     modifyRoute(ctx.toCommonCtx(), ctx.id(), ctx.view())
+  }
+}
+
+interface WithJavalinRemove<Id, View> : WithRemove<Id>,
+  WithJavalinId<Id>,
+  WithJavalinCtxToView<View> {
+  fun removeRoute(ctx: Context) {
+    remove(ctx.toCommonCtx(), ctx.id())
   }
 }
 
