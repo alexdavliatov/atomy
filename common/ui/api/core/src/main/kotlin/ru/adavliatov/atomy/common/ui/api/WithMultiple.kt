@@ -23,7 +23,7 @@ interface WithMultiple<Id, Model, View> : WithViewableModel<Model, View>,
       page,
       toView(),
       { propertyExtractor.extractProperty(it, page.sortBy) },
-      { propertyProjector.project(it, page.properties) }
+      { propertyProjector.project(it, page.props) }
     )
 
     return response

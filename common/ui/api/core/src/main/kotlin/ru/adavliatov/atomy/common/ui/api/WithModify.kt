@@ -12,7 +12,7 @@ interface WithModify<Id, View> {
 
   fun Auth.canModify(modelId: Id): Boolean = false
 
-  fun modify(
+  fun modifyRoute(
     context: Context,
     id: Id,
     view: View

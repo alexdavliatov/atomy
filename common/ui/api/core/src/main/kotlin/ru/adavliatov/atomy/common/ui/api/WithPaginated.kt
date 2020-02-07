@@ -10,20 +10,20 @@ interface WithPaginated<Model, View> :
   WithViewableModel<Model, View>,
   WithPropertyExtractor<View>,
   WithPropertyProjector<View> {
-  fun all(auth: Auth, page: Page): Chunk<Model>
+  fun paginated(auth: Auth, page: Page): Chunk<Model>
 
-  fun allRoute(
+  fun paginatedRoute(
     context: Context,
     page: Page
   ): Response {
     val (_, response, auth) = context
 
     val views = ListViewResponse(
-      all(auth, page),
+      paginated(auth, page),
       page,
       toView(),
       { propertyExtractor.extractProperty(it, page.sortBy) },
-      { propertyProjector.project(it, page.properties) }
+      { propertyProjector.project(it, page.props) }
     )
 
     return response.withBody(views)

@@ -5,4 +5,5 @@ interface CommonController<Id, Model, View> :
   WithModify<Id, View>,
   WithOne<Id, Model, View>,
   WithPaginated<Model, View>,
-  WithMultiple<Id, Model, View>
+  WithMultiple<Id, Model, View>,
+  WithView<View>

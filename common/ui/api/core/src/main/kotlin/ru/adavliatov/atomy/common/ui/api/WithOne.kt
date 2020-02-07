@@ -16,7 +16,7 @@ interface WithOne<Id, Model, View> : WithViewableModel<Model, View>,
   fun oneRoute(
     context: Context,
     id: Id,
-    properties: List<FieldName>?
+    properties: List<Prop>?
   ): Response {
     val (_, response, auth) = context
     if (!auth.canAccess(id)) throw PermissionDeniedError(CanNotAccess)

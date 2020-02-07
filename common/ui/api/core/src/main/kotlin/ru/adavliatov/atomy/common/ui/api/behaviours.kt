@@ -2,7 +2,7 @@ package ru.adavliatov.atomy.common.ui.api
 
 import kotlin.reflect.KClass
 
-typealias FieldName = String
+typealias Prop = String
 
 interface WithViewableModel<Model, View> {
   fun Model.toView(): View
