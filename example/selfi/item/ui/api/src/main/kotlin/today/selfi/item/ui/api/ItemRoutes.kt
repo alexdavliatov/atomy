@@ -84,7 +84,7 @@ class ItemRoutes(private val itemRepo: ItemRepo) : CommonJavalinController<UUID,
     return ids
       .map { Id.newId<Item>(Ref(consumer)).withUid(it) }
       .let { itemRepo.findByIds(it) }
-      .let { ChunkedData(Chunk(0, it.size), it.toList()) }
+      .let { ChunkedData(chunk = Chunk(0, it.size), items = it.toList()) }
   }
 
   override fun paginated(auth: Auth, page: Page): ChunkedData<Item> {

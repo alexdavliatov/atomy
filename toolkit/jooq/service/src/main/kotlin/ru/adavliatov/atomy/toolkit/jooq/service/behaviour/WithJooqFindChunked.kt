@@ -24,7 +24,7 @@ interface WithJooqFindChunked<
     .fetch()
     .into(pojoClass)
     .map { it.toEntity() }
-    .let { ChunkedData(chunk, it) }
+    .let { ChunkedData(chunk = chunk, items = it) }
 
 }
 
