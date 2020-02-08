@@ -7,7 +7,7 @@ import org.jooq.Field
 import org.jooq.Table
 import org.jooq.TableRecord
 import ru.adavliatov.atomy.common.ext.CollectionExtensions.mapToSet
-import java.util.*
+import java.util.UUID
 import javax.sql.DataSource
 
 interface WithJooqConfig {
@@ -23,7 +23,7 @@ interface WithDsl {
 }
 
 interface WithJooqDao<
-    Entity,
+    Model,
     Record : TableRecord<Record>,
     Pojo> : WithTable<Record>, WithDsl {
   val dao: DAO<Record, Pojo, Long>
@@ -33,31 +33,23 @@ interface WithJooqDao<
     get() = dao.table
 }
 
-interface WithEntityToPojo<Entity, Pojo> {
-  val entityClass: Class<Entity>
+interface WithModelToPojo<Model, Pojo> {
+  val entityClass: Class<Model>
   val pojoClass: Class<Pojo>
 
-  fun Entity.toPojo(): Pojo
-  fun Pojo.toEntity(): Entity
-
-  fun Iterable<Entity>.toPojos(): Iterable<Pojo> = map { it.toPojo() }
-  fun Iterable<Entity>.toPojoSet(): Set<Pojo> = mapToSet { it.toPojo() }
-
-  fun Iterable<Pojo>.toEntities(): Iterable<Entity> = map { it.toEntity() }
-  fun Iterable<Pojo>.toEntitySet(): Set<Entity> = mapToSet { it.toEntity() }
-}
-
-interface WithModelToPojo<Model, Pojo> :
-  WithEntityToPojo<Model, Pojo> {
-  override val entityClass: Class<Model>
-  override val pojoClass: Class<Pojo>
-
-  override fun Pojo.toEntity(): Model = toModel()
+  fun Model.toPojo(): Pojo
+  fun Pojo.toEntity(): Model = toModel()
 
   fun Pojo.toModel(): Model
 
   fun Iterable<Pojo>.toModels(): Iterable<Model> = map { it.toModel() }
   fun Iterable<Pojo>.toModelSet(): Set<Model> = mapToSet { it.toModel() }
+
+  fun Iterable<Model>.toPojos(): Iterable<Pojo> = map { it.toPojo() }
+  fun Iterable<Model>.toPojoSet(): Set<Pojo> = mapToSet { it.toPojo() }
+
+  fun Iterable<Pojo>.toEntities(): Iterable<Model> = map { it.toEntity() }
+  fun Iterable<Pojo>.toEntitySet(): Set<Model> = mapToSet { it.toEntity() }
 }
 
 interface WithIdField<Record : TableRecord<Record>> : WithTable<Record> {

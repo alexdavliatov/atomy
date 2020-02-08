@@ -12,11 +12,11 @@ import kotlin.Long.Companion.MAX_VALUE
 import kotlin.random.Random
 
 @Suppress("unused")
-data class Id<E : WithEntity<E>>(
+data class Id<M : WithModel<M>>(
   val id: Long? = null,
   val uid: UUID? = null,
   val ref: Ref,
-  val model: Class<E>
+  val model: Class<M>
 ) {
   val isNew: Boolean
     get() = id == null
@@ -53,31 +53,31 @@ data class Id<E : WithEntity<E>>(
   companion object {
     val random = Random
 
-    inline fun <reified E : WithEntity<E>> newId(ref: Ref) =
-      Id(ref = ref, model = E::class.java)
+    inline fun <reified M : WithModel<M>> newId(ref: Ref) =
+      Id(ref = ref, model = M::class.java)
 
-    inline fun <reified E : WithEntity<E>> newId(consumerId: ConsumerId) =
-      Id(ref = Ref(consumerId), model = E::class.java)
+    inline fun <reified M : WithModel<M>> newId(consumerId: ConsumerId) =
+      Id(ref = Ref(consumerId), model = M::class.java)
 
-    inline fun <reified E : WithEntity<E>> randomIdWith(ref: Ref): Id<E> =
+    inline fun <reified M : WithModel<M>> randomIdWith(ref: Ref): Id<M> =
       Id(
         random.nextLong(0, MAX_VALUE),
         randomUUID(),
         ref,
-        E::class.java
+        M::class.java
       )
 
-    inline fun <reified E : WithEntity<E>> randomNewIdWith(ref: Ref): Id<E> =
+    inline fun <reified M : WithModel<M>> randomNewIdWith(ref: Ref): Id<M> =
       Id(
         uid = randomUUID(),
         ref = ref,
-        model = E::class.java
+        model = M::class.java
       )
   }
 }
 
-interface WithId<E : WithEntity<E>> : WithRef {
-  val id: Id<E>
+interface WithId<M : WithModel<M>> : WithRef {
+  val id: Id<M>
   val checkedId: Long
     get() = id.checkedId
   val checkedUid: UUID
@@ -86,5 +86,5 @@ interface WithId<E : WithEntity<E>> : WithRef {
     get() = id.ref
 
   @Suppress("unused")
-  fun withId(id: Id<E>): WithId<E>
+  fun withId(id: Id<M>): WithId<M>
 }

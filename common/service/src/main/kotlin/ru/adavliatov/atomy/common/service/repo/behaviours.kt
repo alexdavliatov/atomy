@@ -1,7 +1,7 @@
 package ru.adavliatov.atomy.common.service.repo
 
 import ru.adavliatov.atomy.common.domain.Id
-import ru.adavliatov.atomy.common.domain.WithEntity
+import ru.adavliatov.atomy.common.domain.WithModel
 import ru.adavliatov.atomy.common.service.domain.error.RepoErrors.NotFoundRepoError
 import ru.adavliatov.atomy.common.type.chunk.Chunk
 import ru.adavliatov.atomy.common.type.chunk.ChunkedData
@@ -15,24 +15,24 @@ interface WithFetchOrCreate<One> {
 }
 
 @Suppress("unused")
-interface WithFindByIds<Entity : WithEntity<Entity>> {
-  fun findById(id: Id<Entity>): Entity? = findByIds(setOf(id)).firstOrNull()
-  fun findByIdChecked(id: Id<Entity>) = findById(id) ?: throw NotFoundRepoError(id)
-  fun findByIds(ids: Iterable<Id<Entity>>): Set<Entity>
+interface WithFindByIds<Model : WithModel<Model>> {
+  fun findById(id: Id<Model>): Model? = findByIds(setOf(id)).firstOrNull()
+  fun findByIdChecked(id: Id<Model>) = findById(id) ?: throw NotFoundRepoError(id)
+  fun findByIds(ids: Iterable<Id<Model>>): Set<Model>
 }
 
 @Suppress("unused")
-interface WithFindChunked<Entity : WithEntity<Entity>> {
-  fun findPaginated(chunk: Chunk): ChunkedData<Entity>
+interface WithFindChunked<Model : WithModel<Model>> {
+  fun findPaginated(chunk: Chunk): ChunkedData<Model>
 }
 
 @Suppress("unused")
-interface WithRemoveByIds<Entity : WithEntity<Entity>> {
-  fun removeById(id: Id<Entity>) = removeByIds(setOf(id))
-  fun removeByIds(ids: Iterable<Id<Entity>>)
+interface WithRemoveByIds<Model : WithModel<Model>> {
+  fun removeById(id: Id<Model>) = removeByIds(setOf(id))
+  fun removeByIds(ids: Iterable<Id<Model>>)
 }
 
 @Suppress("unused")
-interface WithFindByExternalIds<Entity : WithRef> {
-  fun findByExternalIds(refs: Refs): Set<Entity>
+interface WithFindByRefs<Model : WithRef> {
+  fun findByRefs(refs: Refs): Set<Model>
 }

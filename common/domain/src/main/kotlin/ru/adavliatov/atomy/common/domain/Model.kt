@@ -26,8 +26,7 @@ interface WithAudited {
   fun modified(ts: Instant = now()): WithAudited
 }
 
-interface WithEntity<E : WithEntity<E>> : WithId<E>
-interface WithModel<M : WithModel<M>> : WithEntity<M>,
+interface WithModel<M : WithModel<M>> : WithId<M>,
   WithState,
   WithAudited,
   WithRef
