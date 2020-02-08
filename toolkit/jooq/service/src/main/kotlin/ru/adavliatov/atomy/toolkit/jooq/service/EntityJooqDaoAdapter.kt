@@ -5,6 +5,7 @@ import org.jooq.Table
 import org.jooq.TableRecord
 import ru.adavliatov.atomy.common.domain.WithEntity
 import ru.adavliatov.atomy.common.service.repo.EntityRepo
+import ru.adavliatov.atomy.toolkit.jooq.service.behaviour.WithJooqFindChunked
 import ru.adavliatov.atomy.toolkit.jooq.service.behaviour.WithJooqFindByIds
 import ru.adavliatov.atomy.toolkit.jooq.service.behaviour.WithJooqRemoveEntityByIds
 import javax.sql.DataSource
@@ -26,6 +27,7 @@ interface WithEntityJooqDaoAdapter<
     Record : TableRecord<Record>,
     Pojo> : EntityRepo<Entity>,
   WithJooqFindByIds<Entity, Record, Pojo>,
+  WithJooqFindChunked<Entity, Record, Pojo>,
   WithJooqRemoveEntityByIds<Entity, Record>,
   WithEntityToPojo<Entity, Pojo>,
   WithDsl {

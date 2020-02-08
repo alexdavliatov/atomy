@@ -1,13 +1,13 @@
 package ru.adavliatov.atomy.common.ui.api
 
-import ru.adavliatov.atomy.common.type.chunk.Chunk
+import ru.adavliatov.atomy.common.type.chunk.ChunkedData
 import ru.adavliatov.atomy.common.type.page.Page
 import ru.adavliatov.atomy.common.type.page.ext.CollectionExtensions.reversed
 import ru.adavliatov.atomy.common.ui.api.ext.CollectionExtensions.sorted
 
 data class ListViewResponse<Model, View>(val count: Long, val items: List<Any?>) {
   constructor(
-    models: Chunk<Model>,
+    models: ChunkedData<Model>,
     page: Page,
     modelToView: (Model) -> View,
     propertyExtractor: (View) -> Any?,
@@ -21,5 +21,5 @@ data class ListViewResponse<Model, View>(val count: Long, val items: List<Any?>)
       .reversed(page)
   )
 
-  constructor(views: Chunk<View>) : this(views.total, views.items)
+  constructor(views: ChunkedData<View>) : this(views.total, views.items)
 }

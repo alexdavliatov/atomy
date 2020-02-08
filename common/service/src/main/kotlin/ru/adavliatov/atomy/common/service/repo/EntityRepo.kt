@@ -11,7 +11,7 @@ interface EntityRepo<Entity : WithEntity<Entity>> : ReadOnlyEntityRepo<Entity>, 
 interface ModelRepo<Model : WithModel<Model>> : EntityRepo<Model>
 
 @Suppress("unused")
-interface ReadOnlyEntityRepo<Entity : WithEntity<Entity>> : WithFindByIds<Entity> {
+interface ReadOnlyEntityRepo<Entity : WithEntity<Entity>> : WithFindByIds<Entity>, WithFindChunked<Entity> {
   fun findAll(): Collection<Entity>
 
   fun count(): Long = findAll().count().toLong()

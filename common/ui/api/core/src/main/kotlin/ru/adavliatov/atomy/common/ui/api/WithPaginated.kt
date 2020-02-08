@@ -1,6 +1,6 @@
 package ru.adavliatov.atomy.common.ui.api
 
-import ru.adavliatov.atomy.common.type.chunk.Chunk
+import ru.adavliatov.atomy.common.type.chunk.ChunkedData
 import ru.adavliatov.atomy.common.type.page.Page
 import ru.adavliatov.atomy.common.ui.api.domain.Auth
 import ru.adavliatov.atomy.common.ui.api.domain.Context
@@ -10,7 +10,7 @@ interface WithPaginated<Model, View> :
   WithViewableModel<Model, View>,
   WithPropertyExtractor<View>,
   WithPropertyProjector<View> {
-  fun paginated(auth: Auth, page: Page): Chunk<Model>
+  fun paginated(auth: Auth, page: Page): ChunkedData<Model>
 
   fun paginatedRoute(
     context: Context,

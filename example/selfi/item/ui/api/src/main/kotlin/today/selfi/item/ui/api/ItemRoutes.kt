@@ -3,6 +3,7 @@ package today.selfi.item.ui.api
 import io.javalin.http.Context
 import ru.adavliatov.atomy.common.domain.Id
 import ru.adavliatov.atomy.common.type.chunk.Chunk
+import ru.adavliatov.atomy.common.type.chunk.ChunkedData
 import ru.adavliatov.atomy.common.type.error.HttpWrapperErrors
 import ru.adavliatov.atomy.common.type.page.Page
 import ru.adavliatov.atomy.common.type.ref.ConsumerId
@@ -77,21 +78,20 @@ class ItemRoutes(private val itemRepo: ItemRepo) : CommonJavalinController<UUID,
       .findByIdChecked(modelId)
   }
 
-  override fun multiple(auth: Auth, ids: List<UUID>, page: Page): Chunk<Item> {
+  override fun multiple(auth: Auth, ids: List<UUID>, page: Page): ChunkedData<Item> {
     val (consumer, _) = auth as ConsumerWithZeroOwnerAuth
 
     return ids
       .map { Id.newId<Item>(Ref(consumer)).withUid(it) }
       .let { itemRepo.findByIds(it) }
-      .let { Chunk(it.size.toLong(), it.toList()) }
+      .let { ChunkedData(Chunk(0, it.size), it.toList()) }
   }
 
-  override fun paginated(auth: Auth, page: Page): Chunk<Item> {
+  override fun paginated(auth: Auth, page: Page): ChunkedData<Item> {
     val (_, _) = auth as ConsumerWithZeroOwnerAuth
 
-    return itemRepo.findAll()
-      .let { Chunk(it.size.toLong(), it.toList()) }
-
+    val chunk = Chunk(page.limit, page.offset)
+    return itemRepo.findPaginated(chunk)
   }
 
   companion object {
