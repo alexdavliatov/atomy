@@ -18,9 +18,9 @@ val logbackVersion: String by project
 val shadowJar: com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar by tasks
 shadowJar.apply {
   manifest.attributes.apply {
-    put("Implementation-Title", "Items service")
+    put("Implementation-Title", "Auth service")
     put("Implementation-Version", "1.0.0")
-    put("Main-Class", "today.selfi.auth.app.ItemAppKt")
+    put("Main-Class", "today.selfi.auth.app.AuthAppKt")
 
     @Suppress("DEPRECATION")
     archiveName = "auth-app.jar"

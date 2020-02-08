@@ -20,7 +20,7 @@ interface WithJooqFindChunked<
 
   override fun findPaginated(chunk: Chunk): ChunkedData<Model> = dsl
     .selectFrom(table)
-    .limit(chunk.limit, chunk.offset)
+    .limit(chunk.offset, chunk.limit)
     .fetch()
     .into(pojoClass)
     .map { it.toEntity() }

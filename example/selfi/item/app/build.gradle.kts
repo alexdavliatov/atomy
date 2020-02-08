@@ -20,7 +20,7 @@ shadowJar.apply {
   manifest.attributes.apply {
     put("Implementation-Title", "Items service")
     put("Implementation-Version", "1.0.0")
-    put("Main-Class", "today.selfi.app.ItemAppKt")
+    put("Main-Class", "today.selfi.item.app.ItemAppKt")
 
     @Suppress("DEPRECATION")
     archiveName = "item-app.jar"
@@ -39,7 +39,6 @@ dependencies {
 
   implementation(group = "org.jetbrains.kotlin", name = "kotlin-reflect", version = "1.3.61")
 
-  implementation("org.slf4j:slf4j-simple:2.0.0-alpha1")
   implementation(group = "com.zaxxer", name = "HikariCP", version = "3.1.0")
   implementation(group = "org.koin", name = "koin-core", version = koinVersion)
   implementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.29")
