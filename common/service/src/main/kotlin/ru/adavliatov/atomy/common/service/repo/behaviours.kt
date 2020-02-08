@@ -2,7 +2,6 @@ package ru.adavliatov.atomy.common.service.repo
 
 import ru.adavliatov.atomy.common.domain.Id
 import ru.adavliatov.atomy.common.domain.WithEntity
-import ru.adavliatov.atomy.common.ext.CollectionExtensions.mapToSet
 import ru.adavliatov.atomy.common.service.domain.error.RepoErrors.NotFoundRepoError
 import ru.adavliatov.atomy.common.type.chunk.Chunk
 import ru.adavliatov.atomy.common.type.chunk.ChunkedData
@@ -12,7 +11,7 @@ import ru.adavliatov.atomy.common.type.ref.WithRef
 @Suppress("unused")
 interface WithFetchOrCreate<One> {
   fun fetchOrCreate(model: One): One
-  fun fetchOrCreate(models: Iterable<One>): Set<One> = models.mapToSet { fetchOrCreate(it) }
+  fun fetchOrCreate(models: Iterable<One>): List<One> = models.map { fetchOrCreate(it) }
 }
 
 @Suppress("unused")

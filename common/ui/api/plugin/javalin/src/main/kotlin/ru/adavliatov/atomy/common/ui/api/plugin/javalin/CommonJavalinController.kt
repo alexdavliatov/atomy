@@ -42,7 +42,7 @@ interface CommonJavalinController<Id, Model, View> : CommonController<Id, Model,
   fun routes(url: String) = { javalin: Javalin ->
     javalin.routes {
       path(url) {
-        post(this::newRoute)
+        post(this::newsRoute)
         get("multiple", this::multipleRoute)
         get(this::paginatedRoute)
         path(":id") {
@@ -83,7 +83,7 @@ interface WithJavalinCtxToView<View> : WithView<View> {
 }
 
 interface WithJavalinCtxToViews<View> : WithView<View> {
-  fun Context.views(): Set<View>
+  fun Context.views(): List<View>
 }
 
 interface WithJavalinId<Id> {
@@ -169,8 +169,6 @@ interface WithJavalinPaginated<Id, Model, View> : WithPaginated<Model, View>,
 object JavalinExtensions {
   fun request() = object : Request {}
   fun Context.response() = ContextResponseWrapper(this)
-
-  object NoAuth : Auth
 
   fun Context.toCommonCtx(auth: Auth) = CommonContext(
     request(),

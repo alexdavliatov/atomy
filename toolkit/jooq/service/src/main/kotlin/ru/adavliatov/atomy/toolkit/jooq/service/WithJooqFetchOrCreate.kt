@@ -3,9 +3,9 @@ package ru.adavliatov.atomy.toolkit.jooq.service
 import org.jooq.Constraint
 import org.jooq.Field
 import org.jooq.TableRecord
-import ru.adavliatov.atomy.common.domain.*
-import ru.adavliatov.atomy.common.service.repo.*
-import java.util.*
+import ru.adavliatov.atomy.common.domain.WithEntity
+import ru.adavliatov.atomy.common.service.repo.WithFetchOrCreate
+import java.util.UUID
 
 @Suppress("unused")
 interface WithJooqFetchOrCreateModel<

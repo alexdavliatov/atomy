@@ -27,7 +27,7 @@ class ItemRoutes(private val itemRepo: ItemRepo) : CommonJavalinController<UUID,
 
   override val viewClass = ItemView::class.java
   override fun Item.toView(): ItemView = ItemView(name.name)
-  override fun Context.views(): Set<ItemView> = bodyAsClass(Array<ItemView>::class.java).toSet()
+  override fun Context.views(): List<ItemView> = bodyAsClass(Array<ItemView>::class.java).toList()
   override fun Context.auth(): ConsumerWithZeroOwnerAuth = ConsumerWithZeroOwnerAuth(consumer(), 0L)
 
   override fun Auth.canCreate(): Boolean = true
@@ -43,11 +43,12 @@ class ItemRoutes(private val itemRepo: ItemRepo) : CommonJavalinController<UUID,
     return IdWrapper(item.checkedUid)
   }
 
-  override fun news(auth: Auth, views: Set<ItemView>) {
+  override fun news(auth: Auth, views: List<ItemView>): List<IdWrapper<UUID>> {
     val (consumer, owner) = auth as ConsumerWithZeroOwnerAuth
     val items = views.map { it.toModel(owner, consumer) }
 
-    itemRepo.fetchOrCreate(items)
+    return itemRepo.fetchOrCreate(items)
+      .map { IdWrapper(it.checkedUid) }
   }
 
   override fun modify(auth: Auth, id: UUID, view: ItemView) {

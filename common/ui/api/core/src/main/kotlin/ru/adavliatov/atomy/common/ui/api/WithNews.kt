@@ -8,20 +8,22 @@ import ru.adavliatov.atomy.common.ui.api.domain.error.PermissionDeniedError
 import ru.adavliatov.atomy.common.ui.api.domain.error.StatusCodes.CREATED
 
 interface WithNews<Id, View> {
-  fun news(auth: Auth, views: Set<View>)
+  fun news(auth: Auth, views: List<View>): List<IdWrapper<Id>>
 
   fun Auth.canCreateMultiple(): Boolean = false
 
   fun newsRoute(
     context: Context,
-    request: Set<View>
+    request: List<View>
   ): Response {
     val (_, response, auth) = context
     if (!auth.canCreateMultiple()) throw PermissionDeniedError(CanNotCreate)
 
+    val models = news(auth, request)
+
     return response
       .withStatusCode(CREATED)
-      .withBody(news(auth, request))
+      .withBody(models)
   }
 
 }
