@@ -11,7 +11,10 @@ import ru.adavliatov.atomy.common.type.ref.WithRef
 @Suppress("unused")
 interface WithFetchOrCreate<One> {
   fun fetchOrCreate(model: One): One
-  fun fetchOrCreate(models: Iterable<One>): List<One> = models.map { fetchOrCreate(it) }
+  /**
+   * The order matters.
+   */
+  fun fetchOrCreate(models: List<One>): List<One> = models.map { fetchOrCreate(it) }
 }
 
 @Suppress("unused")

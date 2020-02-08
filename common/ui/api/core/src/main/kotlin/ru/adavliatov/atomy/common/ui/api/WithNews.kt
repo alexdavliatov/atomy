@@ -19,11 +19,11 @@ interface WithNews<Id, View> {
     val (_, response, auth) = context
     if (!auth.canCreateMultiple()) throw PermissionDeniedError(CanNotCreate)
 
-    val models = news(auth, request)
+    val ids = news(auth, request)
 
     return response
       .withStatusCode(CREATED)
-      .withBody(models)
+      .withBody(ids)
   }
 
 }

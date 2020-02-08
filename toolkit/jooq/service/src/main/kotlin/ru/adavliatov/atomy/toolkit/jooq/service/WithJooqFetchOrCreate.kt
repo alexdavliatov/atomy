@@ -3,31 +3,21 @@ package ru.adavliatov.atomy.toolkit.jooq.service
 import org.jooq.Constraint
 import org.jooq.Field
 import org.jooq.TableRecord
-import ru.adavliatov.atomy.common.domain.WithModel
 import ru.adavliatov.atomy.common.service.repo.WithFetchOrCreate
 import java.util.UUID
 
-@Suppress("unused")
-interface WithJooqFetchOrCreateModel<
-    Model : WithModel<Model>,
-    Record : TableRecord<Record>,
-    Pojo> : WithIdField<Record>,
-  WithUidField<Record>,
-  WithJooqFetchOrCreate<UUID, Model, Record, Pojo> {
-  override val specificField: Field<UUID>
-    get() = uidField.value
-}
-
 interface WithJooqFetchOrCreate<
-    FieldType,
     Model,
     Record : TableRecord<Record>,
     Pojo> : WithIdField<Record>,
   WithJooqDao<Model, Record, Pojo>,
   WithUidField<Record>,
-  WithField<FieldType>,
+  WithField<UUID>,
   WithFetchOrCreate<Model>,
   WithModelToPojo<Model, Pojo> {
+  override val specificField: Field<UUID>
+    get() = uidField.value
+
   val insertOnDuplicateIgnoreConstraint: Constraint
 
   val fields: Lazy<List<Field<*>>>

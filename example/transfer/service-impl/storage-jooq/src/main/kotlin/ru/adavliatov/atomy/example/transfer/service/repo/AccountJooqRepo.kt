@@ -10,12 +10,12 @@ import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.table
 import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.records.AccountsRecord
 import ru.adavliatov.atomy.toolkit.jooq.ext.JooqExtensions.toJooqConfig
 import ru.adavliatov.atomy.toolkit.jooq.service.ModelJooqDaoAdapter
-import ru.adavliatov.atomy.toolkit.jooq.service.WithJooqFetchOrCreateModel
+import ru.adavliatov.atomy.toolkit.jooq.service.WithJooqFetchOrCreate
 import javax.sql.DataSource
 
 open class AccountJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Account, AccountsRecord, Accounts>(ds),
   AccountRepo,
-  WithJooqFetchOrCreateModel<Account, AccountsRecord, Accounts> {
+  WithJooqFetchOrCreate<Account, AccountsRecord, Accounts> {
   override val dao: AccountsDao = AccountsDao(ds.toJooqConfig())
 
   override val entityClass = Account::class.java
