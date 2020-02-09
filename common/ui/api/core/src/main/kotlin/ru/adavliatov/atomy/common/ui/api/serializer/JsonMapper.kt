@@ -8,17 +8,19 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import ru.adavliatov.atomy.common.domain.Id
 import ru.adavliatov.atomy.common.domain.State
+import ru.adavliatov.atomy.common.type.ref.Ref
 import java.time.Instant
 
 object JsonMapper {
-
-  private val roleModule = SimpleModule("role").apply {
+  private val customModule = SimpleModule("role").apply {
     addSerializer(AsStringSerializer(State::class.java) { it.name })
     addSerializer(Id::class.java, IdSerializer())
     addSerializer(AsLongSerializer(Instant::class.java) { it.toEpochMilli() })
 //    addSerializer(AsStringSerializer(PrincipalTitle::class.java) { it.title })
 //    addSerializer(AsStringSerializer(ResourceTitle::class.java) { it.title })
 
+    addDeserializer(Ref::class.java, RefDeserializer)
+    addDeserializer(Id::class.java, IdDeserializer)
     addDeserializer(AsStringDeserializer(State::class.java) { State(it) })
     addDeserializer(AsLongDeserializer(Instant::class.java) { Instant.ofEpochMilli(it) })
 //    addDeserializer(AsStringDeserializer(PrincipalTitle::class.java) { PrincipalTitle(it) })
@@ -33,7 +35,7 @@ object JsonMapper {
     }
 
   val modules = listOf(
-    roleModule,
+    customModule,
     Jdk8Module(),
 //      JavaTimeModule(),
     KotlinModule()

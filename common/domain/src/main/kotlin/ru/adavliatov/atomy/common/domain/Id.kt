@@ -32,8 +32,8 @@ data class Id<M : WithModel<M>>(
   val checkedRef: ConsumerRef
     get() = ref.ref ?: throw EmptyRefError(ref)
 
-  fun withId(id: Long) = copy(id = id)
-  fun withUid(uid: UUID) = copy(uid = uid)
+  fun withId(id: Long?) = copy(id = id)
+  fun withUid(uid: UUID?) = copy(uid = uid)
   fun withRef(ref: Ref) = copy(ref = ref)
 
   override fun equals(other: Any?): Boolean {
@@ -43,6 +43,7 @@ data class Id<M : WithModel<M>>(
     other as Id<*>
 
     if (id != other.id) return false
+    if (uid != other.uid) return false
     if (model != other.model) return false
 
     return true
@@ -55,6 +56,9 @@ data class Id<M : WithModel<M>>(
 
     inline fun <reified M : WithModel<M>> newId(ref: Ref) =
       Id(ref = ref, model = M::class.java)
+
+    fun <M : WithModel<M>> newId(ref: Ref, modelClass: Class<M>) =
+      Id(ref = ref, model = modelClass)
 
     inline fun <reified M : WithModel<M>> newId(consumerId: ConsumerId) =
       Id(ref = Ref(consumerId), model = M::class.java)

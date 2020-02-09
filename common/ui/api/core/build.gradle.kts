@@ -1,6 +1,8 @@
 val jacksonVersion: String by project
 
 dependencies {
+  api(project(":common:type:ref:json-impl"))
+  api(project(":common:type:json:jackson-impl"))
   api(project(":common:type:chunk"))
   api(project(":common:type:page"))
   api(project(":common:domain"))

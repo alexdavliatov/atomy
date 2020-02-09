@@ -1,23 +1,43 @@
 package today.selfi.item.ui.api.view
 
-import com.fasterxml.jackson.databind.node.TextNode
-import ru.adavliatov.atomy.common.domain.*
-import ru.adavliatov.atomy.common.type.name.*
-import ru.adavliatov.atomy.common.type.ref.*
+import com.fasterxml.jackson.databind.JsonNode
+import ru.adavliatov.atomy.common.domain.Id
+import ru.adavliatov.atomy.common.type.json.impl.JacksonContext
+import ru.adavliatov.atomy.common.type.json.impl.JacksonJson
+import ru.adavliatov.atomy.common.type.name.NameValue
+import ru.adavliatov.atomy.common.type.ref.ConsumerId
+import ru.adavliatov.atomy.common.type.ref.Ref
 import today.selfi.item.domain.Item
+import today.selfi.item.domain.ItemDetails
+import today.selfi.item.domain.ItemDetails.Companion.convertTo
 import today.selfi.item.domain.ItemDsl.item
+import today.selfi.item.domain.ItemTitle
 import today.selfi.item.domain.OwnerId
 import today.selfi.item.service.repo.ItemRepo
-import today.selfi.shared.type.ref.ext.RefExtensions.ref
-import java.util.*
+import java.util.UUID
 
 data class ItemView(
-  val name: String?
+  val name: String?,
+  private val jsonDetails: JsonNode?
 ) {
+  val details: JacksonJson?
+    get() = jsonDetails?.run(::JacksonJson)
+
   fun toModel(ownerId: OwnerId, consumer: ConsumerId): Item = item {
     this.id = Id.randomIdWith(Ref(consumer = consumer))
     this@ItemView.name?.let { name = NameValue(it) }
     this.ownerId = ownerId
+  }
+
+  fun details(): (JacksonContext) -> ItemDetails? = { context ->
+    val title = details
+      ?.value("title", String::class.java)
+      ?.invoke(context)
+      ?.let { ItemTitle(NameValue(it)) }
+
+    details
+      ?.convertTo(title)
+      ?.invoke(context)
   }
 
   fun toModel(
@@ -29,16 +49,5 @@ data class ItemView(
       .withUid(uid)
 
     repo.findById(id)
-  }
-
-  fun id(clientId: String?): Id<Item> = Id
-    .newId(ref(TextNode.valueOf(clientId)))
-
-  fun id(clientId: String?, uid: UUID): Id<Item> = Id
-    .newId<Item>(ref(TextNode.valueOf(clientId)))
-    .withUid(uid)
-
-  companion object {
-    fun <M : WithModel<M>> Id<M>.withUid(uid: UUID?) = uid?.let { withUid(it) } ?: this
   }
 }

@@ -14,6 +14,8 @@ import ru.adavliatov.atomy.common.ui.api.domain.Auth
 import ru.adavliatov.atomy.common.ui.api.plugin.javalin.CommonJavalinController
 import ru.adavliatov.atomy.common.ui.api.plugin.javalin.WithJavalinUUID
 import ru.adavliatov.atomy.common.ui.api.plugin.javalin.WithJavalinUUIDs
+import ru.adavliatov.atomy.common.ui.api.serializer.JsonMapper
+import ru.adavliatov.atomy.common.ui.api.serializer.ext.IdExtensions.withModel
 import today.selfi.item.domain.Item
 import today.selfi.item.service.repo.ItemRepo
 import today.selfi.item.ui.api.view.ItemView
@@ -26,7 +28,7 @@ class ItemRoutes(private val itemRepo: ItemRepo) : CommonJavalinController<UUID,
   WithPropertyHandler<ItemView>(ItemView::class) {
 
   override val viewClass = ItemView::class.java
-  override fun Item.toView(): ItemView = ItemView(name.name)
+  override fun Item.toView(): ItemView = ItemView(name.name, null)
   override fun Context.views(): List<ItemView> = bodyAsClass(Array<ItemView>::class.java).toList()
   override fun Context.auth(): ConsumerWithZeroOwnerAuth = ConsumerWithZeroOwnerAuth(consumer(), 0L)
 
@@ -106,4 +108,43 @@ class ItemRoutes(private val itemRepo: ItemRepo) : CommonJavalinController<UUID,
     val consumer: ConsumerId,
     val ownerId: Long
   ) : Auth
+}
+
+fun main() {
+  val mapper = JsonMapper.mapper()
+//  val idView = IdView(100L, UUID.randomUUID(), null)
+//
+//  println(mapper.writeValueAsString(idView))
+//  mapper.readValue(
+//    """{
+//    "id":100,
+//    "uid":"1e8ef2a2-c44b-454b-8921-94bec12dec66",
+//    "ref":{
+//      "consumer": "internal",
+//      "ref": "123"
+//    }
+//  }""".trimIndent(), IdView::class.java
+//  )
+//    .run { println(this) }
+//
+//  val id = Id.randomIdWith<Item>(
+//    ref(
+//      TextNode.valueOf("consumer"),
+//      TextNode.valueOf("ref")
+//    )
+//  )
+//
+//  println(mapper.writeValueAsString(id))
+  mapper.readValue(
+    """{
+    "id":100,
+    "uid":"1e8ef2a2-c44b-454b-8921-94bec12dec66",
+    "ref":{
+      "consumer": "internal",
+      "ref": "123"
+    }
+  }""".trimIndent(), Id::class.java
+  )
+    .withModel<Item>()
+    .run { println(this) }
 }

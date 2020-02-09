@@ -1,7 +1,12 @@
 package today.selfi.item.domain
 
-import ru.adavliatov.atomy.common.domain.*
-import ru.adavliatov.atomy.common.type.name.*
+import ru.adavliatov.atomy.common.domain.Id
+import ru.adavliatov.atomy.common.domain.State
+import ru.adavliatov.atomy.common.domain.WithModel
+import ru.adavliatov.atomy.common.type.json.impl.JacksonContext
+import ru.adavliatov.atomy.common.type.json.impl.JacksonJson
+import ru.adavliatov.atomy.common.type.name.NameValue
+import ru.adavliatov.atomy.common.type.name.ValueHolder
 import today.selfi.common.type.duration.Duration
 import today.selfi.common.type.repeat.Repeat
 import today.selfi.item.domain.ItemTitles.GOAL
@@ -40,7 +45,18 @@ object ItemTitles {
   val TASK = ItemTitle(NameValue("task"))
 }
 
-sealed class ItemDetails(val title: ItemTitle)
+sealed class ItemDetails(val title: ItemTitle) {
+  companion object {
+    fun JacksonJson.convertTo(title: ItemTitle?): (JacksonContext) -> ItemDetails = { context: JacksonContext ->
+      when (title) {
+        HABIT -> to(HabitDetails::class.java)(context)
+        GOAL -> to(GoalDetails::class.java)(context)
+        TASK -> to(TaskDetails::class.java)(context)
+        else -> MissingDetails
+      }
+    }
+  }
+}
 
 object MissingDetails : ItemDetails(NONE)
 class HabitDetails(val repeat: Repeat) : ItemDetails(HABIT)

@@ -11,8 +11,7 @@ class IdSerializer : StdSerializer<Id<*>>(Id::class.java) {
     value?.let {
       gen.writeStartObject()
       gen.writeObjectField("uid", value.uid)
-//      gen.writeStringField("clientId", value.ref.consumer as JsonCon)
-//      gen.writeStringField("externalId", value.rawExternalId)
+      gen.writeObjectField("ref", value.ref)
       gen.writeEndObject()
     }
   }
