@@ -15,7 +15,6 @@ import ru.adavliatov.atomy.common.ui.api.plugin.javalin.CommonJavalinController
 import ru.adavliatov.atomy.common.ui.api.plugin.javalin.WithJavalinUUID
 import ru.adavliatov.atomy.common.ui.api.plugin.javalin.WithJavalinUUIDs
 import ru.adavliatov.atomy.common.ui.api.serializer.JsonMapper
-import ru.adavliatov.atomy.common.ui.api.serializer.ext.IdExtensions.withModel
 import today.selfi.item.domain.Item
 import today.selfi.item.service.repo.ItemRepo
 import today.selfi.item.ui.api.view.ItemView
@@ -112,39 +111,17 @@ class ItemRoutes(private val itemRepo: ItemRepo) : CommonJavalinController<UUID,
 
 fun main() {
   val mapper = JsonMapper.mapper()
-//  val idView = IdView(100L, UUID.randomUUID(), null)
-//
-//  println(mapper.writeValueAsString(idView))
-//  mapper.readValue(
-//    """{
-//    "id":100,
-//    "uid":"1e8ef2a2-c44b-454b-8921-94bec12dec66",
-//    "ref":{
-//      "consumer": "internal",
-//      "ref": "123"
-//    }
-//  }""".trimIndent(), IdView::class.java
-//  )
-//    .run { println(this) }
-//
-//  val id = Id.randomIdWith<Item>(
-//    ref(
-//      TextNode.valueOf("consumer"),
-//      TextNode.valueOf("ref")
-//    )
-//  )
-//
-//  println(mapper.writeValueAsString(id))
   mapper.readValue(
-    """{
-    "id":100,
-    "uid":"1e8ef2a2-c44b-454b-8921-94bec12dec66",
-    "ref":{
-      "consumer": "internal",
-      "ref": "123"
+    """
+  {
+    "name": "name",
+    "details": {
+      "title": "goal",
+      "parentId": {
+        "id": 100
+      }
     }
-  }""".trimIndent(), Id::class.java
+  }""".trimIndent(), ItemView::class.java
   )
-    .withModel<Item>()
     .run { println(this) }
 }

@@ -4,28 +4,6 @@
 //import com.fasterxml.jackson.annotation.JsonTypeInfo.As.EXTERNAL_PROPERTY
 //import com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME
 //import org.joda.time.Instant
-//import ru.yandex.bolts.collection.Cf.toList
-//import ru.yandex.bolts.collection.Cf.toSet
-//import ru.yandex.contest.common.invocation.impl.CompilerGroupLimits
-//import ru.yandex.contest.core.problem.*
-//import ru.yandex.contest.core.runs.standalone.StandaloneRunsManager
-//import ru.yandex.contest.domain.ObjectWithId
-//import ru.yandex.contest.domain.error.InvalidProblemName
-//import ru.yandex.contest.extension.*
-//import ru.yandex.contest.extension.OptionAliases.just
-//import ru.yandex.contest.master.services.impl.ProblemManagementService
-//import ru.yandex.contest.master.services.impl.UserService
-//import ru.yandex.contest.web.actions.api.BadRequestError
-//import ru.yandex.contest.web.actions.api.InvalidProblemTypeError
-//import ru.yandex.contest.web.api.admin.problem.fields.readers.ProblemFileReader
-//import ru.yandex.contest.web.api.admin.problem.lifecycle.Generators
-//import ru.yandex.contest.web.api.admin.problem.limits.AttachedFiles
-//import ru.yandex.contest.web.api.admin.problem.limits.io.FileSettings.Companion.fromProblem
-//import ru.yandex.contest.web.api.priv.admin.v1.ProblemStatementView.Companion.applyTo
-//import ru.yandex.contest.web.api.priv.admin.v1.pojos.ProblemContext
-//import ru.yandex.contest.web.api.priv.admin.v1.pojos.ProblemTestSetView
-//import ru.yandex.contest.web.api.priv.admin.v1.pojos.StandaloneRunView
-//import ru.yandex.contest.web.api.priv.admin.v1.pojos.UserView
 //import java.util.*
 //
 //data class ProblemView(
