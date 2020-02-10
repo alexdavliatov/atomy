@@ -1,4 +1,4 @@
-package ru.adavliatov.atomy.common.ui.api.serializer.ext
+package ru.adavliatov.atomy.common.view.ext
 
 import ru.adavliatov.atomy.common.domain.Id
 import ru.adavliatov.atomy.common.domain.WithModel

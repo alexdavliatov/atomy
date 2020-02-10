@@ -18,6 +18,7 @@ include(
   ":common:type:ref:text-impl",
 
   ":common:domain",
+  ":common:view",
   ":common:service",
 
   ":common:ui:api",
@@ -49,6 +50,7 @@ include(
   ":example:selfi:item",
   ":example:selfi:item:type",
   ":example:selfi:item:domain",
+  ":example:selfi:item:view",
   ":example:selfi:item:service",
   ":example:selfi:item:service-impl",
   ":example:selfi:item:service-impl:storage-jooq",

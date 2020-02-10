@@ -1,4 +1,4 @@
-package today.selfi.item.ui.api.view
+package today.selfi.item.view
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As.PROPERTY
@@ -10,8 +10,7 @@ import ru.adavliatov.atomy.common.type.ref.Ref
 import today.selfi.item.domain.Item
 import today.selfi.item.domain.ItemDsl.item
 import today.selfi.item.domain.OwnerId
-import today.selfi.item.service.repo.ItemRepo
-import java.util.UUID
+import today.selfi.item.view.ItemDetailsResolver.toDetails
 
 data class ItemView(
   val name: String?,
@@ -19,19 +18,9 @@ data class ItemView(
   private val details: ItemDetailsView?
 ) {
   fun toModel(ownerId: OwnerId, consumer: ConsumerId): Item = item {
-    this.id = Id.randomIdWith(Ref(consumer = consumer))
+    id = Id.randomIdWith(Ref(consumer = consumer))
     this@ItemView.name?.let { name = NameValue(it) }
     this.ownerId = ownerId
-  }
-
-  fun toModel(
-    uid: UUID?,
-    consumer: ConsumerId
-  ): (ItemRepo) -> Item? = { repo ->
-    val id = Id
-      .newId<Item>(Ref(consumer))
-      .withUid(uid)
-
-    repo.findById(id)
+    this@ItemView.details?.let { details = it.toDetails() }
   }
 }

@@ -1,11 +1,12 @@
 package today.selfi.item.domain
 
 import com.fasterxml.jackson.databind.node.TextNode
-import ru.adavliatov.atomy.common.domain.*
-import ru.adavliatov.atomy.common.type.name.*
+import ru.adavliatov.atomy.common.domain.Id
+import ru.adavliatov.atomy.common.domain.State
+import ru.adavliatov.atomy.common.type.name.NameValue
 import today.selfi.shared.type.ref.ext.RefExtensions.ref
 import java.time.Instant
-import java.util.*
+import java.util.UUID
 
 object ItemDsl {
   fun item(builder: ItemBuilder = ItemBuilder(), body: ItemBuilder.() -> Unit) = builder.apply(body).build()
@@ -24,7 +25,7 @@ class ItemBuilder {
   var name: NameValue = NameValue("item")
   var duration = null
   var ownerId = 0L
-  var details = MissingDetails
+  var details: ItemDetails = MissingDetails
 
   fun build(): Item = Item(
     id, state, createdAt, modifiedAt, name, duration, ownerId, details

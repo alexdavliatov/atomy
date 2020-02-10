@@ -61,4 +61,17 @@ sealed class ItemDetails(val title: ItemTitle) {
 object MissingDetails : ItemDetails(NONE)
 class HabitDetails(val repeat: Repeat) : ItemDetails(HABIT)
 class GoalDetails(val parentId: Id<Item>?) : ItemDetails(GOAL)
-class TaskDetails : ItemDetails(TASK)
+class TaskDetails(val priority: TaskPriority) : ItemDetails(TASK)
+
+/**
+ * [TaskPriority.A] urgent & important
+ * [TaskPriority.B] non-urgent & important
+ * [TaskPriority.C] urgent & non-important
+ * [TaskPriority.D] non-urgent & non-important
+ */
+enum class TaskPriority {
+  A,
+  B,
+  C,
+  D,
+}
