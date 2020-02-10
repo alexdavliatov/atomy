@@ -15,7 +15,7 @@ import today.selfi.item.view.ItemDetailsResolver.toDetails
 data class ItemView(
   val name: String?,
   @JsonTypeInfo(use = NAME, include = PROPERTY, property = "title")
-  private val details: ItemDetailsView?
+  val details: ItemDetailsView?
 ) {
   fun toModel(ownerId: OwnerId, consumer: ConsumerId): Item = item {
     id = Id.randomIdWith(Ref(consumer = consumer))

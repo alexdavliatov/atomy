@@ -1,13 +1,15 @@
 package today.selfi.item.service.repo
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import ru.adavliatov.atomy.common.type.json.impl.JacksonContext
 import today.selfi.item.domain.ItemDsl.item
 import javax.sql.DataSource
 
 class ItemJooqRepoTest {
   lateinit var ds: DataSource
-  val repo: ItemRepo = ItemJooqRepo(ds)
+  val repo: ItemRepo = ItemJooqRepo(ds, JacksonContext(ObjectMapper()))
 }
 
 fun main() {
@@ -18,7 +20,7 @@ fun main() {
       password = "yIe7fq4h#k!KOCthDo5r@Jt"
     }
   HikariDataSource(config).use { ds ->
-    val repo: ItemRepo = ItemJooqRepo(ds)
+    val repo: ItemRepo = ItemJooqRepo(ds, JacksonContext(ObjectMapper()))
 
     val item = item {}
     repo.create(item)

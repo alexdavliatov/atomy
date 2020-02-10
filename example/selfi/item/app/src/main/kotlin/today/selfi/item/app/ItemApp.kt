@@ -20,11 +20,13 @@ import today.selfi.item.app.config.Environment.DEV
 import today.selfi.item.service.repo.ItemJooqRepo
 import today.selfi.item.service.repo.ItemRepo
 import today.selfi.item.ui.api.ItemRoutes
+import today.selfi.item.ui.api.serialize.ItemModule.itemModule
 import javax.sql.DataSource
 
 class ItemApp : KoinComponent {
   private val appConfig by inject<AppConfig>()
   private val itemRoutes by inject<ItemRoutes>()
+  private val jsonContext by inject<JacksonContext>()
 
   fun start() {
     val app = Javalin
@@ -35,7 +37,7 @@ class ItemApp : KoinComponent {
       }
       .start(appConfig.port.port)
 
-    JavalinJackson.configure(JsonMapper.mapper())
+    JavalinJackson.configure(jsonContext.mapper)
 
     itemRoutes.routes("item")(app)
     app.routes {
@@ -53,7 +55,7 @@ val configModule = module {
   single {
     Environment.valueOf(System.getProperty("SELFI_TODAY_ITEM_ENV", DEV.name))
   }
-  single { JacksonContext(JsonMapper.mapper()) }
+  single { JacksonContext(JsonMapper.mapper(itemModule)) }
   single { DbConfigs.config(get()) }
   single { AppConfigs.config(get()) }
 }
