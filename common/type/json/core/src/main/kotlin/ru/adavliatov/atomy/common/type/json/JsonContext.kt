@@ -1,4 +1,6 @@
 package ru.adavliatov.atomy.common.type.json
 
-interface JsonContext
-object EmptyContext : JsonContext
+interface JsonContext {
+  fun toJson(obj: Any): Json<*>
+  fun <T> fromJson(json: Json<*>, klass: Class<T>): T
+}

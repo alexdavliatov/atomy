@@ -91,6 +91,7 @@ jooq {
 
 
 dependencies {
+  api(project(":example:selfi:item:view"))
   api(project(":example:selfi:item:service"))
   api(project(":common:type:ref:json-impl"))
   api(project(":toolkit:jooq:service"))

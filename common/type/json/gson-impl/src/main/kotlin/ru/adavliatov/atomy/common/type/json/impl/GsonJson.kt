@@ -2,7 +2,8 @@ package ru.adavliatov.atomy.common.type.json.impl
 
 import com.google.gson.Gson
 import com.google.gson.JsonElement
-import ru.adavliatov.atomy.common.type.json.*
+import ru.adavliatov.atomy.common.type.json.Json
+import ru.adavliatov.atomy.common.type.json.JsonContext
 
 @Suppress("MemberVisibilityCanBePrivate")
 //todo (adavliatov): checks
@@ -47,4 +48,14 @@ class GsonJson(val node: JsonElement) : Json<GsonContext> {
   }
 }
 
-data class GsonContext(val gson: Gson) : JsonContext
+data class GsonContext(val gson: Gson) : JsonContext {
+  override fun toJson(obj: Any): GsonJson = toJson(this@GsonContext.gson.toJson(this))
+
+  override fun <T> fromJson(
+    json: Json<*>,
+    klass: Class<T>
+  ): T = gson.fromJson(
+    (json as GsonJson).node,
+    klass
+  )
+}
