@@ -18,6 +18,7 @@ import ru.adavliatov.atomy.common.ui.api.serializer.JsonMapper
 import today.selfi.item.domain.Item
 import today.selfi.item.service.repo.ItemRepo
 import today.selfi.item.ui.api.ext.ItemViewExtensions.toModel
+import today.selfi.item.view.ItemDetailsResolver.toDetailsView
 import today.selfi.item.view.ItemView
 import today.selfi.shared.type.ref.ext.RefExtensions
 import java.util.UUID
@@ -29,7 +30,7 @@ class ItemRoutes(private val itemRepo: ItemRepo) : CommonJavalinController<UUID,
 
   override val viewClass = ItemView::class.java
   override fun Item.toView(): ItemView =
-    ItemView(name.name, null)
+    ItemView(name.name, details.toDetailsView())
 
   override fun Context.views(): List<ItemView> = bodyAsClass(Array<ItemView>::class.java).toList()
   override fun Context.auth(): ConsumerWithZeroOwnerAuth = ConsumerWithZeroOwnerAuth(consumer(), 0L)

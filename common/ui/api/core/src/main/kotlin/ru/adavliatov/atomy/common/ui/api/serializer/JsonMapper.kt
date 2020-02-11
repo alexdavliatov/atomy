@@ -51,5 +51,8 @@ object JsonMapper {
 fun <T> SimpleModule.addDeserializer(deserializer: AsStringDeserializer<T>) =
   addDeserializer(deserializer.klass, deserializer)
 
+fun <T> SimpleModule.addDeserializer(deserializer: DetailsDeserializer<T>) =
+  addDeserializer(deserializer.klass, deserializer)
+
 fun <T> SimpleModule.addDeserializer(deserializer: AsLongDeserializer<T>) =
   addDeserializer(deserializer.klass, deserializer)

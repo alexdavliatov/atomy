@@ -1,8 +1,5 @@
 package today.selfi.item.view
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As.PROPERTY
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME
 import ru.adavliatov.atomy.common.domain.Id
 import ru.adavliatov.atomy.common.type.name.NameValue
 import ru.adavliatov.atomy.common.type.ref.ConsumerId
@@ -14,7 +11,7 @@ import today.selfi.item.view.ItemDetailsResolver.toDetails
 
 data class ItemView(
   val name: String?,
-  @JsonTypeInfo(use = NAME, include = PROPERTY, property = "title")
+//  @JsonTypeInfo(use = NAME, include = PROPERTY, property = "title")
   val details: ItemDetailsView?
 ) {
   fun toModel(ownerId: OwnerId, consumer: ConsumerId): Item = item {

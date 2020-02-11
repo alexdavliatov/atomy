@@ -14,12 +14,13 @@ import ru.adavliatov.atomy.toolkit.jooq.ext.JooqExtensions.toJooqConfig
 import ru.adavliatov.atomy.toolkit.jooq.service.ModelJooqDaoAdapter
 import ru.adavliatov.atomy.toolkit.jooq.service.WithJooqFetchOrCreate
 import today.selfi.item.domain.Item
-import today.selfi.item.domain.ItemDetails
 import today.selfi.item.domain.MissingDetails
 import today.selfi.item.service.repo.generated.Keys.ITEM_NAME_UNQ
 import today.selfi.item.service.repo.generated.tables.daos.ItemsDao
 import today.selfi.item.service.repo.generated.tables.pojos.Items
 import today.selfi.item.service.repo.generated.tables.records.ItemsRecord
+import today.selfi.item.view.ItemDetailsResolver.toDetails
+import today.selfi.item.view.ItemDetailsView
 import javax.sql.DataSource
 
 open class ItemJooqRepo(ds: DataSource, private val context: JacksonContext) :
@@ -65,6 +66,9 @@ open class ItemJooqRepo(ds: DataSource, private val context: JacksonContext) :
     NameValue(name),
     null,
     ownerId,
-    details?.run { context.fromJson(details, ItemDetails::class.java) } ?: MissingDetails
+    details
+      ?.run { context.fromJson(details, ItemDetailsView::class.java) }
+      ?.run { toDetails() }
+      ?: MissingDetails
   )
 }
