@@ -2,6 +2,7 @@ package today.selfi.item.app
 
 import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder.get
+import io.javalin.apibuilder.ApiBuilder.post
 import io.javalin.plugin.json.JavalinJackson
 import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin
@@ -41,6 +42,12 @@ class ItemApp : KoinComponent {
 
     itemRoutes.routes("item")(app)
     app.routes {
+      get("/oauth/google/callback") {
+        println(it)
+      }
+      post("/oauth/google/callback") {
+        println(it)
+      }
       get("") { it.result("Hello, world!") }
 
     }

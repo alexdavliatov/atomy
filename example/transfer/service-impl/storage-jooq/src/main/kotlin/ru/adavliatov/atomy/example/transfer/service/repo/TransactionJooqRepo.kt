@@ -3,7 +3,6 @@ package ru.adavliatov.atomy.example.transfer.service.repo
 import ru.adavliatov.atomy.common.domain.Id
 import ru.adavliatov.atomy.common.domain.State
 import ru.adavliatov.atomy.common.type.json.impl.JacksonJson
-import ru.adavliatov.atomy.common.type.json.impl.JacksonJson.Companion.toJson
 import ru.adavliatov.atomy.common.type.ref.impl.json.ext.RefExtensions.ref
 import ru.adavliatov.atomy.example.transfer.domain.Account
 import ru.adavliatov.atomy.example.transfer.domain.Operation
@@ -12,7 +11,6 @@ import ru.adavliatov.atomy.example.transfer.service.repo.generated.transaction.t
 import ru.adavliatov.atomy.example.transfer.service.repo.generated.transaction.tables.pojos.Transactions
 import ru.adavliatov.atomy.example.transfer.service.repo.generated.transaction.tables.records.TransactionsRecord
 import ru.adavliatov.atomy.example.transfer.type.Money
-import ru.adavliatov.atomy.toolkit.jooq.ext.JooqExtensions.toJooqConfig
 import ru.adavliatov.atomy.toolkit.jooq.service.ModelJooqDaoAdapter
 import javax.sql.DataSource
 
@@ -44,8 +42,10 @@ open class TransactionJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Transaction
     Id(id = fromAccount, ref = ref(ref), model = Account::class.java),
     Id(id = toAccount, ref = ref(ref), model = Account::class.java),
     Money(
-      money.node["currency"].asText(),
-      money.node["amount"].asLong()
+//      money.node["currency"].asText(),
+//      money.node["amount"].asLong()
+      "gbp",
+      0L
     ),
     Operation(operation)
   )

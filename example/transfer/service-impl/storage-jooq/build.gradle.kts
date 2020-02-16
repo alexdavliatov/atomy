@@ -100,6 +100,7 @@ dependencies {
 
   implementation(group = "org.postgresql", name = "postgresql", version = "42.2.5")
   "jooqRuntime"("org.postgresql:postgresql:42.2.5")
+  implementation(group = "com.fasterxml.jackson.core", name = "jackson-databind", version = "2.10.1")
 }
 
 tasks {

@@ -21,7 +21,7 @@ object AppConfigDSL {
 
   @AppConfigDSL
   class AppConfigBuilder {
-    var port: Port = Port(8990)
+    var port: Port = Port(8443)
 
     fun build() = AppConfig(port)
   }

@@ -27,7 +27,7 @@ object Google20Example {
     val service = ServiceBuilder(clientId)
       .apiSecret(clientSecret)
       .defaultScope("profile") // replace with desired scope
-      .callback("http://selfi.today/oauth/google/callback")
+      .callback("https://selfi.today/oauth/google/callback")
       .build(GoogleApi20.instance())
 
     val `in` = Scanner(System.`in`, "UTF-8")
