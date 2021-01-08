@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  transfer_db:
+    image: postgres:11.6-alpine
+    container_name: transfer_wdb_dev
+    ports:
+      - 9990:5432
+    environment:
+      POSTGRES_DB: transfer_dev
+      POSTGRES_USER: transfer_admin
+      POSTGRES_PASSWORD: yIe7fq4h#k!KOCthDo5r@Jt
+      PGDATA: /var/lib/postgresql/data/transfer
+    volumes:
+      - transfer_dbdata:/var/lib/postgresql/data/transfer
+
+volumes:
+  transfer_dbdata:
