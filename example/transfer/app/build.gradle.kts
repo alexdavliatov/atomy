@@ -18,11 +18,10 @@ flyway {
   password = dbPassword
   schemas = arrayOf("transaction", "account")
   baselineOnMigrate = true
-//  locations = arrayOf("classpath:ru/adavliatov/contest/migrations/sql")
 }
 
 val flywayVersion: String by project
 dependencies {
   implementation(group = "org.flywaydb", name = "flyway-core", version = flywayVersion)
-  implementation(group = "org.postgresql", name = "postgresql", version = "9.4.1212")
+  implementation(group = "org.postgresql", name = "postgresql", version = "42.3.3")
 }

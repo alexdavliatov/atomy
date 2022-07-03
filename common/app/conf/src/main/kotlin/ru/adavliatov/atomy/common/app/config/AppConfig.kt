@@ -1,7 +1,9 @@
 package ru.adavliatov.atomy.common.app.config
 
-inline class Host(val host: String)
-inline class Port(val port: Int)
+@JvmInline
+value class Host(val host: String)
+@JvmInline
+value class Port(val port: Int)
 data class AppConfig(
   private val host: Host,
   private val port: Lazy<Port>

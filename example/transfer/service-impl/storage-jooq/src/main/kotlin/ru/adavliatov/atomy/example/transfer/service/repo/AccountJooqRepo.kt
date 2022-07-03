@@ -4,7 +4,7 @@ import ru.adavliatov.atomy.common.domain.Id
 import ru.adavliatov.atomy.common.domain.State
 import ru.adavliatov.atomy.example.transfer.domain.Account
 import ru.adavliatov.atomy.example.transfer.domain.Name
-import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.Keys.ACCOUNTS_NAME_UNQ
+import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.keys.ACCOUNTS_NAME_UNQ
 import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.daos.AccountsDao
 import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.pojos.Accounts
 import ru.adavliatov.atomy.example.transfer.service.repo.generated.account.tables.records.AccountsRecord
@@ -35,13 +35,13 @@ open class AccountJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Account, Accoun
   )
 
   override fun Accounts.toModel(): Account = Account(
-    Id(id, uid, ref(ref), Account::class.java),
-    State(state),
-    createdAt,
-    modifiedAt,
-    name,
+    Id(id, uid, ref(requireNotNull(ref)), Account::class.java),
+    State(requireNotNull(state)),
+    requireNotNull(createdAt),
+    requireNotNull(modifiedAt),
+    requireNotNull(name),
     mapOf()
   )
 
-  override fun findByName(name: Name): Account? = dao.fetchOneByName(name).toModel()
+  override fun findByName(name: Name): Account? = dao.fetchOneByName(name)?.toModel()
 }

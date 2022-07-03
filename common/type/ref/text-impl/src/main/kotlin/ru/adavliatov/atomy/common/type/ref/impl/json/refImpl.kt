@@ -4,5 +4,7 @@ import ru.adavliatov.atomy.common.type.name.Value
 import ru.adavliatov.atomy.common.type.ref.ConsumerId
 import ru.adavliatov.atomy.common.type.ref.ConsumerRef
 
-inline class TextConsumerId(override val value: String) : ConsumerId, Value<String>
-inline class TextConsumerRef(override val value: String) : ConsumerRef, Value<String>
+@JvmInline
+value class TextConsumerId(override val value: String) : ConsumerId, Value<String>
+@JvmInline
+value class TextConsumerRef(override val value: String) : ConsumerRef, Value<String>

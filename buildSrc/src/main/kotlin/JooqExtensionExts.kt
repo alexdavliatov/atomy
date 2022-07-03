@@ -10,24 +10,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 
-import nu.studer.gradle.jooq.JooqConfiguration
-import nu.studer.gradle.jooq.JooqEdition
-import nu.studer.gradle.jooq.JooqExtension
 import org.gradle.api.Project
-import org.gradle.api.tasks.SourceSet
-import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.invoke
-import org.jooq.meta.jaxb.Configuration
-import org.jooq.meta.jaxb.Database
-import org.jooq.meta.jaxb.ForcedType
-import org.jooq.meta.jaxb.Generate
-import org.jooq.meta.jaxb.Generator
-import org.jooq.meta.jaxb.Jdbc
-import org.jooq.meta.jaxb.MatcherRule
-import org.jooq.meta.jaxb.Matchers
-import org.jooq.meta.jaxb.MatchersTableType
-import org.jooq.meta.jaxb.Schema
-import org.jooq.meta.jaxb.Strategy
+import org.jooq.meta.jaxb.*
 import org.jooq.meta.jaxb.Target
 
 /**
@@ -53,11 +37,6 @@ import org.jooq.meta.jaxb.Target
  * @receiver [Project] The project for which the plugin configuration will be applied
  * @param action A configuration lambda to apply on a receiver of type [JooqExtensionKotlin]
  */
-fun Project.jooq(action: JooqExtensionKotlin.() -> Unit) {
-  project.configure<JooqExtension> {
-    JooqExtensionKotlin(this).apply(action)
-  }
-}
 
 /**
  * Applies jdbc configuration to [Configuration]
@@ -185,7 +164,7 @@ fun MutableList<ForcedType>.forcedType(action: ForcedType.() -> Unit) {
  * @receiver the Jooq [Database]
  * @param action A configuration lambda to apply on a receiver of type [Database]
  */
-fun Database.schemata(action: MutableList<Schema>.() -> Unit) {
+fun Database.schemata(action: MutableList<SchemaMappingType>.() -> Unit) {
   this.withSchemata((this.schemata ?: mutableListOf()).apply(action))
 }
 
@@ -195,36 +174,6 @@ fun Database.schemata(action: MutableList<Schema>.() -> Unit) {
  * @receiver the Jooq [MutableList] of [Schema]
  * @param action A configuration lambda to apply on a receiver of type [MutableList] of [Schema]
  */
-fun MutableList<Schema>.schema(action: Schema.() -> Unit) {
-  this += Schema().apply(action)
-}
-
-/**
- * JooqExtension Wrapper that allows us to dynamically create configurations
- */
-class JooqExtensionKotlin(
-  private val jooq: JooqExtension
-) {
-
-  var version: String
-    set(value) {
-      jooq.version = value
-    }
-    get() = jooq.version
-
-  var edition: JooqEdition
-    set(value) {
-      jooq.edition = value
-    }
-    get() = jooq.edition
-
-  operator fun String.invoke(sourceSet: SourceSet, action: Configuration.() -> Unit) {
-    val jooqConfig = JooqConfiguration(
-      this,
-      sourceSet,
-      Configuration()
-    )
-    jooq.whenConfigAdded.invoke(jooqConfig)
-    jooqConfig.configuration.apply(action)
-  }
+fun MutableList<SchemaMappingType>.schema(action: SchemaMappingType.() -> Unit) {
+  this += SchemaMappingType().apply(action)
 }

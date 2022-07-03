@@ -39,19 +39,19 @@ open class TransactionJooqRepo(ds: DataSource) : ModelJooqDaoAdapter<Transaction
   )
 
   override fun Transactions.toModel(): Transaction = Transaction(
-    Id(id, uid, ref(ref), Transaction::class.java),
-    State(state),
-    createdAt,
-    modifiedAt,
-    Id(id = fromAccount, ref = ref(ref), model = Account::class.java),
-    Id(id = toAccount, ref = ref(ref), model = Account::class.java),
+    Id(id, uid, ref(requireNotNull(ref)), Transaction::class.java),
+    State(requireNotNull(state)),
+    requireNotNull(createdAt),
+    requireNotNull(modifiedAt),
+    Id(id = fromAccount, ref = ref(requireNotNull(ref)), model = Account::class.java),
+    Id(id = toAccount, ref = ref(requireNotNull(ref)), model = Account::class.java),
     Money(
 //      money.node["currency"].asText(),
 //      money.node["amount"].asLong()
       "gbp",
       0L
     ),
-    Operation(operation)
+    Operation(requireNotNull(operation))
   )
 
 }

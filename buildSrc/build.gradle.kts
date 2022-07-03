@@ -1,11 +1,15 @@
 plugins {
-  `kotlin-dsl`
+    `kotlin-dsl`
 }
 
 repositories {
-  jcenter()
+    maven {
+        setUrl("https://plugins.gradle.org/m2/")
+    }
+    mavenCentral()
 }
 
 dependencies {
-  implementation("nu.studer:gradle-jooq-plugin:3.0.3")
+    implementation("org.jooq:jooq:3.14.8")
+    implementation("org.jooq:jooq-meta:3.14.8")
 }

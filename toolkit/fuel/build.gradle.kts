@@ -8,8 +8,6 @@ allprojects {
 }
 
 subprojects {
-  val jooqVersion: String by project
-
   dependencies {
   }
 }
